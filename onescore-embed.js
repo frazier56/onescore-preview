@@ -84,11 +84,13 @@
       score: parseInt(el.getAttribute("data-score") || "0", 10),
       name: el.getAttribute("data-name") || "",
     };
-    // Public score API (future): GET /api/score/:handle → { score, tier, name }
+    // Render instantly from provided data, then refresh from the public
+    // score API when it ships: GET /api/score/:handle → { score, name }
+    if (fallback.score > 0) render(el, fallback);
     fetch(API_BASE + "/api/score/" + encodeURIComponent(handle))
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function (d) { render(el, { handle: handle, score: d.score, name: d.name }); })
-      .catch(function () { if (fallback.score > 0) render(el, fallback); });
+      .then(function (d) { if (d && typeof d.score === "number") render(el, { handle: handle, score: d.score, name: d.name }); })
+      .catch(function () {});
   }
 
   function init() {
