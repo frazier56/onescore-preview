@@ -80,7 +80,7 @@
         '<span style="min-width:0"><span style="display:block;font-size:15px;font-weight:800;color:' + ink + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' +
         (data.name || "@" + data.handle) + "</span>" +
         '<span style="display:block;font-size:11px;font-weight:700;color:' + TEAL_D + ';letter-spacing:.06em">' + tierOf(data.score) + " · VERIFIED ONESCORE</span>" +
-        '<span style="display:block;font-size:11px;color:' + sub + ';margin-top:2px">One<b style="color:' + TEAL + '">Score</b> · professional & social credibility</span>' +
+        '<span style="display:block;font-size:11px;color:' + sub + ';margin-top:2px">One<b style="color:' + TEAL + '">Score</b> · Professional & Social Credibility</span>' +
         "</span></a>";
     }
     el.innerHTML = html;
