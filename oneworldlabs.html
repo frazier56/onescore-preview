@@ -65,13 +65,13 @@
   /* splash */
   #owl-splash { position:fixed; inset:0; z-index:99; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 1.5s ease; }
   #owl-splash.gone { opacity:0; pointer-events:none; }
-  #owl-splash img { height:84px; width:auto; animation:owl-heart 1.6s ease-in-out infinite; }
+  #owl-splash img { height:84px; width:auto; animation:owl-heart 3s ease-in-out infinite; }
   #owl-splash .st { margin-top:14px; font-size:30px; font-weight:800; letter-spacing:-.01em; }
   #owl-splash .st .one { color:var(--teal-d); }
   #owl-splash .ss { margin-top:4px; font-size:13px; font-weight:600; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
   #owl-splash .bar { margin-top:26px; width:180px; height:4px; border-radius:999px; background:#e5e7eb; overflow:hidden; }
   #owl-splash .bar i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:owl-load 2.9s ease-out forwards; }
-  @keyframes owl-heart { 0%{transform:scale(1)} 10%{transform:scale(1.12)} 20%{transform:scale(1)} 32%{transform:scale(1.09)} 44%{transform:scale(1)} 100%{transform:scale(1)} }
+  @keyframes owl-heart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.045)} }
   @keyframes owl-load { to { width:100% } }
 </style>
 </head>
