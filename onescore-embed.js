@@ -22,7 +22,7 @@
   var TEAL = "#14b8a6", TEAL_D = "#0d9488";
 
   function tierOf(score) {
-    return score >= 80 ? "ELITE" : score >= 60 ? "PRO" : score >= 40 ? "RISING" : "STARTER";
+    return score >= 80 ? "AUTHORITY" : score >= 60 ? "TRUSTED" : score >= 40 ? "VERIFIED" : "MEMBER";
   }
 
   function donutSVG(score, size) {
