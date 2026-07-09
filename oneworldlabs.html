@@ -69,8 +69,8 @@
   #owl-splash .st { margin-top:14px; font-size:30px; font-weight:800; letter-spacing:-.01em; }
   #owl-splash .st .one { color:var(--teal-d); }
   #owl-splash .ss { margin-top:4px; font-size:13px; font-weight:600; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
-  #owl-splash .bar { margin-top:26px; width:180px; height:4px; border-radius:999px; background:#e5e7eb; overflow:hidden; }
-  #owl-splash .bar i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:owl-load 2.9s ease-out forwards; }
+  #owl-splash .bar { margin-top:26px; width:135px; height:4px; border-radius:999px; background:#e5e7eb; overflow:hidden; }
+  #owl-splash .bar i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:owl-load 1.9s ease-out forwards; }
   @keyframes owl-heart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.045)} }
   @keyframes owl-load { to { width:100% } }
 </style>
@@ -83,8 +83,8 @@
   <div class="bar"><i></i></div>
 </div>
 <script>
-  setTimeout(function(){ document.getElementById("owl-splash").classList.add("gone"); }, 3000);
-  setTimeout(function(){ var e=document.getElementById("owl-splash"); e&&e.remove(); }, 4600);
+  setTimeout(function(){ document.getElementById("owl-splash").classList.add("gone"); }, 2000);
+  setTimeout(function(){ var e=document.getElementById("owl-splash"); e&&e.remove(); }, 3600);
 </script>
 <div class="wrap">
 
