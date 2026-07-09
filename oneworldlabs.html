@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>One World Labs — Tools that grow small business</title>
 <meta name="description" content="OneVoice, OneApp, OneScore, OneSocial — one family of tools that helps small businesses and freelancers get seen, get trusted, and get paid. No algorithm firewall." />
+<link rel="manifest" href="./owl-manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<meta name="theme-color" content="#FAFAF8" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
@@ -58,9 +61,31 @@
     .desccol { border-left:none; padding-left:0; border-top:1px solid var(--border); padding-top:10px; width:100%; }
     .namecol { width:auto; }
   }
+
+  /* splash */
+  #owl-splash { position:fixed; inset:0; z-index:99; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 1.5s ease; }
+  #owl-splash.gone { opacity:0; pointer-events:none; }
+  #owl-splash img { height:84px; width:auto; animation:owl-heart 1.6s ease-in-out infinite; }
+  #owl-splash .st { margin-top:14px; font-size:30px; font-weight:800; letter-spacing:-.01em; }
+  #owl-splash .st .one { color:var(--teal-d); }
+  #owl-splash .ss { margin-top:4px; font-size:13px; font-weight:600; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
+  #owl-splash .bar { margin-top:26px; width:180px; height:4px; border-radius:999px; background:#e5e7eb; overflow:hidden; }
+  #owl-splash .bar i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:owl-load 2.9s ease-out forwards; }
+  @keyframes owl-heart { 0%{transform:scale(1)} 10%{transform:scale(1.12)} 20%{transform:scale(1)} 32%{transform:scale(1.09)} 44%{transform:scale(1)} 100%{transform:scale(1)} }
+  @keyframes owl-load { to { width:100% } }
 </style>
 </head>
 <body>
+<div id="owl-splash">
+  <img src="./logo-mark.png" alt="" />
+  <div class="st"><span class="one">One</span> World Labs</div>
+  <div class="ss">Our family of tools</div>
+  <div class="bar"><i></i></div>
+</div>
+<script>
+  setTimeout(function(){ document.getElementById("owl-splash").classList.add("gone"); }, 3000);
+  setTimeout(function(){ var e=document.getElementById("owl-splash"); e&&e.remove(); }, 4600);
+</script>
 <div class="wrap">
 
   <span class="brand">
@@ -82,8 +107,7 @@
   <div class="family">
     <div class="famlabel">The One World Labs family</div>
 
-    <!-- TODO(Lee): set the live OneVoice URL -->
-    <a class="card" href="#" title="OneVoice">
+    <a class="card" href="https://onevoice.onesocial.ai" target="_blank" rel="noreferrer" title="OneVoice">
       <span class="namecol">
         <div class="pname"><span class="one">One</span><span class="word">Voice</span></div>
         <div class="psub">AI Voice Assistant</div>
@@ -93,7 +117,7 @@
       </span>
     </a>
 
-    <a class="card" href="#" title="OneApp — coming soon" style="opacity:.8">
+    <a class="card" href="#" onclick="return false" title="OneApp — coming soon" style="opacity:.8;cursor:default">
       <span class="namecol">
         <div class="pname"><span class="one">One</span><span class="word">App</span></div>
         <div class="psub">Your Business. One App.</div>
@@ -104,8 +128,7 @@
       </span>
     </a>
 
-    <!-- TODO(Lee): set the live OneScore URL when deployed -->
-    <a class="card" href="#" title="OneScore">
+    <a class="card" href="https://frazier56.github.io/onescore-preview/" title="OneScore">
       <span class="namecol">
         <div class="pname"><span class="one">One</span><span class="word">Score</span></div>
         <div class="psub">Professional &amp; Social Credibility</div>
@@ -115,7 +138,7 @@
       </span>
     </a>
 
-    <a class="card" href="https://onesocial.ai" target="_blank" rel="noreferrer" title="OneSocial">
+    <a class="card" href="https://frazier56.github.io/onesocial-app-preview/" title="OneSocial">
       <span class="namecol">
         <div class="pname"><span class="one">One</span><span class="word">Social</span></div>
         <div class="psub">Professional Network</div>
