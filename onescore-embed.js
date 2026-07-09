@@ -48,15 +48,24 @@
 
     var html;
     if (style === "badge") {
+      var whole = Math.floor(data.score);
+      var dec = Math.round((data.score % 1) * 10);
+      var notchBg = theme === "dark" ? "#0B0F1A" : "#FAFAF8";
       html =
         '<a href="' + link + '" target="_blank" rel="noopener" style="' + font +
-        'display:inline-flex;align-items:center;gap:8px;background:' + bg + ";border:1px solid " + border +
-        ';border-radius:999px;padding:6px 14px 6px 8px;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.08)">' +
-        '<span style="position:relative;display:inline-flex;width:34px;height:34px">' + donutSVG(data.score, 34) +
-        '<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:' + ink + '">' + data.score + "</span></span>" +
-        '<span style="font-size:13px;font-weight:700;color:' + ink + '">OneScore</span>' +
-        '<span style="font-size:11px;font-weight:700;color:' + TEAL_D + '">' + tierOf(data.score) + "</span></a>";
-    } else if (style === "inline") {
+        'position:relative;display:inline-flex;align-items:center;gap:10px;padding:10px 22px 10px 18px;border-radius:16px;text-decoration:none;overflow:hidden;' +
+        'background:linear-gradient(135deg,hsl(43 96% 56%),hsl(36 90% 45%),hsl(43 96% 56%));' +
+        'box-shadow:0 4px 24px rgba(234,179,8,.4),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(0,0,0,.15)">' +
+        '<span style="position:absolute;inset:0;opacity:.4;pointer-events:none;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.5) 42%,rgba(255,255,255,.15) 50%,transparent 58%)"></span>' +
+        '<span style="position:absolute;left:0;top:50%;width:12px;height:12px;border-radius:999px;background:' + notchBg + ';transform:translate(-50%,-50%)"></span>' +
+        '<span style="position:absolute;right:0;top:50%;width:12px;height:12px;border-radius:999px;background:' + notchBg + ';transform:translate(50%,-50%)"></span>' +
+        '<span style="position:relative;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15">' +
+        '<span style="font-size:11px;font-weight:800;letter-spacing:.02em;color:hsl(36 30% 12%);white-space:nowrap">OneScore Reputation Passport</span>' +
+        '<span style="font-size:9px;font-weight:600;color:hsl(36 30% 25%)">Tap to view</span></span>' +
+        '<span style="position:relative;width:1px;height:26px;margin:0 2px;background:hsl(36 30% 25% / .4)"></span>' +
+        '<span style="position:relative;font-size:19px;font-weight:700;letter-spacing:-.02em;color:hsl(36 30% 12%)">' + whole +
+        '<sup style="font-size:9px;font-weight:400;vertical-align:.5em;color:hsl(36 30% 25%)">.' + dec + '</sup></span></a>';
+        } else if (style === "inline") {
       html =
         '<a href="' + link + '" target="_blank" rel="noopener" style="' + font +
         'font-size:inherit;font-weight:700;color:' + TEAL_D + ';text-decoration:none">OneScore ' + data.score + " ★</a>";
@@ -81,7 +90,7 @@
     var handle = el.getAttribute("data-handle") || "me";
     var fallback = {
       handle: handle,
-      score: parseInt(el.getAttribute("data-score") || "0", 10),
+      score: parseFloat(el.getAttribute("data-score") || "0"),
       name: el.getAttribute("data-name") || "",
     };
     // Render instantly from provided data, then refresh from the public
