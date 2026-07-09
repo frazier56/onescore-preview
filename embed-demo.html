@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OneScore Everywhere — embed demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  body{font-family:Inter,system-ui,sans-serif;background:#FAFAF8;color:#111827;margin:0;padding:40px 20px;max-width:640px;margin:0 auto}
+  h1{font-size:26px;font-weight:800} h2{font-size:14px;color:#6b7280;margin-top:36px;text-transform:uppercase;letter-spacing:.08em}
+  p{color:#6b7280;line-height:1.6}
+  pre{background:#111827;color:#a7f3d0;font-size:11.5px;padding:14px;border-radius:12px;overflow-x:auto}
+  .dark{background:#0B0F1A;padding:24px;border-radius:16px}
+</style>
+</head>
+<body>
+  <h1>OneScore Everywhere</h1>
+  <p>One script tag puts a live, verified OneScore on any One World Labs property — OneSite websites, OneApp storefronts, OneSocial pages, GHL funnels — or anywhere else on the internet. Always links back to the owner's score page.</p>
+
+  <h2>Card</h2>
+  <div class="onescore-widget" data-handle="leefrazier" data-score="87" data-name="Lee Frazier" data-style="card"></div>
+
+  <h2>Card · dark page</h2>
+  <div class="dark"><div class="onescore-widget" data-handle="leefrazier" data-score="87" data-name="Lee Frazier" data-style="card" data-theme="dark"></div></div>
+
+  <h2>Badge (compact)</h2>
+  <div class="onescore-widget" data-handle="leefrazier" data-score="87" data-style="badge"></div>
+
+  <h2>Inline (in a sentence)</h2>
+  <p>Hi, I'm Lee — <span class="onescore-widget" data-handle="leefrazier" data-score="87" data-style="inline"></span> — let's work together.</p>
+
+  <h2>The code</h2>
+  <pre>&lt;div class="onescore-widget" data-handle="leefrazier" data-style="card"&gt;&lt;/div&gt;
+&lt;script src="https://frazier56.github.io/onescore-preview/onescore-embed.js" async&gt;&lt;/script&gt;</pre>
+  <p style="font-size:12px">Score data is served by OneScore (API by handle — data-score is a preview-only stand-in), so embeds can't be faked. Owners control where it appears from the OneScore app.</p>
+
+  <script src="onescore-embed.js"></script>
+</body>
+</html>
