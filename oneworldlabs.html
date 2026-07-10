@@ -1,176 +1,393 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>One World Labs — Tools that grow small business</title>
-<meta name="description" content="OneVoice, OneApp, OneScore, OneSocial — one family of tools that helps small businesses and freelancers get seen, get trusted, and get paid. No algorithm firewall." />
+<meta name="description" content="OneVoice, OneApp, OneScore, OneSocial, OneEvents — one family of tools that helps small businesses and freelancers get seen, get trusted, and get paid." />
 <link rel="manifest" href="./owl-manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-<meta name="theme-color" content="#FAFAF8" />
+<meta name="theme-color" content="#0B0F1A" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
-  :root { --bg:#FAFAF8; --ink:#111827; --muted:#6b7280; --teal:#14b8a6; --teal-d:#0d9488; --card:#ffffff; --border:#e5e7eb; }
+  :root {
+    --teal:#14B8A6; --teal-d:#0D9488; --teal-l:#2DD4BF;
+    --r-card:18px; --r-btn:12px;
+  }
+  html[data-theme="dark"] {
+    --bg:#0B0F1A; --bg2:#11161F; --ink:#FAFAF8; --muted:#A8B0BD; --faint:#6b7480;
+    --card:rgba(26,33,46,.55); --card-solid:#141a26; --border:rgba(250,250,248,.09);
+    --glass-hi:rgba(250,250,248,.06); --shadow:0 8px 32px rgba(0,0,0,.35);
+    --bar:rgba(11,15,26,.72); --glow:rgba(20,184,166,.14);
+  }
+  html[data-theme="light"] {
+    --bg:#FAFAF8; --bg2:#f2f1ec; --ink:#0B0F1A; --muted:#4A5160; --faint:#8a93a3;
+    --card:rgba(255,255,255,.72); --card-solid:#ffffff; --border:rgba(11,15,26,.09);
+    --glass-hi:rgba(255,255,255,.7); --shadow:0 8px 32px rgba(11,15,26,.10);
+    --bar:rgba(250,250,248,.75); --glow:rgba(20,184,166,.10);
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--ink); font-family:Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
-  .wrap { max-width:600px; margin:0 auto; padding:48px 20px 80px; text-align:center; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font-family:Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .4s ease, color .4s ease; }
 
-  /* Umbrella logo — mark and word joined as one unit */
+  .sky { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .orb { position:absolute; border-radius:50%; filter:blur(90px); opacity:.55; }
+  .orb.a { width:560px; height:560px; left:-160px; top:-180px; background:radial-gradient(circle, rgba(20,184,166,.30), transparent 65%); animation:drift1 26s ease-in-out infinite; }
+  .orb.b { width:640px; height:640px; right:-220px; top:22%; background:radial-gradient(circle, rgba(13,148,136,.22), transparent 65%); animation:drift2 32s ease-in-out infinite; }
+  .orb.c { width:480px; height:480px; left:28%; bottom:-240px; background:radial-gradient(circle, rgba(45,212,191,.16), transparent 65%); animation:drift1 38s ease-in-out infinite reverse; }
+  @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(70px,40px)} }
+  @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,-50px)} }
+  html[data-theme="light"] .orb { opacity:.4; }
+
+  .bar { position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--bar); backdrop-filter:blur(18px) saturate(130%); -webkit-backdrop-filter:blur(18px) saturate(130%); border-bottom:1px solid var(--border); }
+  .bar .brandmini { display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
+  .bar .brandmini img { height:30px; width:auto; }
+  .bar .brandmini b { font-size:16.5px; font-weight:800; letter-spacing:-.01em; white-space:nowrap; }
+  .bar .brandmini b .one { color:var(--teal); font-weight:700; }
+  .barbtns { display:flex; align-items:center; gap:8px; }
+  .iconbtn { display:flex; align-items:center; justify-content:center; gap:6px; height:38px; min-width:38px; padding:0 10px; border-radius:11px; border:1px solid var(--border); background:var(--card); backdrop-filter:blur(10px); color:var(--ink); font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; transition:border-color .15s ease, transform .12s ease; }
+  .iconbtn:hover { border-color:var(--teal); transform:translateY(-1px); }
+  .flag { font-size:16px; line-height:1; }
+  .langwrap { position:relative; }
+  .langmenu { position:absolute; right:0; top:44px; min-width:150px; background:var(--card-solid); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; display:none; }
+  .langmenu.open { display:block; }
+  .langmenu button { display:flex; align-items:center; gap:9px; width:100%; padding:11px 14px; background:none; border:0; color:var(--ink); font-family:inherit; font-size:13.5px; font-weight:600; cursor:pointer; text-align:left; }
+  .langmenu button:hover { background:var(--glow); }
+  .drawer { position:fixed; top:0; right:0; bottom:0; z-index:70; width:min(320px, 86vw); background:var(--card-solid); border-left:1px solid var(--border); box-shadow:-18px 0 50px rgba(0,0,0,.35); transform:translateX(105%); transition:transform .3s cubic-bezier(.2,.8,.2,1); padding:18px; display:flex; flex-direction:column; }
+  .drawer.open { transform:none; }
+  .drawer .dx { align-self:flex-end; }
+  .drawer .dsec { margin-top:10px; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-d); }
+  .drawer a.dlink { display:flex; align-items:center; justify-content:space-between; padding:13px 10px; border-radius:12px; text-decoration:none; color:var(--ink); font-size:15px; font-weight:700; }
+  .drawer a.dlink span.one { color:var(--teal); font-weight:700; }
+  .drawer a.dlink:hover { background:var(--glow); }
+  .drawer .dsub { font-size:11px; color:var(--faint); font-weight:500; }
+  .dcta { margin-top:auto; display:flex; flex-direction:column; gap:9px; padding-top:16px; }
+  .btn-primary { display:flex; align-items:center; justify-content:center; padding:14px; border-radius:var(--r-btn); background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:14.5px; font-weight:800; text-decoration:none; box-shadow:0 8px 26px rgba(13,148,136,.32), inset 0 1px 0 rgba(255,255,255,.22); border:0; cursor:pointer; font-family:inherit; transition:transform .12s ease; }
+  .btn-primary:hover { transform:translateY(-1px); }
+  .btn-ghost { display:flex; align-items:center; justify-content:center; padding:13px; border-radius:var(--r-btn); border:1.5px solid var(--border); color:var(--ink); font-size:14.5px; font-weight:700; text-decoration:none; background:none; }
+  .btn-ghost:hover { border-color:var(--teal); }
+  .scrim { position:fixed; inset:0; z-index:65; background:rgba(0,0,0,.45); opacity:0; pointer-events:none; transition:opacity .25s ease; }
+  .scrim.on { opacity:1; pointer-events:auto; }
+
+  .wrap { max-width:1060px; margin:0 auto; padding:0 20px; }
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity:1; transform:none; }
+
+  .hero { padding:118px 0 30px; text-align:center; position:relative; }
   .brand { display:inline-flex; align-items:center; }
-  .brand img { height:58px; width:auto; display:block; }
-  .brand .words { text-align:left; margin-left:-9px; }
-  .brand .top { font-size:34px; line-height:.95; letter-spacing:-.01em; }
+  .brand img { height:56px; width:auto; display:block; }
+  .brand .words { text-align:left; margin-left:-8px; }
+  .brand .top { font-size:32px; line-height:.95; letter-spacing:-.01em; }
   .brand .top .ne { color:var(--teal); font-weight:600; }
   .brand .top .word { font-weight:800; }
-  .brand .sub { font-size:10.5px; letter-spacing:.13em; font-weight:600; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+  .brand .sub { font-size:10px; letter-spacing:.14em; font-weight:600; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+  .pill { display:inline-flex; align-items:center; gap:7px; margin-top:30px; background:var(--glow); border:1px solid rgba(20,184,166,.32); color:var(--teal-l); font-weight:700; font-size:12.5px; padding:7px 16px; border-radius:999px; }
+  html[data-theme="light"] .pill { color:var(--teal-d); }
+  .pill .dot { width:7px; height:7px; border-radius:99px; background:var(--teal); animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:.45; transform:scale(.8)} }
+  h1 { font-size:clamp(34px, 6vw, 58px); font-weight:900; letter-spacing:-.03em; line-height:1.06; margin-top:18px; }
+  h1 .t { background:linear-gradient(100deg,var(--teal-l),var(--teal-d)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lede { color:var(--muted); font-size:clamp(15px, 2vw, 17.5px); line-height:1.65; margin:18px auto 0; max-width:560px; }
+  .herocta { margin-top:28px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 
-  h1 { font-size:32px; font-weight:800; letter-spacing:-.02em; margin-top:34px; }
-  h1 .t { color:var(--teal-d); }
-  .lede { color:var(--muted); font-size:16.5px; line-height:1.6; margin:14px auto 0; max-width:470px; }
-  .pill { display:inline-block; margin-top:18px; background:rgba(20,184,166,.1); color:var(--teal-d); font-weight:700; font-size:13px; padding:6px 14px; border-radius:999px; }
+  .constel { position:relative; margin-top:64px; }
+  .famlabel { text-align:center; font-size:12px; font-weight:800; letter-spacing:.18em; color:var(--teal-d); text-transform:uppercase; }
+  html[data-theme="dark"] .famlabel { color:var(--teal); }
+  .famhead { text-align:center; font-size:clamp(24px, 3.6vw, 34px); font-weight:800; letter-spacing:-.02em; margin-top:10px; }
+  .famsub { text-align:center; color:var(--muted); font-size:14.5px; margin-top:10px; }
 
-  /* Family rail — the visual "these are all One World Labs" thread */
-  .family { margin-top:34px; text-align:left; position:relative; padding-left:22px; }
-  .family:before { content:""; position:absolute; left:6px; top:8px; bottom:8px; width:3px; border-radius:3px;
-    background:linear-gradient(180deg,#2dd4bf,#0d9488); }
-  .famlabel { font-size:11px; font-weight:700; letter-spacing:.16em; color:var(--teal-d); text-transform:uppercase; margin-bottom:12px; }
+  .orbit { position:relative; margin:34px auto 0; max-width:1020px; min-height:680px; }
+  svg.wires { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .wire { fill:none; stroke:url(#wgrad); stroke-width:1.6; stroke-dasharray:6 7; opacity:.55; animation:wireflow 1.4s linear infinite; }
+  @keyframes wireflow { to { stroke-dashoffset:-13; } }
+  .corenode { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:150px; height:150px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:var(--card); backdrop-filter:blur(16px) saturate(120%); border:1px solid rgba(20,184,166,.35); box-shadow:0 0 0 14px var(--glow), var(--shadow), inset 0 1px 0 var(--glass-hi); animation:corebreathe 5s ease-in-out infinite; }
+  @keyframes corebreathe { 0%,100%{ box-shadow:0 0 0 12px var(--glow), 0 8px 32px rgba(0,0,0,.35);} 50%{ box-shadow:0 0 0 22px var(--glow), 0 8px 32px rgba(0,0,0,.35);} }
+  .corenode img { height:46px; width:auto; }
+  .corenode b { font-size:13px; font-weight:800; }
+  .corenode b .one { color:var(--teal); }
+  .corenode i { font-style:normal; font-size:8.5px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase; font-weight:700; }
 
-  a.card { position:relative; display:flex; align-items:center; gap:18px; background:var(--card); border:1px solid var(--border);
-    border-radius:18px; padding:20px 22px; text-decoration:none; color:inherit; margin-bottom:14px;
-    box-shadow:0 1px 3px rgba(17,24,39,.05), 0 8px 24px rgba(17,24,39,.05); transition:transform .15s, border-color .15s; }
-  a.card:hover { transform:translateY(-2px); border-color:var(--teal); }
-  a.card:before { content:""; position:absolute; left:-19px; top:50%; width:12px; height:3px; background:#0d9488; border-radius:2px; }
-
-  /* Product wordmark — one seamless unit, name on the LEFT */
-  .namecol { flex-shrink:0; width:172px; text-align:left; }
-  .pname { font-size:24px; line-height:1; letter-spacing:-.01em; white-space:nowrap; }
+  a.app { position:absolute; width:300px; display:block; text-decoration:none; color:inherit; background:var(--card); backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); border:1px solid var(--border); border-radius:var(--r-card); padding:18px 18px 16px; box-shadow:var(--shadow), inset 0 1px 0 var(--glass-hi); transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; animation:bob 7s ease-in-out infinite; }
+  a.app:hover { transform:translateY(-5px) scale(1.015); border-color:rgba(20,184,166,.6); box-shadow:0 14px 44px rgba(20,184,166,.16), var(--shadow); }
+  @keyframes bob { 0%,100%{ margin-top:0 } 50%{ margin-top:-7px } }
+  .apphead { display:flex; align-items:center; justify-content:space-between; }
+  .pname { font-size:21px; line-height:1; letter-spacing:-.01em; white-space:nowrap; }
   .pname .one { color:var(--teal); font-weight:700; }
-  .pname .word { font-weight:800; color:var(--ink); }
-  .psub { font-size:8.5px; letter-spacing:.11em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+  .pname .word { font-weight:800; }
+  .arrow { width:28px; height:28px; border-radius:9px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--teal); transition:background .15s ease; }
+  a.app:hover .arrow { background:var(--glow); }
+  .psub { font-size:8.5px; letter-spacing:.12em; font-weight:800; color:var(--teal-d); text-transform:uppercase; margin-top:6px; }
+  html[data-theme="dark"] .psub { color:var(--teal-l); }
+  .pdesc { color:var(--muted); font-size:13px; line-height:1.55; margin-top:8px; }
 
-  .desccol { flex:1; min-width:0; text-align:left; border-left:1px solid var(--border); padding-left:18px; }
-  .carddesc { color:var(--muted); font-size:13.5px; line-height:1.5; }
-  .soon { display:inline-block; margin-top:6px; font-size:10px; font-weight:700; letter-spacing:.08em; color:#b45309; background:#fef3c7; border-radius:999px; padding:3px 10px; }
+  .app.p1 { left:0;   top:22px;  animation-delay:0s; }
+  .app.p2 { right:0;  top:22px;  animation-delay:1.2s; }
+  .app.p3 { left:0;   top:340px; animation-delay:2.1s; }
+  .app.p4 { right:0;  top:340px; animation-delay:.6s; }
+  .app.p5 { left:50%; margin-left:-150px; top:472px; animation-delay:1.7s; }
 
-  .contact { margin-top:44px; border-top:1px solid var(--border); padding-top:28px; color:var(--muted); font-size:14px; line-height:1.8; }
-  .contact a { color:var(--teal-d); font-weight:600; text-decoration:none; }
-  .foot { margin-top:26px; font-size:12px; color:#9ca3af; }
-  @media (max-width:480px) {
-    a.card { flex-direction:column; align-items:flex-start; gap:10px; }
-    .desccol { border-left:none; padding-left:0; border-top:1px solid var(--border); padding-top:10px; width:100%; }
-    .namecol { width:auto; }
+  @media (max-width:900px) {
+    .orbit { min-height:0; display:flex; flex-direction:column; gap:14px; padding-left:26px; position:relative; max-width:520px; }
+    svg.wires, .corenode { display:none; }
+    .orbit:before { content:""; position:absolute; left:7px; top:10px; bottom:10px; width:3px; border-radius:3px; background:linear-gradient(180deg,var(--teal-l),var(--teal-d)); box-shadow:0 0 12px rgba(20,184,166,.5); }
+    a.app { position:static; width:100%; animation:none; }
+    a.app:before { content:""; position:absolute; left:2px; margin-top:24px; width:13px; height:13px; border-radius:99px; background:var(--bg); border:3px solid var(--teal); box-shadow:0 0 10px rgba(20,184,166,.6); }
   }
 
-  /* splash */
+  .oneid { margin:74px auto 0; max-width:560px; padding:26px 22px; border:1px solid rgba(20,184,166,.3); border-radius:20px; background:var(--card); backdrop-filter:blur(16px); box-shadow:var(--shadow), inset 0 1px 0 var(--glass-hi); text-align:center; }
+  .oneid .t { font-size:16px; font-weight:800; }
+  .oneid .t .one { color:var(--teal); }
+  .oneid p { margin-top:8px; font-size:13px; line-height:1.6; color:var(--muted); max-width:26rem; margin-left:auto; margin-right:auto; }
+  .gbtn { margin-top:16px; display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border:1px solid var(--border); border-radius:12px; background:var(--card-solid); font-family:inherit; font-size:14px; font-weight:700; color:var(--ink); cursor:pointer; text-decoration:none; box-shadow:0 1px 3px rgba(0,0,0,.15); transition:transform .12s ease, border-color .15s ease; }
+  .gbtn:hover { transform:translateY(-1px); border-color:var(--teal); }
+
+  .contact { margin-top:64px; text-align:center; color:var(--muted); font-size:14px; line-height:1.8; }
+  .contact a { color:var(--teal); font-weight:600; text-decoration:none; }
+  .foot { margin-top:26px; padding-bottom:60px; text-align:center; font-size:12px; color:var(--faint); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orb, .wire, a.app, .corenode, .pill .dot { animation:none !important; }
+    .reveal { opacity:1; transform:none; transition:none; }
+    html { scroll-behavior:auto; }
+  }
+
   #owl-splash { position:fixed; inset:0; z-index:99; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 1.5s ease; }
   #owl-splash.gone { opacity:0; pointer-events:none; }
   #owl-splash img { height:84px; width:auto; animation:owl-heart 3s ease-in-out infinite; }
   #owl-splash .st { margin-top:14px; font-size:30px; font-weight:800; letter-spacing:-.01em; }
-  #owl-splash .st .one { color:var(--teal-d); }
+  #owl-splash .st .one { color:var(--teal); }
   #owl-splash .ss { margin-top:4px; font-size:13px; font-weight:600; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
-  #owl-splash .bar { margin-top:26px; width:135px; height:4px; border-radius:999px; background:#e5e7eb; overflow:hidden; }
-  #owl-splash .bar i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:owl-load 1.9s ease-out forwards; }
+  #owl-splash .lbar { margin-top:26px; width:135px; height:4px; border-radius:999px; background:var(--border); overflow:hidden; }
+  #owl-splash .lbar i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:owl-load 1.9s ease-out forwards; }
   @keyframes owl-heart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.045)} }
   @keyframes owl-load { to { width:100% } }
 </style>
 </head>
 <body>
+<div class="sky" aria-hidden="true"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+
 <div id="owl-splash">
   <img src="./logo-mark.png" alt="" />
   <div class="st"><span class="one">One</span> World Labs</div>
-  <div class="ss">Our family of tools</div>
-  <div class="bar"><i></i></div>
+  <div class="ss" data-i18n="splash">Our family of tools</div>
+  <div class="lbar"><i></i></div>
 </div>
 <script>
-  setTimeout(function(){ document.getElementById("owl-splash").classList.add("gone"); }, 2000);
-  setTimeout(function(){ var e=document.getElementById("owl-splash"); e&&e.remove(); }, 3600);
+  setTimeout(function(){ document.getElementById("owl-splash").classList.add("gone"); }, 1900);
+  setTimeout(function(){ var e=document.getElementById("owl-splash"); e&&e.remove(); }, 3500);
 </script>
+
+<header class="bar">
+  <a class="brandmini" href="./oneworldlabs.html">
+    <img src="./logo-mark.png" alt="" />
+    <b><span class="one">One</span> World Labs</b>
+  </a>
+  <div class="barbtns">
+    <div class="langwrap">
+      <button class="iconbtn" id="langbtn" aria-label="Language"><span class="flag" id="langflag">🇺🇸</span><span id="langcode">EN</span></button>
+      <div class="langmenu" id="langmenu">
+        <button data-lang="en"><span class="flag">🇺🇸</span> English</button>
+        <button data-lang="es"><span class="flag">🇪🇸</span> Español</button>
+      </div>
+    </div>
+    <button class="iconbtn" id="themebtn" aria-label="Toggle light and dark mode"><span id="themeicon">☀️</span></button>
+    <button class="iconbtn" id="menubtn" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<nav class="drawer" id="drawer" aria-label="Menu">
+  <button class="iconbtn dx" id="drawerx" aria-label="Close">✕</button>
+  <div class="dsec" data-i18n="d_apps">Our apps</div>
+  <a class="dlink" href="https://onevoice.onesocial.ai"><span><span class="one">One</span>Voice</span><span class="dsub" data-i18n="d_voice">AI receptionist</span></a>
+  <a class="dlink" href="./oneapp.html"><span><span class="one">One</span>App</span><span class="dsub" data-i18n="d_app">AI websites</span></a>
+  <a class="dlink" href="./"><span><span class="one">One</span>Score</span><span class="dsub" data-i18n="d_score">Credibility score</span></a>
+  <a class="dlink" href="https://frazier56.github.io/onesocial-v2-preview/"><span><span class="one">One</span>Social</span><span class="dsub" data-i18n="d_social">Get hired</span></a>
+  <a class="dlink" href="https://frazier56.github.io/oneevents-preview/"><span><span class="one">One</span>Events</span><span class="dsub" data-i18n="d_events">Events &amp; tickets</span></a>
+  <div class="dsec" style="margin-top:18px" data-i18n="d_contact">Contact</div>
+  <a class="dlink" href="mailto:contact@oneworldlabs.inc" style="font-size:13.5px;font-weight:600">contact@oneworldlabs.inc</a>
+  <div class="dcta">
+    <a class="btn-ghost" href="https://frazier56.github.io/onesocial-v2-preview/" data-i18n="signin">Sign in</a>
+    <a class="btn-primary" href="https://frazier56.github.io/onesocial-v2-preview/" data-i18n="join">Join free</a>
+  </div>
+</nav>
+
 <div class="wrap">
-
-  <span class="brand">
-    <img src="logo-mark.png" alt="O" />
-    <span class="words">
-      <div class="top"><span class="ne">ne</span><span class="word">&thinsp;World&thinsp;Labs</span></div>
-      <div class="sub">Tools that grow small business</div>
+  <section class="hero">
+    <span class="brand">
+      <img src="logo-mark.png" alt="O" />
+      <span class="words">
+        <div class="top"><span class="ne">ne</span><span class="word">&thinsp;World&thinsp;Labs</span></div>
+        <div class="sub" data-i18n="tagline">Tools that grow small business</div>
+      </span>
     </span>
-  </span>
+    <div><span class="pill"><span class="dot"></span><span data-i18n="pill">Five tools · One login · Zero gatekeepers</span></span></div>
+    <h1 data-i18n-html="h1">Get seen. Get trusted.<br /><span class="t">Get paid.</span></h1>
+    <p class="lede" data-i18n="lede">You built a real business — but algorithms decide who sees it, your reputation is scattered across ten platforms, and every missed call is money gone. We build simple tools that put you back in control.</p>
+    <div class="herocta">
+      <a class="btn-primary" href="#family" data-i18n="cta1">Explore the family →</a>
+      <a class="btn-ghost" href="./" data-i18n="cta2">Get your OneScore — free</a>
+    </div>
+  </section>
 
-  <h1>Get seen. Get trusted. <span class="t">Get paid.</span></h1>
-  <p class="lede">
-    You built a real business — but algorithms decide who sees it, your reputation is scattered across
-    ten platforms, and every missed call is money gone. One World Labs builds simple tools that put
-    small businesses and freelancers back in control — no algorithm firewall between you and your customers.
-  </p>
-  <span class="pill">One family. One login. Your whole business.</span>
+  <section class="constel reveal" id="family">
+    <div class="famlabel" data-i18n="famlabel">The One World Labs family</div>
+    <div class="famhead" data-i18n="famhead">Five apps. One ecosystem.</div>
+    <p class="famsub" data-i18n="famsub">Each one works alone. Together, they run your whole business.</p>
 
-  <div class="family">
-    <div class="famlabel">The One World Labs family</div>
+    <div class="orbit">
+      <svg class="wires" viewBox="0 0 1020 600" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="wgrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0D9488"/>
+          </linearGradient>
+        </defs>
+        <path class="wire" d="M 300 90 C 400 110, 440 220, 510 285" />
+        <path class="wire" d="M 720 90 C 620 110, 580 220, 510 285" style="animation-delay:.3s" />
+        <path class="wire" d="M 300 408 C 400 390, 440 340, 510 300" style="animation-delay:.6s" />
+        <path class="wire" d="M 720 408 C 620 390, 580 340, 510 300" style="animation-delay:.9s" />
+        <path class="wire" d="M 510 470 C 510 420, 510 380, 510 310" style="animation-delay:1.2s" />
+      </svg>
 
-    <a class="card" href="https://onevoice.onesocial.ai" target="_blank" rel="noreferrer" title="OneVoice">
-      <span class="namecol">
-        <div class="pname"><span class="one">One</span><span class="word">Voice</span></div>
-        <div class="psub">AI Voice Assistant</div>
-      </span>
-      <span class="desccol">
-        <div class="carddesc">Never miss another call. Your AI receptionist answers 24/7, qualifies leads, and books appointments while you work.</div>
-      </span>
-    </a>
+      <div class="corenode" aria-hidden="true">
+        <img src="./logo-mark.png" alt="" />
+        <b><span class="one">One</span> ID</b>
+        <i data-i18n="corelabel">one login</i>
+      </div>
 
-    <a class="card" href="./oneapp.html" title="OneApp">
-      <span class="namecol">
-        <div class="pname"><span class="one">One</span><span class="word">App</span></div>
-        <div class="psub">Your Business. One App.</div>
-      </span>
-      <span class="desccol">
-        <div class="carddesc">Website, bookings, payments, and marketing — your whole storefront in a single app.</div>
-      </span>
-    </a>
+      <a class="app p1" href="https://onevoice.onesocial.ai" title="OneVoice">
+        <div class="apphead"><div class="pname"><span class="one">One</span><span class="word">Voice</span></div>
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="psub" data-i18n="voice_sub">AI voice assistant</div>
+        <p class="pdesc" data-i18n="voice_desc">Never miss another call. Your AI receptionist answers 24/7, qualifies leads, and books appointments while you work.</p>
+      </a>
 
-    <a class="card" href="https://frazier56.github.io/onescore-preview/" title="OneScore">
-      <span class="namecol">
-        <div class="pname"><span class="one">One</span><span class="word">Score</span></div>
-        <div class="psub">Professional &amp; Social Credibility</div>
-      </span>
-      <span class="desccol">
-        <div class="carddesc">Your whole reputation — followers, reviews, real work — in one verified number you can post anywhere. Free forever.</div>
-      </span>
-    </a>
+      <a class="app p2" href="./oneapp.html" title="OneApp">
+        <div class="apphead"><div class="pname"><span class="one">One</span><span class="word">App</span></div>
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="psub" data-i18n="app_sub">Your business. One app.</div>
+        <p class="pdesc" data-i18n="app_desc">Your website rebuilt by AI in about a minute — then we handle hosting, domain, email, and updates for you.</p>
+      </a>
 
-    <a class="card" href="https://frazier56.github.io/onesocial-app-preview/" title="OneSocial">
-      <span class="namecol">
-        <div class="pname"><span class="one">One</span><span class="word">Social</span></div>
-        <div class="psub">Professional Network</div>
-      </span>
-      <span class="desccol">
-        <div class="carddesc">The credibility-first marketplace: verified reviews, jobs, and payments in one place — where proof gets you hired.</div>
-      </span>
-    </a>
-  </div>
+      <a class="app p3" href="./" title="OneScore">
+        <div class="apphead"><div class="pname"><span class="one">One</span><span class="word">Score</span></div>
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="psub" data-i18n="score_sub">Professional credibility</div>
+        <p class="pdesc" data-i18n="score_desc">Your whole reputation — reviews, real work, social proof — in one verified number you can post anywhere. Free forever.</p>
+      </a>
 
-  <!-- One ID — unified sign-in (launches with unified accounts) -->
-  <div class="oneid" id="one-id" style="margin-top:34px;padding:22px 20px;border:1px solid var(--border);border-radius:20px;background:var(--card);text-align:center">
-    <div style="font-size:15px;font-weight:800"><span style="color:var(--teal-d)">One</span> ID</div>
-    <p style="margin-top:6px;font-size:13px;line-height:1.55;color:var(--muted);max-width:26rem;margin-left:auto;margin-right:auto">
-      One sign-in for every One World app — sign in once and you're in OneVoice, OneScore, and OneSocial everywhere.
-    </p>
-    <a href="https://dxtsyxwyzhvcvmoghjss.supabase.co/auth/v1/authorize?provider=google&redirect_to=https%3A%2F%2Ffrazier56.github.io%2Fonesocial-app-preview%2F" style="text-decoration:none"
-      style="margin-top:14px;display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border:1px solid var(--border);border-radius:12px;background:#fff;font-family:inherit;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.06)">
+      <a class="app p4" href="https://frazier56.github.io/onesocial-v2-preview/" title="OneSocial">
+        <div class="apphead"><div class="pname"><span class="one">One</span><span class="word">Social</span></div>
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="psub" data-i18n="social_sub">The credibility marketplace</div>
+        <p class="pdesc" data-i18n="social_desc">Where proof gets you hired — verified reviews, jobs, and payments in one place.</p>
+      </a>
+
+      <a class="app p5" href="https://frazier56.github.io/oneevents-preview/" title="OneEvents">
+        <div class="apphead"><div class="pname"><span class="one">One</span><span class="word">Events</span></div>
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="psub" data-i18n="events_sub">Events &amp; tickets</div>
+        <p class="pdesc" data-i18n="events_desc">Create an event, sell tickets, and check guests in with QR — live in minutes.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="oneid reveal" id="one-id">
+    <div class="t"><span class="one">One</span> ID</div>
+    <p data-i18n="oneid_p">One sign-in for every One World app — sign in once and you're in OneVoice, OneScore, OneSocial, and OneEvents everywhere.</p>
+    <a class="gbtn" href="https://dxtsyxwyzhvcvmoghjss.supabase.co/auth/v1/authorize?provider=google&redirect_to=https%3A%2F%2Ffrazier56.github.io%2Fonesocial-v2-preview%2F">
       <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C36.9 40.4 44 36 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-      Sign in with Google
+      <span data-i18n="google">Sign in with Google</span>
     </a>
-    <p id="oneid-note" style="display:none;margin-top:10px;font-size:12px;color:var(--teal-d);font-weight:600">
-      One tap, one account — Google sign-in through One ID takes you into OneSocial signed in.
-    </p>
-  </div>
+  </section>
 
-  <div class="contact">
-    <strong style="color:var(--ink)">Contact us</strong><br />
+  <div class="contact reveal">
+    <strong style="color:var(--ink)" data-i18n="contact_h">Contact us</strong><br />
     <a href="mailto:contact@oneworldlabs.inc">contact@oneworldlabs.inc</a><br />
-    Built for small businesses and freelancers, everywhere.
+    <span data-i18n="contact_p">Built for small businesses and freelancers, everywhere.</span>
   </div>
 
-  <p class="foot">© 2026 One World Labs, Inc. · OneVoice · OneApp · OneScore · OneSocial</p>
+  <p class="foot">© 2026 One World Labs, Inc. · OneVoice · OneApp · OneScore · OneSocial · OneEvents</p>
 </div>
+
+<script>
+var I18N = {
+  en: { flag:'🇺🇸', code:'EN' },
+  es: {
+    flag:'🇪🇸', code:'ES',
+    splash:'Nuestra familia de aplicaciones',
+    tagline:'Herramientas que hacen crecer tu negocio',
+    pill:'Cinco apps · Un acceso · Cero intermediarios',
+    h1:'Que te vean. Que confíen.<br /><span class="t">Que te paguen.</span>',
+    lede:'Construiste un negocio real — pero los algoritmos deciden quién lo ve, tu reputación está dispersa en diez plataformas y cada llamada perdida es dinero perdido. Creamos herramientas simples que te devuelven el control.',
+    cta1:'Conoce la familia →', cta2:'Obtén tu OneScore — gratis',
+    famlabel:'La familia One World Labs', famhead:'Cinco apps. Un ecosistema.',
+    famsub:'Cada una funciona sola. Juntas, manejan todo tu negocio.',
+    corelabel:'un acceso',
+    voice_sub:'Asistente de voz IA', voice_desc:'No pierdas otra llamada. Tu recepcionista IA contesta 24/7, califica clientes y agenda citas mientras trabajas.',
+    app_sub:'Tu negocio. Una app.', app_desc:'Tu sitio web reconstruido por IA en un minuto — y nosotros manejamos hosting, dominio, correo y actualizaciones.',
+    score_sub:'Credibilidad profesional', score_desc:'Toda tu reputación — reseñas, trabajo real, prueba social — en un número verificado que puedes publicar donde sea. Gratis para siempre.',
+    social_sub:'El marketplace de credibilidad', social_desc:'Donde las pruebas te consiguen trabajo — reseñas verificadas, empleos y pagos en un solo lugar.',
+    events_sub:'Eventos y boletos', events_desc:'Crea un evento, vende boletos y registra invitados con QR — en minutos.',
+    oneid_p:'Un solo acceso para todas las apps One World — inicia sesión una vez y entras a OneVoice, OneScore, OneSocial y OneEvents en todas partes.',
+    google:'Iniciar sesión con Google',
+    contact_h:'Contáctanos', contact_p:'Hecho para pequeños negocios y freelancers, en todas partes.',
+    d_apps:'Nuestras apps', d_voice:'Recepcionista IA', d_app:'Sitios web IA', d_score:'Puntaje de credibilidad', d_social:'Consigue trabajo', d_events:'Eventos y boletos', d_contact:'Contacto',
+    signin:'Iniciar sesión', join:'Únete gratis'
+  }
+};
+var EN_CACHE = {};
+function applyLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if (!(k in EN_CACHE)) EN_CACHE[k] = el.textContent;
+    el.textContent = (lang === 'es' && I18N.es[k]) ? I18N.es[k] : EN_CACHE[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k = el.getAttribute('data-i18n-html');
+    if (!(k in EN_CACHE)) EN_CACHE[k] = el.innerHTML;
+    el.innerHTML = (lang === 'es' && I18N.es[k]) ? I18N.es[k] : EN_CACHE[k];
+  });
+  document.getElementById('langflag').textContent = I18N[lang].flag;
+  document.getElementById('langcode').textContent = I18N[lang].code;
+  document.documentElement.lang = lang;
+  try { localStorage.setItem('owl-lang', lang); } catch(e){}
+}
+var langbtn = document.getElementById('langbtn'), langmenu = document.getElementById('langmenu');
+langbtn.addEventListener('click', function(e){ e.stopPropagation(); langmenu.classList.toggle('open'); });
+document.addEventListener('click', function(){ langmenu.classList.remove('open'); });
+langmenu.querySelectorAll('button').forEach(function(b){
+  b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); langmenu.classList.remove('open'); });
+});
+
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeicon').textContent = t === 'dark' ? '☀️' : '🌙';
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'dark' ? '#0B0F1A' : '#FAFAF8');
+  try { localStorage.setItem('owl-theme', t); } catch(e){}
+}
+document.getElementById('themebtn').addEventListener('click', function(){
+  setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+var drawer = document.getElementById('drawer'), scrim = document.getElementById('scrim');
+function drawerOpen(o){ drawer.classList.toggle('open', o); scrim.classList.toggle('on', o); }
+document.getElementById('menubtn').addEventListener('click', function(){ drawerOpen(true); });
+document.getElementById('drawerx').addEventListener('click', function(){ drawerOpen(false); });
+scrim.addEventListener('click', function(){ drawerOpen(false); });
+
+if ('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold:.1 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+} else { document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
+
+try {
+  var savedT = localStorage.getItem('owl-theme'); if (savedT) setTheme(savedT);
+  var savedL = localStorage.getItem('owl-lang'); if (savedL && savedL !== 'en') applyLang(savedL);
+} catch(e){}
+</script>
 </body>
 </html>
