@@ -4,49 +4,180 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OneApp — Your Business. One App. | One World Labs</title>
-<meta name="description" content="Websites, apps, SEO, AI chatbots, smart forms, bookings and payments — built for small businesses by One World Labs. Contact us for pricing." />
+<meta name="description" content="Our AI rebuilds your website free in about a minute. You only pay $199/mo hosting — domain, business email, security included. By One World Labs." />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-<meta name="theme-color" content="#FAFAF8" />
+<meta name="theme-color" content="#0B0F1A" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
-  :root { --bg:#FAFAF8; --ink:#111827; --muted:#6b7280; --teal:#14b8a6; --teal-d:#0d9488; --card:#ffffff; --border:#e5e7eb; }
+  :root {
+    --dark:#0B0F1A; --raised:#11161F; --elevated:#1A212E;
+    --bg:#FAFAF8; --ink:#0B0F1A; --muted:#4A5160; --faint:#8a93a3;
+    --teal:#14B8A6; --teal-d:#0D9488; --teal-l:#2DD4BF;
+    --card:#ffffff; --border:#e7e5df;
+    --cream:#FAFAF8; --muted-dark:#A8B0BD;
+    --sh-sm:0 1px 3px rgba(11,15,26,.05), 0 4px 14px rgba(11,15,26,.05);
+    --sh-lg:0 8px 32px rgba(11,15,26,.12);
+    --r-card:16px; --r-btn:12px;
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
   body { background:var(--bg); color:var(--ink); font-family:Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
-  .wrap { max-width:600px; margin:0 auto; padding:44px 20px 70px; text-align:center; }
-  .lockup { font-size:32px; font-weight:800; letter-spacing:-.01em; }
-  .lockup b { color:var(--teal-d); font-weight:600; }
-  .tag { margin-top:6px; font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
-  h1 { margin-top:34px; font-size:30px; line-height:1.2; font-weight:800; letter-spacing:-.02em; }
-  h1 span { color:var(--teal-d); }
-  .sub { margin-top:12px; font-size:15px; line-height:1.6; color:var(--muted); max-width:30rem; margin-left:auto; margin-right:auto; }
-  .cta { margin-top:26px; display:inline-flex; align-items:center; gap:8px; padding:15px 30px; border-radius:14px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:16px; font-weight:800; text-decoration:none; box-shadow:0 8px 26px rgba(13,148,136,.3); position:relative; overflow:hidden; }
-  .cta::after { content:""; position:absolute; inset:0; background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.28) 46%,rgba(255,255,255,.08) 52%,transparent 62%); }
-  .seclabel { margin-top:48px; font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-d); }
-  .grid { margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:left; }
-  .fc { border:1px solid var(--border); border-radius:16px; background:var(--card); padding:16px 14px; box-shadow:0 1px 3px rgba(0,0,0,.04); }
-  .fc svg { color:var(--teal-d); }
-  .fc p { margin-top:8px; font-size:13.5px; font-weight:700; }
-  .fc span { display:block; margin-top:3px; font-size:12px; line-height:1.5; color:var(--muted); }
-  .steps { margin-top:16px; display:flex; flex-direction:column; gap:10px; text-align:left; }
-  .step { display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); border-radius:16px; background:var(--card); padding:14px; }
-  .stepn { flex-shrink:0; width:26px; height:26px; border-radius:999px; background:rgba(20,184,166,.12); color:var(--teal-d); font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; }
-  .step p { font-size:13.5px; font-weight:700; }
-  .step span { display:block; margin-top:2px; font-size:12px; line-height:1.5; color:var(--muted); }
-  .pricing { margin-top:48px; border:1px solid var(--border); border-radius:20px; background:var(--card); padding:24px 20px; }
-  .pricing h2 { font-size:18px; font-weight:800; }
-  .pricing p { margin-top:8px; font-size:13.5px; line-height:1.6; color:var(--muted); }
-  .foot { margin-top:44px; font-size:12px; color:var(--muted); }
+  .wrap { max-width:640px; margin:0 auto; padding:0 20px; }
+  .seclabel { font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
+  .sechead { margin-top:10px; font-size:26px; line-height:1.15; font-weight:800; letter-spacing:-.02em; text-align:center; }
+  .secsub { margin-top:10px; font-size:14.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:30rem; margin-left:auto; margin-right:auto; }
+  section { padding:64px 0 0; }
+  .cta { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:16px 32px; border-radius:var(--r-btn); background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:15.5px; font-weight:800; text-decoration:none; border:0; cursor:pointer; font-family:inherit; box-shadow:0 8px 26px rgba(13,148,136,.32), inset 0 1px 0 rgba(255,255,255,.22); transition:transform .15s ease, box-shadow .15s ease; }
+  .cta:hover { transform:translateY(-1px); box-shadow:0 12px 32px rgba(13,148,136,.4), inset 0 1px 0 rgba(255,255,255,.22); }
+  .cta:disabled { opacity:.55; cursor:default; transform:none; }
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; transition:none; } html { scroll-behavior:auto; } }
+
+  /* ---------- sticky bar ---------- */
+  .bar { position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:10px 18px; background:rgba(11,15,26,.72); backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); border-bottom:1px solid rgba(250,250,248,.08); transform:translateY(-100%); transition:transform .3s ease; }
+  .bar.show { transform:none; }
+  .bar .lk { font-size:18px; font-weight:800; color:var(--cream); }
+  .bar .lk b { color:var(--teal); font-weight:700; }
+  .bar a { padding:9px 18px; border-radius:10px; background:var(--teal); color:#04302b; font-size:13px; font-weight:800; text-decoration:none; }
+
+  /* ---------- hero (dark) ---------- */
+  .hero { background:linear-gradient(135deg,var(--dark) 0%,var(--raised) 100%); color:var(--cream); padding:56px 0 0; position:relative; overflow:hidden; }
+  .hero::before { content:""; position:absolute; top:-180px; left:50%; transform:translateX(-50%); width:640px; height:520px; background:radial-gradient(closest-side, rgba(20,184,166,.14), transparent); pointer-events:none; }
+  .hero .wrap { position:relative; text-align:center; }
+  .hero .lockup { font-size:34px; font-weight:800; letter-spacing:-.01em; }
+  .hero .lockup b { color:var(--teal); font-weight:700; }
+  .hero .tag { margin-top:6px; font-size:11.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted-dark); }
+  .hero h1 { margin-top:38px; font-size:34px; line-height:1.12; font-weight:900; letter-spacing:-.025em; }
+  .hero h1 span { color:var(--teal); }
+  .hero .sub { margin-top:14px; font-size:15.5px; line-height:1.65; color:var(--muted-dark); max-width:29rem; margin-left:auto; margin-right:auto; }
+  .hero .sub b { color:var(--cream); font-weight:700; }
+  .trust { margin-top:22px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .trust span { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; background:rgba(26,33,46,.55); border:1px solid rgba(250,250,248,.08); font-size:12px; font-weight:600; color:var(--muted-dark); }
+  .trust svg { color:var(--teal); flex-shrink:0; }
+  /* before/after mockup */
+  .mock { position:relative; margin:46px auto -70px; max-width:480px; height:300px; }
+  .mockcard { position:absolute; border-radius:14px; overflow:hidden; box-shadow:0 22px 60px rgba(0,0,0,.5); }
+  .mock .old { top:0; left:0; width:62%; transform:rotate(-3.5deg); opacity:.55; filter:grayscale(1); }
+  .mock .new { top:24px; right:0; width:76%; animation:float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @media (prefers-reduced-motion: reduce){ .mock .new { animation:none; } }
+  .mtop { display:flex; align-items:center; gap:5px; padding:8px 10px; background:#1A212E; }
+  .old .mtop { background:#c9c9c4; }
+  .mdot { width:7px; height:7px; border-radius:999px; background:rgba(250,250,248,.22); }
+  .old .mdot { background:#a8a8a2; }
+  .mbody { padding:14px 14px 18px; background:var(--raised); }
+  .old .mbody { background:#efefe9; }
+  .ln { height:8px; border-radius:4px; margin-top:8px; }
+  .old .ln { background:#cfcfc8; }
+  .new .h { height:12px; width:70%; background:linear-gradient(90deg,var(--teal),var(--teal-d)); }
+  .new .ln { background:#242c3b; }
+  .new .btnln { height:22px; width:44%; border-radius:7px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); margin-top:12px; }
+  .new .imgrow { display:flex; gap:8px; margin-top:12px; }
+  .new .imgrow i { flex:1; height:44px; border-radius:8px; background:linear-gradient(135deg,#1f2937,#111827); border:1px solid rgba(250,250,248,.06); }
+  .badge-ai { position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:rgba(26,33,46,.85); backdrop-filter:blur(12px); border:1px solid rgba(20,184,166,.35); font-size:12px; font-weight:700; color:var(--cream); white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.45); }
+  .badge-ai svg { color:var(--teal); }
+  .hero-pad { height:96px; background:var(--bg); }
+
+  /* ---------- features ---------- */
+  .fgrid { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; }
+  @media (max-width:430px){ .fgrid { grid-template-columns:1fr; } }
+  .fc { border:1px solid var(--border); border-radius:var(--r-card); background:var(--card); padding:20px 16px; box-shadow:var(--sh-sm); transition:transform .18s ease, box-shadow .18s ease; }
+  .fc:hover { transform:translateY(-3px); box-shadow:var(--sh-lg); }
+  .ic { width:40px; height:40px; border-radius:11px; background:linear-gradient(135deg, rgba(20,184,166,.14), rgba(13,148,136,.08)); border:1px solid rgba(20,184,166,.22); display:flex; align-items:center; justify-content:center; color:var(--teal-d); }
+  .fc p { margin-top:12px; font-size:14px; font-weight:700; letter-spacing:-.01em; }
+  .fc span { display:block; margin-top:4px; font-size:12.5px; line-height:1.55; color:var(--muted); }
+
+  /* ---------- how it works ---------- */
+  .steps { margin-top:26px; display:flex; flex-direction:column; gap:12px; text-align:left; }
+  .step { display:flex; gap:14px; align-items:flex-start; border:1px solid var(--border); border-radius:var(--r-card); background:var(--card); padding:18px 16px; box-shadow:var(--sh-sm); }
+  .stepn { flex-shrink:0; width:30px; height:30px; border-radius:999px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:13.5px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(13,148,136,.3); }
+  .step p { font-size:14px; font-weight:700; }
+  .step span { display:block; margin-top:3px; font-size:12.5px; line-height:1.55; color:var(--muted); }
+
+  /* ---------- upgrades ---------- */
+  .ugrid { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:left; }
+  @media (max-width:430px){ .ugrid { grid-template-columns:1fr; } }
+  .uc { display:flex; gap:11px; align-items:center; border:1px solid var(--border); border-radius:14px; background:var(--card); padding:13px 14px; box-shadow:var(--sh-sm); }
+  .uc .ic { width:34px; height:34px; border-radius:9px; flex-shrink:0; }
+  .uc p { font-size:13px; font-weight:700; line-height:1.35; }
+  .unote { margin-top:16px; font-size:12.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:28rem; margin-left:auto; margin-right:auto; }
+
+  /* ---------- pricing ---------- */
+  .price-card { margin-top:26px; border:1px solid rgba(20,184,166,.35); border-radius:20px; background:var(--card); box-shadow:var(--sh-lg); overflow:hidden; text-align:left; }
+  .price-top { background:linear-gradient(135deg,var(--dark),var(--raised)); padding:26px 22px; text-align:center; position:relative; overflow:hidden; }
+  .price-top::before { content:""; position:absolute; top:-90px; left:50%; transform:translateX(-50%); width:360px; height:260px; background:radial-gradient(closest-side, rgba(20,184,166,.18), transparent); }
+  .price-top .free { position:relative; display:inline-block; padding:6px 14px; border-radius:999px; background:rgba(20,184,166,.14); border:1px solid rgba(20,184,166,.4); color:var(--teal-l); font-size:11.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+  .price-top .amt { position:relative; margin-top:14px; color:var(--cream); }
+  .price-top .amt b { font-size:46px; font-weight:900; letter-spacing:-.03em; }
+  .price-top .amt span { font-size:15px; color:var(--muted-dark); font-weight:600; }
+  .price-top .bill { position:relative; margin-top:6px; font-size:12.5px; color:var(--muted-dark); }
+  .price-body { padding:20px 22px 24px; }
+  .inc-item { display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.55; margin-top:10px; }
+  .inc-item svg { flex-shrink:0; margin-top:2px; color:var(--teal-d); }
+  .terms { margin-top:16px; font-size:11.5px; line-height:1.7; color:var(--faint); }
+
+  /* ---------- builder ---------- */
+  .panel { margin-top:26px; border:1px solid var(--border); border-radius:20px; background:var(--card); padding:26px 18px; text-align:left; box-shadow:var(--sh-lg); }
+  .panel h2 { font-size:19px; font-weight:800; letter-spacing:-.01em; text-align:center; }
+  .panel .ps { margin-top:8px; font-size:13.5px; line-height:1.6; color:var(--muted); text-align:center; }
+  .choice { margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .chip { border:1.5px solid var(--border); border-radius:14px; background:var(--bg); padding:16px 12px; font-size:14px; font-weight:700; text-align:center; cursor:pointer; font-family:inherit; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+  .chip small { display:block; margin-top:3px; font-size:11.5px; font-weight:500; color:var(--muted); }
+  .chip.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); }
+  .field { margin-top:12px; }
+  .field label { display:block; font-size:12px; font-weight:700; color:var(--muted); margin-bottom:5px; }
+  .field input, .field textarea { width:100%; border:1.5px solid var(--border); border-radius:12px; background:#fff; padding:13px 14px; font-size:15px; font-family:inherit; color:var(--ink); outline:none; transition:border-color .15s ease; }
+  .field input:focus, .field textarea:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(20,184,166,.12); }
+  .field textarea { min-height:84px; resize:vertical; }
+  .errmsg { margin-top:12px; font-size:13px; font-weight:600; color:#dc2626; display:none; }
+  .center { text-align:center; margin-top:18px; }
+  #b-loading { display:none; text-align:center; padding:28px 0 12px; }
+  .spin { width:44px; height:44px; margin:0 auto; border-radius:999px; border:4px solid rgba(20,184,166,.16); border-top-color:var(--teal-d); animation:sp 1s linear infinite; }
+  @keyframes sp { to { transform:rotate(360deg); } }
+  #b-loadmsg { margin-top:16px; font-size:14px; font-weight:700; }
+  #b-loadsub { margin-top:5px; font-size:12px; color:var(--muted); }
+  #b-result { display:none; }
+  .prevbox { margin-top:16px; border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; background:#fff; box-shadow:var(--sh-lg); }
+  .prevbar { display:flex; align-items:center; gap:6px; padding:9px 12px; background:#f2f1ec; border-bottom:1px solid var(--border); }
+  .dot { width:9px; height:9px; border-radius:999px; background:#d3d2cc; }
+  .prevbar span { margin-left:6px; font-size:11px; color:var(--faint); font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .prevbox iframe { width:100%; height:430px; border:0; display:block; background:#fff; }
+  .openlink { display:block; margin-top:10px; text-align:center; font-size:13px; font-weight:700; color:var(--teal-d); text-decoration:none; }
+  .ttl { margin-top:6px; text-align:center; font-size:11.5px; color:var(--faint); }
+  .changes { margin-top:22px; }
+  .changes h3 { font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
+  .chg { display:flex; gap:10px; align-items:flex-start; margin-top:10px; font-size:13.5px; line-height:1.5; }
+  .chg svg { flex-shrink:0; margin-top:1px; color:var(--teal-d); }
+  .offer { margin-top:28px; border:1.5px solid rgba(20,184,166,.4); border-radius:18px; padding:22px 16px; background:linear-gradient(180deg, rgba(20,184,166,.05), rgba(20,184,166,.02)); }
+  .offer h3 { font-size:17px; font-weight:800; text-align:center; }
+  .oprice { text-align:center; margin-top:8px; }
+  .oprice b { font-size:36px; font-weight:900; letter-spacing:-.03em; }
+  .oprice span { font-size:14px; color:var(--muted); font-weight:600; }
+  .obill { text-align:center; margin-top:4px; font-size:12px; color:var(--faint); }
+  .freeb { margin-top:20px; display:grid; grid-template-columns:1fr; gap:8px; }
+  .fb { display:flex; gap:11px; align-items:flex-start; border:1.5px solid var(--border); border-radius:12px; background:#fff; padding:13px; cursor:pointer; font-family:inherit; text-align:left; width:100%; transition:border-color .15s ease, background .15s ease; }
+  .fb.on { border-color:var(--teal-d); background:rgba(20,184,166,.07); }
+  .fb b { font-size:13.5px; }
+  .fb span { display:block; margin-top:2px; font-size:12px; line-height:1.45; color:var(--muted); }
+  .fbr { flex-shrink:0; width:18px; height:18px; margin-top:2px; border-radius:999px; border:2px solid var(--border); }
+  .fb.on .fbr { border-color:var(--teal-d); background:radial-gradient(circle, var(--teal-d) 45%, transparent 50%); }
+  .paidbox { display:none; margin-top:26px; border:1.5px solid rgba(20,184,166,.4); border-radius:20px; background:var(--card); box-shadow:var(--sh-lg); padding:30px 20px; text-align:center; }
+  .paidbox h2 { font-size:21px; font-weight:800; }
+  .paidbox p { margin-top:10px; font-size:14px; line-height:1.65; color:var(--muted); }
+  .foot { padding:52px 0 64px; font-size:12px; color:var(--faint); text-align:center; }
   .foot a { color:var(--teal-d); font-weight:700; text-decoration:none; }
+
   /* splash */
-  #oa-splash { position:fixed; inset:0; z-index:99; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 1.5s ease; }
+  #oa-splash { position:fixed; inset:0; z-index:99; background:var(--dark); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 1.5s ease; }
   #oa-splash.gone { opacity:0; pointer-events:none; }
   #oa-splash img { height:84px; width:auto; animation:oa-heart 3s ease-in-out infinite; }
-  #oa-splash .st { margin-top:14px; font-size:30px; font-weight:800; letter-spacing:-.01em; }
-  #oa-splash .st b { color:var(--teal-d); font-weight:600; }
-  #oa-splash .ss { margin-top:4px; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
-  #oa-splash .bar { margin-top:26px; width:135px; height:4px; border-radius:999px; background:#e5e7eb; overflow:hidden; }
-  #oa-splash .bar i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:oa-load 1.9s ease-out forwards; }
+  #oa-splash .st { margin-top:14px; font-size:30px; font-weight:800; letter-spacing:-.01em; color:var(--cream); }
+  #oa-splash .st b { color:var(--teal); font-weight:700; }
+  #oa-splash .ss { margin-top:4px; font-size:12px; font-weight:600; color:var(--muted-dark); letter-spacing:.14em; text-transform:uppercase; }
+  #oa-splash .bar2 { margin-top:26px; width:135px; height:4px; border-radius:999px; background:rgba(250,250,248,.12); overflow:hidden; }
+  #oa-splash .bar2 i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:oa-load 1.9s ease-out forwards; }
   @keyframes oa-heart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.045)} }
   @keyframes oa-load { to { width:100% } }
 </style>
@@ -56,45 +187,316 @@
   <img src="./logo-mark.png" alt="" />
   <div class="st"><b>One</b>App</div>
   <div class="ss">Your Business. One App.</div>
-  <div class="bar"><i></i></div>
+  <div class="bar2"><i></i></div>
 </div>
 <script>
   setTimeout(function(){ document.getElementById("oa-splash").classList.add("gone"); }, 2000);
   setTimeout(function(){ var e=document.getElementById("oa-splash"); e&&e.remove(); }, 3600);
 </script>
 
-<div class="wrap">
-  <div class="lockup"><b>One</b>App</div>
-  <div class="tag">Your Business. One App.</div>
-
-  <h1>Your whole storefront — <span>built for you.</span></h1>
-  <p class="sub">We design, build, and refresh websites and apps for small businesses — and wire in everything that makes them work: search, chat, bookings, and payments. You run the business; OneApp runs the tech.</p>
-  <a class="cta" href="mailto:contact@oneworldlabs.inc?subject=OneApp%20—%20pricing%20request">Contact us for pricing →</a>
-
-  <div class="seclabel">What we build</div>
-  <div class="grid">
-    <div class="fc"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg><p>Websites — new or refreshed</p><span>Modern, fast, mobile-first. New build or a facelift for the site you have.</span></div>
-    <div class="fc"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg><p>Apps your customers keep</p><span>Install-to-home-screen apps — your business one tap away.</span></div>
-    <div class="fc"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><p>Search &amp; SEO</p><span>Get found on Google — and by AI assistants — when customers search.</span></div>
-    <div class="fc"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/><path d="M8.5 11h7M8.5 8.5h7"/></svg><p>AI chatbots</p><span>Answer questions, capture leads, and book jobs while you sleep.</span></div>
-    <div class="fc"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><p>Smart forms &amp; bookings</p><span>Quotes, intake, scheduling — filled out on the site, delivered to you.</span></div>
-    <div class="fc"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg><p>Payments</p><span>Take deposits and get paid online — no extra apps needed.</span></div>
-  </div>
-
-  <div class="seclabel">How it works</div>
-  <div class="steps">
-    <div class="step"><div class="stepn">1</div><div><p>Tell us about your business</p><span>One short call — what you do, what you need, what you have today.</span></div></div>
-    <div class="step"><div class="stepn">2</div><div><p>We build it</p><span>Site or app, with the add-ons you picked — SEO, chatbot, forms, payments.</span></div></div>
-    <div class="step"><div class="stepn">3</div><div><p>You launch &amp; grow</p><span>We keep it fast, fresh, and connected to the One World family — OneVoice answering, OneScore credibility, OneSocial bookings.</span></div></div>
-  </div>
-
-  <div class="pricing">
-    <h2>Simple, honest pricing</h2>
-    <p>Every business is different — pick only what you need. Tell us what you're after and we'll quote it straight, no packages you don't want.</p>
-    <a class="cta" style="margin-top:18px" href="mailto:contact@oneworldlabs.inc?subject=OneApp%20—%20pricing%20request">Contact us for pricing →</a>
-  </div>
-
-  <p class="foot">A <a href="./oneworldlabs.html">One World Labs</a> company · OneVoice · OneApp · OneScore · OneSocial</p>
+<div class="bar" id="topbar">
+  <div class="lk"><b>One</b>App</div>
+  <a href="#builder">Build my site free</a>
 </div>
+
+<!-- ======================= HERO ======================= -->
+<div class="hero">
+  <div class="wrap">
+    <div class="lockup"><b>One</b>App</div>
+    <div class="tag">Your Business. One App.</div>
+    <h1>Your website, rebuilt by AI.<br><span>Free. In about a minute.</span></h1>
+    <p class="sub">Watch our AI redesign your entire website while you wait — then keep it. <b>The website costs nothing.</b> You only pay for hosting, and we handle everything: domain, email, security, updates.</p>
+    <div style="margin-top:26px"><a class="cta" href="#builder">Build my site free →</a></div>
+    <div class="trust">
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No setup fee</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Live in 24 hours</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.9H21l-5.4 4.2 2 6.9-5.6-4.3-5.6 4.3 2-6.9L3 8.9h6.6z"/></svg>$199/mo all-in</span>
+    </div>
+    <div class="mock" aria-hidden="true">
+      <div class="mockcard old" style="height:210px">
+        <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
+        <div class="mbody"><div class="ln" style="width:55%"></div><div class="ln" style="width:90%"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:40%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:70%"></div></div>
+      </div>
+      <div class="mockcard new" style="height:250px">
+        <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
+        <div class="mbody"><div class="ln h"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:64%"></div><div class="btnln"></div><div class="imgrow"><i></i><i></i><i></i></div><div class="ln" style="width:80%"></div></div>
+      </div>
+      <div class="badge-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Rebuilt by AI in 60 seconds</div>
+    </div>
+  </div>
+  <div class="hero-pad"></div>
+</div>
+
+<!-- ======================= FEATURES ======================= -->
+<section class="wrap reveal" id="features">
+  <div class="seclabel">Everything a modern business needs</div>
+  <div class="sechead">One team. One monthly price.<br>Zero tech headaches.</div>
+  <p class="secsub">We design, build, host, and maintain it all — so you run the business and never think about the tech again.</p>
+  <div class="fgrid">
+    <div class="fc"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></div><p>Websites — new or rebuilt</p><span>Modern, fast, mobile-first. A fresh build or an AI facelift of the site you have.</span></div>
+    <div class="fc"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div><p>Apps your customers keep</p><span>Install-to-home-screen apps — your business one tap away, like the big brands.</span></div>
+    <div class="fc"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><p>Search &amp; SEO</p><span>Get found on Google — and by AI assistants — when customers go looking.</span></div>
+    <div class="fc"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/><path d="M8.5 11h7M8.5 8.5h7"/></svg></div><p>AI chatbots</p><span>Answer questions, capture leads, and book jobs — even while you sleep.</span></div>
+    <div class="fc"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16"/></svg></div><p>Bookings &amp; scheduling</p><span>Customers book calls, appointments, and jobs straight into your calendar.</span></div>
+    <div class="fc"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg></div><p>Payments</p><span>Take deposits and get paid online — no extra apps, no friction.</span></div>
+  </div>
+</section>
+
+<!-- ======================= HOW IT WORKS ======================= -->
+<section class="wrap reveal">
+  <div class="seclabel">How it works</div>
+  <div class="sechead">Three steps. One day.</div>
+  <div class="steps">
+    <div class="step"><div class="stepn">1</div><div><p>Show us your site — or tell us about your business</p><span>Our AI rebuilds it in about a minute, free. You watch the preview appear on screen.</span></div></div>
+    <div class="step"><div class="stepn">2</div><div><p>Love it? Claim it — the website is free</p><span>You only pay hosting: $199/mo, billed $597 every 3 months. We register your domain, set up your business email, and apply any changes you request.</span></div></div>
+    <div class="step"><div class="stepn">3</div><div><p>Live within 24 hours</p><span>Your finished site lands in your inbox — hosted, secured, and connected to the One World family: OneVoice answering, OneScore credibility, OneSocial bookings.</span></div></div>
+  </div>
+</section>
+
+<!-- ======================= UPGRADES ======================= -->
+<section class="wrap reveal">
+  <div class="seclabel">Grow whenever you're ready</div>
+  <div class="sechead">Upgrades, on request</div>
+  <p class="secsub">Every OneApp customer can request any of these, anytime. A real person calls you back, makes sure we understand exactly what you want, and quotes it straight.</p>
+  <div class="ugrid">
+    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.1-7-11a7 7 0 1114 0c0 5.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><p>Google Business Profile &amp; Maps</p></div>
+    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.9H21l-5.4 4.2 2 6.9-5.6-4.3-5.6 4.3 2-6.9L3 8.9h6.6z"/></svg></div><p>Google review management</p></div>
+    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16M9 15h2v2H9z"/></svg></div><p>Online booking &amp; scheduling</p></div>
+    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/><path d="M12 3l.9 2.4L15.3 6l-2.4.9L12 9.3l-.9-2.4L8.7 6l2.4-.6z"/></svg></div><p>Enhanced AI chatbot</p></div>
+    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div><p>Full SEO — rank higher</p></div>
+    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4z"/><path d="M8 8h8M8 12h5"/></svg></div><p>Social media content</p></div>
+  </div>
+  <p class="unote">Want something not on the list? If a web team can build it, we can build it — just ask.</p>
+</section>
+
+<!-- ======================= PRICING ======================= -->
+<section class="wrap reveal">
+  <div class="seclabel">Simple, honest pricing</div>
+  <div class="price-card">
+    <div class="price-top">
+      <div class="free">Your website — built free</div>
+      <div class="amt"><b>$199</b><span>/month</span></div>
+      <div class="bill">Billed $597 every 3 months · no setup fee · cancel anytime</div>
+    </div>
+    <div class="price-body">
+      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Your website, built for you</b> — free, delivered within 24 hours</div></div>
+      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Fast, secure hosting</b> with SSL — fully managed, always on</div></div>
+      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Your domain</b> — we find it, buy it, and manage it for you</div></div>
+      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Business email</b> on your own domain</div></div>
+      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Ongoing updates &amp; security</b> — we keep it fast and fresh</div></div>
+      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>One free add-on</b> — contact form, basic SEO, or AI chatbot</div></div>
+      <div class="center"><a class="cta" href="#builder">See my new site first — free →</a></div>
+      <p class="terms">Billed in 3-month periods ($597). Cancel anytime — you simply won't be billed again. Payments are non-refundable once a period starts. No contracts beyond the current period, no hidden fees.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= BUILDER (LAST) ======================= -->
+<section class="wrap" id="builder">
+  <div class="seclabel">Try it now — free</div>
+  <div class="sechead">See your new website<br>before you pay a dime.</div>
+
+  <div class="paidbox" id="b-paid">
+    <h2>🎉 You're in!</h2>
+    <p>Your payment went through and our team is on it. <b>Your finished website lands in your inbox within 24 hours</b> — with your new domain, business email, and free add-on ready to go. Check your email for confirmation.</p>
+  </div>
+
+  <div class="panel" id="b-panel">
+    <!-- step 1: yes/no -->
+    <div id="b-ask">
+      <h2>Do you have a website today?</h2>
+      <p class="ps">Either way, this takes about a minute and costs nothing.</p>
+      <div class="choice">
+        <button class="chip" id="c-yes" onclick="pick('yes')">Yes, I do<small>We'll redesign it</small></button>
+        <button class="chip" id="c-no" onclick="pick('no')">Not yet<small>We'll build your first</small></button>
+      </div>
+      <div id="f-url" style="display:none">
+        <div class="field"><label>Your website address</label><input id="in-url" type="url" placeholder="www.yourbusiness.com" /></div>
+      </div>
+      <div id="f-brief" style="display:none">
+        <div class="field"><label>Business name</label><input id="in-name" type="text" placeholder="Smith &amp; Sons Plumbing" /></div>
+        <div class="field"><label>What kind of business?</label><input id="in-ind" type="text" placeholder="Plumbing / restaurant / realtor / salon…" /></div>
+        <div class="field"><label>City or area you serve</label><input id="in-city" type="text" placeholder="Dover, DE" /></div>
+        <div class="field"><label>Tell us what you do — in your own words</label><textarea id="in-desc" placeholder="We're a family plumbing company. Emergency repairs, water heaters, remodels. Licensed &amp; insured, 20 years in business…"></textarea></div>
+      </div>
+      <div class="errmsg" id="b-err"></div>
+      <div class="center" id="b-gowrap" style="display:none"><button class="cta" id="b-go" onclick="build()">Build it free →</button></div>
+    </div>
+
+    <!-- step 2: loading -->
+    <div id="b-loading">
+      <div class="spin"></div>
+      <div id="b-loadmsg">Reading your site…</div>
+      <div id="b-loadsub">This usually takes 30–90 seconds. Don't close the page.</div>
+    </div>
+
+    <!-- step 3: result + offer -->
+    <div id="b-result">
+      <h2>Your new site is ready. 👇</h2>
+      <p class="ps">This is a live preview of your rebuilt website — scroll around inside it.</p>
+      <div class="prevbox">
+        <div class="prevbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span id="prev-url">yournewsite.com</span></div>
+        <iframe id="prev-frame" title="Your rebuilt website preview"></iframe>
+      </div>
+      <a class="openlink" id="prev-open" href="#" target="_blank" rel="noopener">Open full-screen preview ↗</a>
+      <p class="ttl">Heads up: free previews expire in <b>48 hours</b> — claim yours to keep it.</p>
+
+      <div class="changes">
+        <h3>What we improved</h3>
+        <div id="chg-list"></div>
+      </div>
+
+      <div class="offer">
+        <h3>Want it? The website is free.</h3>
+        <div class="oprice"><b>$199</b><span>/month hosting — that's everything</span></div>
+        <div class="obill">Billed $597 every 3 months · no setup fee</div>
+        <div class="freeb" id="fb-list">
+          <div style="font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d);text-align:center;">Pick your free add-on</div>
+        </div>
+        <div class="field"><label>Anything you'd like changed or added? (optional)</label><textarea id="in-notes" placeholder="Use our red logo colors, add our Google reviews, swap the photo on top…"></textarea></div>
+        <div class="field"><label>Your name</label><input id="in-cname" type="text" placeholder="Full name" /></div>
+        <div class="field"><label>Business name</label><input id="in-ccompany" type="text" placeholder="Company" /></div>
+        <div class="field"><label>Email</label><input id="in-cemail" type="email" placeholder="you@email.com" /></div>
+        <div class="field"><label>Phone</label><input id="in-cphone" type="tel" placeholder="(555) 555-5555" /></div>
+        <div class="errmsg" id="o-err"></div>
+        <div class="center"><button class="cta" id="o-go" onclick="checkout()">Claim my site — $199/mo →</button></div>
+        <p class="terms" style="text-align:center">No setup fee. Delivered <b>within 24 hours</b>. Billed $597 every 3 months — cancel anytime and you won't be billed again (payments non-refundable once a period starts). Hosting includes your domain, business email, security, and updates. Upgrades — full SEO, Google presence, bookings, social content — available anytime by request.</p>
+      </div>
+      <p class="ps" style="margin-top:18px;">Want more — full SEO, Google Maps &amp; reviews, bookings, social content? <a href="mailto:contact@oneworldlabs.inc?subject=OneApp%20—%20upgrade%20question" style="color:var(--teal-d);font-weight:700;text-decoration:none;">Talk to us</a> — a real person calls you back with a straight quote.</p>
+    </div>
+  </div>
+</section>
+
+<div class="foot wrap">A <a href="./oneworldlabs.html">One World Labs</a> company · OneVoice · OneApp · OneScore · OneSocial</div>
+
+<script>
+var API = 'https://onevoice-checkout.vercel.app';
+var state = { mode:'', id:'', sourceUrl:'', freebie:'form' };
+
+var FREEBIES = [
+  { k:'form',    t:'Smart contact form',  d:'Customers send you quote requests and messages right from your site.' },
+  { k:'seo',     t:'Basic SEO setup',     d:'The groundwork so people can find you on Google. (Builds gradually — full SEO available anytime.)' },
+  { k:'chatbot', t:'AI chatbot',          d:'A chat bubble that answers visitors and captures their info while you sleep.' }
+];
+var LOADMSGS = ['Reading your site…','Studying your business…','Rebuilding the layout…','Refreshing colors & typography…','Making it mobile-friendly…','Polishing the details…','Almost there…'];
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ var d=document.createElement('div'); d.textContent=String(s==null?'':s); return d.innerHTML; }
+
+function pick(m){
+  state.mode = m;
+  $('c-yes').classList.toggle('on', m==='yes');
+  $('c-no').classList.toggle('on', m==='no');
+  $('f-url').style.display   = m==='yes' ? 'block' : 'none';
+  $('f-brief').style.display = m==='no'  ? 'block' : 'none';
+  $('b-gowrap').style.display='block';
+  $('b-err').style.display='none';
+}
+
+var loadTimer=null;
+function showLoading(on){
+  $('b-ask').style.display = on?'none':'block';
+  $('b-loading').style.display = on?'block':'none';
+  if (on){ var i=0; $('b-loadmsg').textContent=LOADMSGS[0];
+    loadTimer=setInterval(function(){ i=(i+1)%LOADMSGS.length; $('b-loadmsg').textContent=LOADMSGS[i]; }, 7000);
+  } else if (loadTimer){ clearInterval(loadTimer); loadTimer=null; }
+}
+
+function err(id,msg){ var e=$(id); e.textContent=msg; e.style.display='block'; }
+
+function build(){
+  $('b-err').style.display='none';
+  var body;
+  if (state.mode==='yes'){
+    var u = $('in-url').value.trim();
+    if (!u) return err('b-err','Enter your website address first.');
+    state.sourceUrl = /^https?:\/\//i.test(u) ? u : 'https://'+u;
+    body = { mode:'url', url:u };
+  } else if (state.mode==='no'){
+    var nm=$('in-name').value.trim(), ds=$('in-desc').value.trim();
+    if (!nm || !ds) return err('b-err','Add your business name and a few words about what you do.');
+    body = { mode:'new', brief:{ name:nm, industry:$('in-ind').value.trim(), city:$('in-city').value.trim(), description:ds } };
+    if (nm) $('in-ccompany').value = nm;
+  } else return err('b-err','Choose yes or no above.');
+
+  showLoading(true);
+  fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) })
+    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+    .then(function(x){
+      if (!x.ok || !x.j.id) throw new Error(x.j && x.j.error || 'Build failed — please try again.');
+      showResult(x.j.id, x.j.changes||[]);
+    })
+    .catch(function(e){ showLoading(false); err('b-err', e.message||'Something went wrong — please try again.'); });
+}
+
+function showResult(id, changes){
+  state.id = id;
+  showLoading(false);
+  $('b-ask').style.display='none';
+  $('b-result').style.display='block';
+  var pv = API + '/api/oneapp-preview?id=' + encodeURIComponent(id);
+  $('prev-frame').src = pv;
+  $('prev-open').href = pv;
+  $('prev-url').textContent = state.sourceUrl ? state.sourceUrl.replace(/^https?:\/\//,'') + ' — rebuilt' : 'your-new-site.com — preview';
+  var cl=$('chg-list'); cl.innerHTML='';
+  (changes.length?changes:['A complete modern redesign of your site']).forEach(function(c){
+    cl.innerHTML += '<div class="chg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>'+esc(c)+'</div></div>';
+  });
+  var fl=$('fb-list');
+  FREEBIES.forEach(function(f){
+    if ($('fb-'+f.k)) return; // don't duplicate on resume
+    var b=document.createElement('button');
+    b.className='fb'+(f.k===state.freebie?' on':''); b.id='fb-'+f.k;
+    b.innerHTML='<div class="fbr"></div><div><b>'+esc(f.t)+'</b><span>'+esc(f.d)+'</span></div>';
+    b.onclick=function(){ state.freebie=f.k; FREEBIES.forEach(function(g){ $('fb-'+g.k).classList.toggle('on', g.k===f.k); }); };
+    fl.appendChild(b);
+  });
+  document.getElementById('builder').scrollIntoView({behavior:'smooth'});
+}
+
+function checkout(){
+  $('o-err').style.display='none';
+  var c = { name:$('in-cname').value.trim(), email:$('in-cemail').value.trim(), phone:$('in-cphone').value.trim(), company:$('in-ccompany').value.trim() };
+  if (!c.name || !c.email) return err('o-err','Add your name and email so we can deliver your site.');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.email)) return err('o-err','That email doesn\'t look right — double-check it.');
+  var btn=$('o-go'); btn.disabled=true; btn.textContent='One moment…';
+  fetch(API+'/api/oneapp-checkout', { method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ previewId:state.id, freebie:state.freebie, notes:$('in-notes').value.trim(), contact:c, sourceUrl:state.sourceUrl }) })
+    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+    .then(function(x){
+      if (!x.ok || !x.j.url) throw new Error(x.j && x.j.error || 'Checkout failed — please try again.');
+      window.location.href = x.j.url;
+    })
+    .catch(function(e){ btn.disabled=false; btn.textContent='Claim my site — $199/mo →'; err('o-err', e.message); });
+}
+
+// sticky bar + scroll reveals
+(function(){
+  var bar = $('topbar');
+  window.addEventListener('scroll', function(){
+    bar.classList.toggle('show', window.scrollY > 420);
+  }, { passive:true });
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:.12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+
+// post-checkout + resume handling
+(function(){
+  var q = new URLSearchParams(window.location.search);
+  if (q.get('paid')){
+    $('b-paid').style.display='block'; $('b-panel').style.display='none';
+    setTimeout(function(){ document.getElementById('builder').scrollIntoView(); }, 2300);
+  } else if (q.get('resume')){
+    var id = q.get('resume').replace(/[^a-z0-9]/gi,'');
+    if (id){ state.id=id; showResult(id, []); }
+  }
+})();
+</script>
 </body>
 </html>
