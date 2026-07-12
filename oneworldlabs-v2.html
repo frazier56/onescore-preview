@@ -150,7 +150,17 @@
   .previewing .tile-prev { opacity:1; }
   a.svc { }
   .svc-grid .tile-prev { z-index:5; }
-  .tile-prev iframe { position:absolute; top:0; left:0; border:0; transform-origin:top left; pointer-events:none; background:var(--bg); }
+  .tile-prev .poster { position:absolute; inset:0; padding:24px 22px 54px; display:flex; flex-direction:column; justify-content:center; color:#fff; background:linear-gradient(150deg, var(--pc,#0D9488), #0B0F1A 118%); overflow:hidden; }
+  .tile-prev .poster:before { content:""; position:absolute; width:190px; height:190px; right:-46px; top:-56px; border-radius:50%; background:rgba(255,255,255,.16); }
+  .tile-prev .poster:after { content:""; position:absolute; width:120px; height:120px; left:-30px; bottom:10px; border-radius:50%; background:rgba(255,255,255,.08); }
+  .tile-prev .chrome { position:absolute; top:14px; left:16px; display:flex; gap:6px; z-index:2; }
+  .tile-prev .chrome i { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.55); }
+  .tile-prev .poster .pn { position:relative; font-size:25px; font-weight:900; letter-spacing:-.02em; z-index:2; }
+  .tile-prev .poster .pn .o { opacity:.82; font-weight:800; }
+  .tile-prev .poster .pt { position:relative; margin-top:9px; font-size:14.5px; font-weight:600; line-height:1.4; color:rgba(255,255,255,.94); max-width:86%; z-index:2; }
+  .tile-prev .poster .bars { position:relative; margin-top:16px; display:flex; flex-direction:column; gap:7px; z-index:2; }
+  .tile-prev .poster .bars span { height:9px; border-radius:6px; background:rgba(255,255,255,.3); }
+  .tile-prev .poster .bars span:nth-child(1){ width:72%; } .tile-prev .poster .bars span:nth-child(2){ width:54%; } .tile-prev .poster .bars span:nth-child(3){ width:63%; }
   .tile-prev .pvbar { position:absolute; left:0; right:0; bottom:0; padding:11px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; background:linear-gradient(0deg, rgba(2,6,14,.85), rgba(2,6,14,.35) 62%, transparent); color:#fff; font-size:12px; font-weight:800; z-index:4; }
   .tile-prev .pvbar .go { display:inline-flex; align-items:center; gap:6px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); padding:7px 12px; border-radius:999px; box-shadow:0 4px 14px rgba(13,148,136,.4); }
   .tile-prev .pvload { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--muted); background:var(--card-solid); z-index:3; }
@@ -613,11 +623,17 @@ if ('IntersectionObserver' in window){
   });
 })();
 
-/* ---------- hover-to-preview (preloaded live iframes) + hint ---------- */
+/* ---------- hover-to-preview (branded instant preview cards) + hint ---------- */
 (function(){
   var canHover = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var META = {
+    onescore:{ c:'#F59E0B', n:['One','Score'], t:'Credibility for small businesses & freelance pros.' },
+    onesocial:{ c:'#EC4899', n:['One','Social'], t:'Where verified proof gets you hired.' },
+    oneevents:{ c:'#22C55E', n:['One','Events'], t:'Create events, sell tickets, check in with QR.' },
+    onevoice:{ c:'#0D9488', n:['One','Voice'], t:'Your AI receptionist — never miss a call.' },
+    oneapp:{ c:'#6366F1', n:['One','App'], t:'Your website, built and run by AI.' }
+  };
   var cards = document.querySelectorAll('.apps-grid a.tile, .svc-grid a.svc');
-  var idx = 0;
   cards.forEach(function(card){
     var open = card.querySelector('.open');
     if (open && !card.querySelector('.hint')){
@@ -626,33 +642,20 @@ if ('IntersectionObserver' in window){
       open.insertAdjacentElement('afterend', hint);
     }
     if (!canHover) return;
-    var url = card.getAttribute('href');
-    if (!url || url.charAt(0) === '#') return;
-
+    var ico = card.querySelector('[data-ico]'); if (!ico) return;
+    var m = META[ico.getAttribute('data-ico')]; if (!m) return;
     var layer = document.createElement('div'); layer.className = 'tile-prev';
-    var frame = document.createElement('iframe');
-    frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-forms');
-    frame.setAttribute('scrolling', 'no'); frame.setAttribute('tabindex', '-1'); frame.setAttribute('aria-hidden', 'true'); frame.setAttribute('loading', 'eager');
-    frame.setAttribute('referrerpolicy', 'no-referrer');
-    var bar = document.createElement('div'); bar.className = 'pvbar';
-    bar.innerHTML = '<span>Live preview</span><span class="go">Open ↗</span>';
-    var spin = document.createElement('div'); spin.className = 'pvload'; spin.textContent = 'Loading preview…';
-    layer.appendChild(frame); layer.appendChild(spin); layer.appendChild(bar); card.appendChild(layer);
-
-    function size(){
-      var w = card.clientWidth, h = card.clientHeight, vw = 1200, s = w / vw;
-      frame.style.width = vw + 'px';
-      frame.style.height = Math.round(h / s) + 'px';
-      frame.style.transform = 'scale(' + s + ')';
-    }
-    frame.addEventListener('load', function(){ layer.classList.add('ready'); });
-    /* preload in the background (staggered) so it's ready by hover time */
-    setTimeout(function(){ size(); frame.src = url; }, 800 + idx * 350);
-    idx++;
-
-    card.addEventListener('mouseenter', function(){ size(); card.classList.add('previewing'); });
+    layer.innerHTML =
+      '<div class="poster" style="--pc:' + m.c + '">' +
+        '<div class="chrome"><i></i><i></i><i></i></div>' +
+        '<div class="pn"><span class="o">' + m.n[0] + '</span>' + m.n[1] + '</div>' +
+        '<div class="pt">' + m.t + '</div>' +
+        '<div class="bars"><span></span><span></span><span></span></div>' +
+      '</div>' +
+      '<div class="pvbar"><span>Preview</span><span class="go">Open ↗</span></div>';
+    card.appendChild(layer);
+    card.addEventListener('mouseenter', function(){ card.classList.add('previewing'); });
     card.addEventListener('mouseleave', function(){ card.classList.remove('previewing'); });
-    window.addEventListener('resize', size);
   });
 })();
 
