@@ -130,9 +130,9 @@
 
   /* ---------- app grid ---------- */
   .apps-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px; margin-top:34px; }
-  a.tile { position:relative; overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:inherit; background:var(--card); backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); border:1px solid var(--border); border-radius:var(--r-card); padding:22px; box-shadow:var(--shadow), inset 0 1px 0 var(--glass-hi); transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  a.tile { position:relative; overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:inherit; background:var(--card); backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); border:1px solid var(--border); border-radius:var(--r-card); padding:30px 22px 24px; box-shadow:var(--shadow), inset 0 1px 0 var(--glass-hi); transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
   a.tile:hover { transform:translateY(-5px); border-color:rgba(20,184,166,.55); box-shadow:0 16px 44px rgba(20,184,166,.14), var(--shadow); }
-  .tile-ico { position:absolute; top:18px; right:18px; width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 8px 20px rgba(0,0,0,.24); z-index:2; }
+  .tile-ico { position:absolute; top:14px; right:16px; width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 8px 20px rgba(0,0,0,.24); z-index:2; }
   .tile-ico svg { width:29px; height:29px; }
   .tile-ico img { width:58px; height:58px; border-radius:16px; object-fit:contain; }
   .tile .pname { font-size:21px; line-height:1.05; letter-spacing:-.01em; white-space:nowrap; padding-right:72px; }
@@ -147,10 +147,14 @@
   @media (hover:hover){ .tile .hint { display:inline-flex; } }
   /* live hover preview */
   .tile-prev { position:absolute; inset:0; background:var(--card-solid); opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:3; overflow:hidden; }
-  .tile.previewing .tile-prev { opacity:1; }
+  .previewing .tile-prev { opacity:1; }
+  a.svc { }
+  .svc-grid .tile-prev { z-index:5; }
   .tile-prev iframe { position:absolute; top:0; left:0; border:0; transform-origin:top left; pointer-events:none; background:var(--bg); }
   .tile-prev .pvbar { position:absolute; left:0; right:0; bottom:0; padding:11px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; background:linear-gradient(0deg, rgba(2,6,14,.85), rgba(2,6,14,.35) 62%, transparent); color:#fff; font-size:12px; font-weight:800; z-index:4; }
   .tile-prev .pvbar .go { display:inline-flex; align-items:center; gap:6px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); padding:7px 12px; border-radius:999px; box-shadow:0 4px 14px rgba(13,148,136,.4); }
+  .tile-prev .pvload { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--muted); background:var(--card-solid); z-index:3; }
+  .tile-prev.ready .pvload { display:none; }
 
   /* ---------- services ---------- */
   .svc-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:34px; }
@@ -609,45 +613,46 @@ if ('IntersectionObserver' in window){
   });
 })();
 
-/* ---------- hover-to-preview + hint on app tiles (desktop) ---------- */
+/* ---------- hover-to-preview (preloaded live iframes) + hint ---------- */
 (function(){
   var canHover = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-  document.querySelectorAll('.apps-grid a.tile').forEach(function(tile){
-    var open = tile.querySelector('.open');
-    if (open && !tile.querySelector('.hint')){
-      var hint = document.createElement('span');
-      hint.className = 'hint';
-      hint.innerHTML = '✨ <span>Hover to preview · click to open</span>';
+  var cards = document.querySelectorAll('.apps-grid a.tile, .svc-grid a.svc');
+  var idx = 0;
+  cards.forEach(function(card){
+    var open = card.querySelector('.open');
+    if (open && !card.querySelector('.hint')){
+      var hint = document.createElement('span'); hint.className = 'hint';
+      hint.innerHTML = '✨ <span>' + (canHover ? 'Hover to preview · click to open' : 'Tap to open') + '</span>';
       open.insertAdjacentElement('afterend', hint);
     }
     if (!canHover) return;
-    var url = tile.getAttribute('href');
+    var url = card.getAttribute('href');
     if (!url || url.charAt(0) === '#') return;
-    var frame, built = false, tmo;
-    function build(){
-      var layer = document.createElement('div'); layer.className = 'tile-prev';
-      frame = document.createElement('iframe'); frame.setAttribute('scrolling','no'); frame.setAttribute('tabindex','-1'); frame.setAttribute('aria-hidden','true');
-      var bar = document.createElement('div'); bar.className = 'pvbar';
-      var lbl = document.createElement('span'); lbl.textContent = 'Live preview';
-      var go = document.createElement('span'); go.className = 'go'; go.innerHTML = 'Open ↗';
-      bar.appendChild(lbl); bar.appendChild(go);
-      layer.appendChild(frame); layer.appendChild(bar); tile.appendChild(layer);
-      var w = tile.clientWidth, h = tile.clientHeight, vw = 1200, scale = w / vw;
+
+    var layer = document.createElement('div'); layer.className = 'tile-prev';
+    var frame = document.createElement('iframe');
+    frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-forms');
+    frame.setAttribute('scrolling', 'no'); frame.setAttribute('tabindex', '-1'); frame.setAttribute('aria-hidden', 'true'); frame.setAttribute('loading', 'eager');
+    frame.setAttribute('referrerpolicy', 'no-referrer');
+    var bar = document.createElement('div'); bar.className = 'pvbar';
+    bar.innerHTML = '<span>Live preview</span><span class="go">Open ↗</span>';
+    var spin = document.createElement('div'); spin.className = 'pvload'; spin.textContent = 'Loading preview…';
+    layer.appendChild(frame); layer.appendChild(spin); layer.appendChild(bar); card.appendChild(layer);
+
+    function size(){
+      var w = card.clientWidth, h = card.clientHeight, vw = 1200, s = w / vw;
       frame.style.width = vw + 'px';
-      frame.style.height = Math.round(h / scale) + 'px';
-      frame.style.transform = 'scale(' + scale + ')';
-      built = true;
+      frame.style.height = Math.round(h / s) + 'px';
+      frame.style.transform = 'scale(' + s + ')';
     }
-    tile.addEventListener('mouseenter', function(){
-      tmo = setTimeout(function(){
-        if (!built) build();
-        if (frame && !frame.src) frame.src = url;
-        tile.classList.add('previewing');
-      }, 200);
-    });
-    tile.addEventListener('mouseleave', function(){
-      clearTimeout(tmo); tile.classList.remove('previewing');
-    });
+    frame.addEventListener('load', function(){ layer.classList.add('ready'); });
+    /* preload in the background (staggered) so it's ready by hover time */
+    setTimeout(function(){ size(); frame.src = url; }, 800 + idx * 350);
+    idx++;
+
+    card.addEventListener('mouseenter', function(){ size(); card.classList.add('previewing'); });
+    card.addEventListener('mouseleave', function(){ card.classList.remove('previewing'); });
+    window.addEventListener('resize', size);
   });
 })();
 
