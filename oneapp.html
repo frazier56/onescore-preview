@@ -239,6 +239,17 @@
   .foot { padding:52px 0 64px; font-size:12px; color:var(--faint); text-align:center; }
   .foot a { color:var(--teal-d); font-weight:700; text-decoration:none; }
 
+  /* booking modal */
+  .mscrim { position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; padding:18px; }
+  .mscrim.open { display:flex; }
+  .mcard { width:100%; max-width:400px; background:var(--card); border:1px solid var(--border); border-radius:20px; box-shadow:var(--sh-lg); padding:24px 20px; text-align:left; }
+  .mcard h3 { font-size:19px; font-weight:800; text-align:center; }
+  .mcard .ms { margin-top:6px; font-size:13px; line-height:1.55; color:var(--muted); text-align:center; }
+  .mcard .mclose { float:right; margin:-6px -4px 0 0; width:32px; height:32px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--muted); cursor:pointer; font-family:inherit; }
+  .mdone { display:none; text-align:center; padding:8px 0; }
+  .mdone .ok { width:52px; height:52px; margin:6px auto 0; border-radius:999px; background:rgba(20,184,166,.12); border:1px solid rgba(20,184,166,.4); display:flex; align-items:center; justify-content:center; color:var(--teal-d); }
+  .mdone h3 { margin-top:12px; }
+
   /* splash */
   #oa-splash { position:fixed; inset:0; z-index:99; background:var(--dark); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 1.5s ease; }
   #oa-splash.gone { opacity:0; pointer-events:none; }
@@ -404,12 +415,12 @@
       <div class="flag">Most popular</div>
       <div class="tname">Standard</div>
       <div class="tp"><b>$197</b><span>/month</span></div>
-      <div class="tdesc">Everything in Basic, plus <b>pick 2 of 3</b> lead-getting features to turn visitors into customers.</div>
+      <div class="tdesc">Everything in Basic, plus the tools that turn visitors into customers — <b>all included</b>.</div>
       <ul>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Everything in Basic</div></li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Contact form</b> — capture &amp; call back leads</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>AI chat widget</b> — answers visitors 24/7</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Photo &amp; text edits</b> — dialed in for you</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Photo add &amp; swaps</b> — send pics, we place them</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Text &amp; messaging edits</b> — reworded on request</div></li>
       </ul>
       <div class="tcta"><a class="cta" href="#builder">Start free →</a></div>
     </div>
@@ -420,13 +431,13 @@
       <div class="tdesc">A fully custom, multi-page site or web app — designed with you on a quick call. Perfect when you want something bigger.</div>
       <ul>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Multi-page, fully custom design</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>SEO, bookings, dashboards — whatever you need</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>AI chat widget</b>, booking &amp; appointment setting, SEO, dashboards</div></li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Built with you on a short strategy call</div></li>
       </ul>
       <div class="tcta"><a class="cta ghost" href="#" onclick="bookCall('pricing');return false;">Book a call →</a></div>
     </div>
   </div>
-  <p class="valuenote">Your $97–$197/mo covers real work: fast managed hosting &amp; SSL, your domain (we find, buy &amp; manage it), a business email on your domain, security &amp; backups, our 48-hour fix promise, and a 7-day launch grace where text and photo edits are free. Cancel anytime — you simply won't be billed again.</p>
+  <p class="valuenote">Your $97–$197/mo covers real work: fast managed hosting &amp; SSL, your domain (we find, buy &amp; manage it), a business email on your domain, security &amp; backups, our 48-hour fix promise, and <b>30 days of free changes</b> (text edits, photo swaps, contact-detail updates). Cancel anytime — you simply won't be billed again.</p>
 </section>
 
 <!-- ======================= ADD-ONS ======================= -->
@@ -455,8 +466,8 @@
   <div class="sechead">Everything you're wondering</div>
   <div class="faq">
     <details><summary>Is it really free to build?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Yes. AI lets us build a real, custom website at a fraction of the old cost, so this summer the build is free (a basic professional site normally runs ~$2,500). You see it before you pay, and you only ever pay for hosting &amp; care — from $97/mo.</div></details>
-    <details><summary>What's the difference between $97 and $197?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Basic ($97/mo) is a clean one-page site with hosting, your domain, business email, and security. Standard ($197/mo) adds two of three lead-getters — a contact form, an AI chat widget, or on-demand photo &amp; text edits — so your site actively brings you business.</div></details>
-    <details><summary>What if I want changes after it's live?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Your first 7 days include free text and photo edits — we dial it in until it's right. After that, small updates are part of your plan, and bigger changes are quick to request. Call us anytime and a real person helps.</div></details>
+    <details><summary>What's the difference between $97 and $197?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Basic ($97/mo) is a clean one-page site with hosting, your domain, business email, and security. Standard ($197/mo) adds the lead-getters — a contact form plus on-demand photo and text edits — so your site actively brings you business. (An AI chat widget, online booking, and SEO come as add-ons or in a Custom build.)</div></details>
+    <details><summary>What if I want changes after it's live?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Your first 30 days include free changes — text edits, photo swaps, and contact-detail updates — dialed in until it's right. After that, small updates are part of your plan, and bigger changes are quick to request. Call us anytime and a real person helps.</div></details>
     <details><summary>Do I own my domain?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Yes — the domain is registered for your business. We find it, buy it, and manage it for you so you never touch DNS settings, but it's yours.</div></details>
     <details><summary>What if I don't buy — can I try again later?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Your free preview is your one free design. If you leave without keeping it, that design is removed. You're welcome to come back for a brand-new design anytime for a small $79 design fee — the AI builds you a fresh one to review.</div></details>
     <details><summary>Can I upgrade later?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Absolutely. Start Basic and move up whenever you want more. SEO, Google Business &amp; reviews, bookings, a mobile app, a full dashboard — we can build all of it on top. Just ask and we'll quote it.</div></details>
@@ -475,8 +486,7 @@
 
   <div class="paidbox" id="b-addon">
     <h2>✅ You're set — let's talk</h2>
-    <p>Thanks! Your add-on is reserved. <b>Pick a time and we'll map out exactly what to build.</b></p>
-    <div class="center"><a class="cta" id="addon-book" href="#" target="_blank" rel="noopener">Pick a time to talk →</a></div>
+    <p>Thanks! Your add-on is reserved and a member of our team will <b>call you within 1 business day</b> (1–7pm Central) to map out exactly what to build. Check your email for confirmation.</p>
   </div>
 
   <div class="panel" id="b-panel">
@@ -537,7 +547,7 @@
           </button>
           <button class="pp" id="pp-standard" onclick="pickPlan('standard')">
             <div class="ppr"></div>
-            <div class="ppmain"><b>Standard — <span class="amt">$197</span>/mo</b><span>Everything in Basic + pick 2 of 3 lead-getters</span></div>
+            <div class="ppmain"><b>Standard — <span class="amt">$197</span>/mo</b><span>Everything in Basic + contact form, photo &amp; text edits</span></div>
           </button>
           <button class="pp" id="pp-custom" onclick="pickPlan('custom')">
             <div class="ppr"></div>
@@ -561,7 +571,7 @@
         <div class="field"><label>Phone</label><input id="in-cphone" type="tel" placeholder="(555) 555-5555" /></div>
         <div class="errmsg" id="o-err"></div>
         <div class="center"><button class="cta" id="o-go" onclick="claim()">Claim my site — $97/mo →</button></div>
-        <p class="ttl" style="text-align:center">No setup fee. Delivered within 24 hours. Cancel anytime — you won't be billed again (payments are non-refundable once a month starts). Hosting includes your domain, business email, security, and updates.</p>
+        <p class="ttl" style="text-align:center">No setup fee. Delivered within 24 hours. <b>Your first 30 days of changes are free.</b> Cancel anytime — you won't be billed again (payments are non-refundable once a month starts). Hosting includes your domain, business email, security, and updates.</p>
       </div>
     </div>
   </div>
@@ -569,10 +579,31 @@
 
 <div class="foot wrap">A <a href="https://www.oneworldlabs.ai/">One World Labs</a> company · OneVoice · OneApp · OneScore · OneSocial</div>
 
+<!-- ======================= BOOKING MODAL ======================= -->
+<div class="mscrim" id="mscrim" onclick="if(event.target===this)closeBooking()">
+  <div class="mcard">
+    <div id="m-form">
+      <button class="mclose" onclick="closeBooking()" aria-label="Close">✕</button>
+      <h3>Book a call</h3>
+      <p class="ms">Leave your details and we'll call you back (1–7pm Central) to map out exactly what you want and quote it — no obligation.</p>
+      <div class="field"><label>Your name</label><input id="bk-name" type="text" placeholder="Full name" /></div>
+      <div class="field"><label>Email</label><input id="bk-email" type="email" placeholder="you@email.com" /></div>
+      <div class="field"><label>Phone</label><input id="bk-phone" type="tel" placeholder="(555) 555-5555" /></div>
+      <div class="field"><label>What do you need? (optional)</label><textarea id="bk-note" placeholder="A custom multi-page site, a chat widget, booking, SEO…"></textarea></div>
+      <div class="errmsg" id="bk-err"></div>
+      <div class="center"><button class="cta" id="bk-go" onclick="submitBooking()">Request my call →</button></div>
+    </div>
+    <div class="mdone" id="m-done">
+      <div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h3>You're on the list</h3>
+      <p class="ms">We'll call you within 1 business day. Talk soon!</p>
+      <div class="center"><button class="cta ghost" onclick="closeBooking()">Done</button></div>
+    </div>
+  </div>
+</div>
+
 <script>
 var API = 'https://onevoice-checkout.vercel.app';
-/* TODO(Lee): replace with your real GHL booking-calendar link (1–7pm Central). */
-var BOOKING_URL = 'https://www.oneworldlabs.ai/onescore-preview/oneapp.html#pricing';
 
 var state = { mode:'', id:'', sourceUrl:'', email:'', plan:'basic', opts:[] };
 
@@ -582,10 +613,11 @@ var OPTS = [
   { k:'edits',   t:'Photo & text edits',  d:'We swap photos and reword copy on demand so it always looks right.' }
 ];
 var ADDONS = [
+  { k:'chat',     t:'AI chat widget' },
   { k:'seo',      t:'SEO — rank higher' },
   { k:'gbp',      t:'Google Business & Maps' },
   { k:'reviews',  t:'Review management' },
-  { k:'booking',  t:'Online booking' },
+  { k:'booking',  t:'Online booking & appointments' },
   { k:'voice',    t:'OneVoice AI answering' },
   { k:'app',      t:'Mobile app version' },
   { k:'dashboard',t:'Full CRM dashboard' },
@@ -616,7 +648,19 @@ function openDrawer(on){
   $('scrim').classList.toggle('open', on);
   $('drawer').setAttribute('aria-hidden', on?'false':'true');
 }
-function bookCall(src){ window.open(BOOKING_URL, '_blank', 'noopener'); }
+function bookCall(src){ $('m-form').style.display='block'; $('m-done').style.display='none'; $('bk-err').style.display='none'; $('mscrim').classList.add('open'); }
+function closeBooking(){ $('mscrim').classList.remove('open'); }
+function submitBooking(){
+  $('bk-err').style.display='none';
+  var c={ name:$('bk-name').value.trim(), email:$('bk-email').value.trim(), phone:$('bk-phone').value.trim() };
+  if(!c.name || !validEmail(c.email)) return err('bk-err','Add your name and a valid email.');
+  var b=$('bk-go'); b.disabled=true; b.textContent='One moment…';
+  fetch(API+'/api/oneapp-request',{ method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:'', features:['Book a call'], notes:$('bk-note').value.trim() }) })
+    .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); })
+    .then(function(x){ if(!x.ok) throw new Error(x.j&&x.j.error||'Please try again.'); $('m-form').style.display='none'; $('m-done').style.display='block'; })
+    .catch(function(e){ b.disabled=false; b.textContent='Request my call →'; err('bk-err', e.message); });
+}
 
 /* ---------- builder step 1 ---------- */
 function pick(m){
@@ -699,7 +743,7 @@ function showResult(id, changes){
 function pickPlan(p){
   state.plan = p;
   ['basic','standard','custom'].forEach(function(k){ $('pp-'+k).classList.toggle('on', k===p); });
-  $('picktwo').classList.toggle('show', p==='standard');
+  $('picktwo').classList.remove('show'); /* Standard now includes form+photo+text — no pick step */
   $('customnote').classList.toggle('show', p==='custom');
   var btn=$('o-go');
   if (p==='basic')    btn.textContent='Claim my site — $97/mo →';
@@ -733,16 +777,14 @@ function claim(){
     fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:['Custom multi-page build (from $500)'], notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) })
       .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
-      .then(function(x){ if(!x.ok) throw new Error(x.j && x.j.error || 'Please try again.'); bookCall('custom'); btnc.disabled=false; btnc.textContent='Booked ✓ — pick a time'; })
+      .then(function(x){ if(!x.ok) throw new Error(x.j && x.j.error || 'Please try again.'); $('b-panel').style.display='none'; $('b-addon').style.display='block'; document.getElementById('builder').scrollIntoView({behavior:'smooth'}); })
       .catch(function(e){ btnc.disabled=false; btnc.textContent='Book my call →'; err('o-err', e.message); });
     return;
   }
 
-  if (state.plan==='standard' && state.opts.length!==2) return err('o-err','Pick exactly 2 features for the Standard plan.');
-
   var btn=$('o-go'); btn.disabled=true; btn.textContent='One moment…';
   fetch(API+'/api/oneapp-checkout', { method:'POST', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ tier:state.plan, options:(state.plan==='standard'?state.opts:[]), previewId:state.id, notes:$('in-notes').value.trim(), contact:c, sourceUrl:state.sourceUrl }) })
+    body:JSON.stringify({ tier:state.plan, options:[], previewId:state.id, notes:$('in-notes').value.trim(), contact:c, sourceUrl:state.sourceUrl }) })
     .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
       if (!x.ok || !x.j.url) throw new Error(x.j && x.j.error || 'Checkout failed — please try again.');
@@ -804,7 +846,6 @@ function addonCheckout(){
     setTimeout(function(){ document.getElementById('builder').scrollIntoView(); }, 2300);
   } else if (q.get('addon')){
     $('b-addon').style.display='block'; $('b-panel').style.display='none';
-    $('addon-book').href = BOOKING_URL;
     setTimeout(function(){ document.getElementById('builder').scrollIntoView(); }, 2300);
   } else if (q.get('resume')){
     var id = q.get('resume').replace(/[^a-z0-9]/gi,'');
