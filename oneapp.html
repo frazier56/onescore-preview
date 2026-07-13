@@ -487,9 +487,9 @@
   </div>
 </section>
 
-<!-- ======================= BUILDER (LAST) ======================= -->
+<!-- ======================= BUILDER ======================= -->
 <section class="wrap" id="builder">
-  <div class="seclabel">Try it now — free</div>
+  <div class="seclabel">Start here — free</div>
   <div class="sechead">See your new website<br>before you pay a dime.</div>
 
   <div class="paidbox" id="b-paid">
@@ -571,7 +571,7 @@
           </button>
           <button class="pp" id="pp-standard" onclick="pickPlan('standard')">
             <div class="ppr"></div>
-            <div class="ppmain"><b>Standard — <span class="amt">$197</span>/mo</b><span>Everything in Basic + contact form, photo &amp; text edits</span></div>
+            <div class="ppmain"><b>Standard — <span class="amt">$197</span>/mo</b><span>Everything in Basic + a built-in contact form</span></div>
           </button>
           <button class="pp" id="pp-custom" onclick="pickPlan('custom')">
             <div class="ppr"></div>
@@ -855,6 +855,10 @@ function addonCheckout(){
     })
     .catch(function(e){ btn.disabled=false; btn.textContent='Continue — $29/mo & book my call →'; err('ad-err', e.message); });
 }
+
+/* ---------- preview-first: move the builder up right after the Summer-of-AI offer band ---------- */
+/* Runs under the splash so there's no visible reflow. Builder now comes before pricing. ?classic=1 keeps old order. */
+(function(){ var ob=document.getElementById('offer'), b=document.getElementById('builder'); if(ob&&b&&!new URLSearchParams(location.search).get('classic')) ob.after(b); })();
 
 /* ---------- sticky reveals ---------- */
 (function(){
