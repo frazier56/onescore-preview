@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OneApp — Your Business. One App. | One World Labs</title>
-<meta name="description" content="Our AI builds you a modern website — free. See it before you pay. Then keep it from $97/mo: hosting, domain, business email, security included. By One World Labs." />
+<meta name="description" content="Our AI builds you a modern website — free. See it before you pay. Then keep it from $97/mo: hosting, a free web address, business email, security included. By One World Labs." />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="theme-color" content="#0B0F1A" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -197,7 +197,15 @@
   .prevbar { display:flex; align-items:center; gap:6px; padding:9px 12px; background:#f2f1ec; border-bottom:1px solid var(--border); }
   .dot { width:9px; height:9px; border-radius:999px; background:#d3d2cc; }
   .prevbar span { margin-left:6px; font-size:11px; color:var(--faint); font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .prevbox iframe { width:100%; height:430px; border:0; display:block; background:#fff; }
+  .prevbox iframe { width:100%; height:460px; border:0; display:block; background:#fff; transition:width .2s ease; }
+  .prevbox.mobile { background:#0b0f1a; padding:12px 0; }
+  .prevbox.mobile iframe { width:380px; max-width:92%; margin:0 auto; border-radius:10px; height:520px; }
+  .devtoggle { display:flex; gap:6px; justify-content:center; margin-top:14px; }
+  .dv { border:1.5px solid var(--border); border-radius:999px; background:var(--card); padding:7px 16px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink); }
+  .dv.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); color:var(--teal-d); }
+  .fsbtn { display:flex; align-items:center; justify-content:center; gap:9px; width:100%; margin-top:14px; padding:16px; border-radius:12px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:15.5px; font-weight:800; text-decoration:none; border:0; cursor:pointer; font-family:inherit; box-shadow:0 8px 26px rgba(13,148,136,.32); animation:fspulse 1.8s ease-in-out infinite; }
+  @keyframes fspulse { 0%,100%{ box-shadow:0 8px 26px rgba(13,148,136,.30); transform:scale(1); } 50%{ box-shadow:0 12px 36px rgba(13,148,136,.58); transform:scale(1.015); } }
+  @media (prefers-reduced-motion: reduce){ .fsbtn { animation:none; } }
   .openlink { display:block; margin-top:10px; text-align:center; font-size:13px; font-weight:700; color:var(--teal-d); text-decoration:none; }
   .ttl { margin-top:6px; text-align:center; font-size:11.5px; color:var(--faint); }
   .changes { margin-top:22px; }
@@ -209,7 +217,10 @@
   .offer { margin-top:28px; border:1.5px solid rgba(20,184,166,.4); border-radius:18px; padding:22px 16px; background:linear-gradient(180deg, rgba(20,184,166,.05), rgba(20,184,166,.02)); }
   .offer h3 { font-size:18px; font-weight:800; text-align:center; }
   .offer .osub { margin-top:6px; font-size:13px; line-height:1.55; color:var(--muted); text-align:center; }
-  .planpick { margin-top:18px; display:flex; flex-direction:column; gap:10px; }
+  .termtoggle { margin-top:14px; display:flex; gap:8px; }
+  .tt { flex:1; border:1.5px solid var(--border); border-radius:10px; background:var(--card); padding:10px 8px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+  .tt.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); color:var(--teal-d); }
+  .planpick { margin-top:12px; display:flex; flex-direction:column; gap:10px; }
   .pp { display:flex; gap:12px; align-items:flex-start; border:1.5px solid var(--border); border-radius:14px; background:var(--card); padding:15px 14px; cursor:pointer; font-family:inherit; text-align:left; width:100%; transition:border-color .15s ease, background .15s ease; }
   .pp.on { border-color:var(--teal-d); background:rgba(20,184,166,.07); }
   .pp .ppr { flex-shrink:0; width:18px; height:18px; margin-top:2px; border-radius:999px; border:2px solid var(--border); }
@@ -386,7 +397,7 @@
   <div class="sechead">Three steps. One day.</div>
   <div class="steps">
     <div class="step"><div class="stepn">1</div><div><p>Show us your site — or tell us about your business</p><span>Our AI builds it, free. You watch the preview appear on screen in about a minute.</span></div></div>
-    <div class="step"><div class="stepn">2</div><div><p>Love it? Pick a plan and claim it</p><span>The build is free — you only pay to host and maintain it, from $97/mo. We register your domain, set up your business email, and apply any changes you ask for.</span></div></div>
+    <div class="step"><div class="stepn">2</div><div><p>Love it? Pick a plan and claim it</p><span>The build is free — you only pay to host and maintain it, from $97/mo. You go live instantly on a free yourbiz.oneapp.site address (connect your own domain anytime), we set up your business email, and apply any changes you ask for.</span></div></div>
     <div class="step"><div class="stepn">3</div><div><p>Live within 24 hours</p><span>Your finished site lands in your inbox — hosted, secured, and connected to the One World family: OneVoice answering, OneScore credibility, OneSocial bookings.</span></div></div>
   </div>
 </section>
@@ -395,7 +406,7 @@
 <section class="wrap reveal" id="pricing">
   <div class="seclabel">Simple, honest pricing</div>
   <div class="sechead">The website is free.<br>Pick how much you want it to do.</div>
-  <p class="secsub">Every plan includes the free AI build, managed hosting, your domain, a business email, security &amp; backups, and our 48-hour support promise. No setup fee. Cancel anytime.</p>
+  <p class="secsub">Every plan includes the free AI build, managed hosting, a free <b>yourbiz.oneapp.site</b> address (bring your own domain anytime), a business email, security &amp; backups, and our 48-hour support promise. <b>Site design is free; the monthly fee covers hosting &amp; maintenance.</b> 3-month minimum · save 25% annually · cancel anytime.</p>
   <div class="tiers">
     <!-- Basic -->
     <div class="tier">
@@ -405,7 +416,7 @@
       <ul>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Free AI-built one-page site</div></li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Managed hosting + SSL security</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Your domain + business email</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Free web address + business email</div></li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>48-hour support promise</div></li>
       </ul>
       <div class="tcta"><a class="cta ghost" href="#builder">Start free →</a></div>
@@ -415,29 +426,31 @@
       <div class="flag">Most popular</div>
       <div class="tname">Standard</div>
       <div class="tp"><b>$197</b><span>/month</span></div>
-      <div class="tdesc">Everything in Basic, plus the tools that turn visitors into customers — <b>all included</b>.</div>
+      <div class="tdesc">Everything in Basic, plus a <b>built-in contact form</b> so visitors turn into leads you can call back.</div>
       <ul>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Everything in Basic</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Contact form</b> — capture &amp; call back leads</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Photo add &amp; swaps</b> — send pics, we place them</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Text &amp; messaging edits</b> — reworded on request</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Contact form</b> — visitors send quote requests &amp; messages</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Every lead ready for you to call back</div></li>
       </ul>
       <div class="tcta"><a class="cta" href="#builder">Start free →</a></div>
     </div>
     <!-- Custom -->
     <div class="tier">
       <div class="tname">Custom</div>
-      <div class="tp"><b>From $500</b></div>
+      <div class="tp"><b>From $499</b></div>
       <div class="tdesc">A fully custom, multi-page site or web app — designed with you on a quick call. Perfect when you want something bigger.</div>
       <ul>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Multi-page, fully custom design</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>AI chat widget</b>, booking &amp; appointment setting, SEO, dashboards</div></li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Built with you on a short strategy call</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>AI chat widget</b> — answers customers 24/7</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>SEO optimization — get found on Google</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Online booking &amp; appointment setting</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Mobile app + full dashboard / CMS</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>…and much more</b></div></li>
       </ul>
       <div class="tcta"><a class="cta ghost" href="#" onclick="bookCall('pricing');return false;">Book a call →</a></div>
     </div>
   </div>
-  <p class="valuenote">Your $97–$197/mo covers real work: fast managed hosting &amp; SSL, your domain (we find, buy &amp; manage it), a business email on your domain, security &amp; backups, our 48-hour fix promise, and <b>30 days of free changes</b> (text edits, photo swaps, contact-detail updates). Cancel anytime — you simply won't be billed again.</p>
+  <p class="valuenote">Your $97–$197/mo covers real work: fast managed hosting &amp; SSL, a free <b>yourbiz.oneapp.site</b> address (or connect a custom domain you own — we migrate &amp; manage it), a business email, security &amp; backups, our 48-hour fix promise, and <b>30 days of free changes</b> (text edits, photo swaps, contact-detail updates). Billed on a 3-month minimum; save 25% annually. Cancel anytime after the minimum term.</p>
 </section>
 
 <!-- ======================= ADD-ONS ======================= -->
@@ -468,7 +481,7 @@
     <details><summary>Is it really free to build?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Yes. AI lets us build a real, custom website at a fraction of the old cost, so this summer the build is free (a basic professional site normally runs ~$2,500). You see it before you pay, and you only ever pay for hosting &amp; care — from $97/mo.</div></details>
     <details><summary>What's the difference between $97 and $197?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Basic ($97/mo) is a clean one-page site with hosting, your domain, business email, and security. Standard ($197/mo) adds the lead-getters — a contact form plus on-demand photo and text edits — so your site actively brings you business. (An AI chat widget, online booking, and SEO come as add-ons or in a Custom build.)</div></details>
     <details><summary>What if I want changes after it's live?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Your first 30 days include free changes — text edits, photo swaps, and contact-detail updates — dialed in until it's right. After that, small updates are part of your plan, and bigger changes are quick to request. Call us anytime and a real person helps.</div></details>
-    <details><summary>Do I own my domain?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Yes — the domain is registered for your business. We find it, buy it, and manage it for you so you never touch DNS settings, but it's yours.</div></details>
+    <details><summary>What's my web address — do I need a domain?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">You go live instantly on a free <b>yourbiz.oneapp.site</b> address — no domain needed. Want your own custom domain (like yourbusiness.com)? You buy and own it at any registrar (so you keep control and the renewal), and we connect and manage it for you. Already have one? We'll send you the exact steps to point it over, or Jennifer walks you through it.</div></details>
     <details><summary>What if I don't buy — can I try again later?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Your free preview is your one free design. If you leave without keeping it, that design is removed. You're welcome to come back for a brand-new design anytime for a small $79 design fee — the AI builds you a fresh one to review.</div></details>
     <details><summary>Can I upgrade later?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Absolutely. Start Basic and move up whenever you want more. SEO, Google Business &amp; reviews, bookings, a mobile app, a full dashboard — we can build all of it on top. Just ask and we'll quote it.</div></details>
   </div>
@@ -481,7 +494,7 @@
 
   <div class="paidbox" id="b-paid">
     <h2>🎉 You're in!</h2>
-    <p>Your payment went through and our team is on it. <b>Your finished website lands in your inbox within 24 hours</b> — with your domain, business email, and features ready to go. Check your email for confirmation.</p>
+    <p>Your payment went through and our team is on it. <b>Your finished website lands in your inbox within 24 hours</b> — live on your free yourbiz.oneapp.site address, with your business email and features ready to go (want a custom domain? we'll help you connect it). Check your email for confirmation.</p>
   </div>
 
   <div class="paidbox" id="b-addon">
@@ -524,12 +537,18 @@
     <div id="b-result">
       <h2>Your new site is ready. 👇</h2>
       <p class="ps">This is a live preview of your rebuilt website — scroll around inside it.</p>
-      <div class="prevbox">
+      <div class="devtoggle">
+        <button class="dv on" id="dv-desktop" onclick="setDevice('desktop')">🖥 Desktop</button>
+        <button class="dv" id="dv-mobile" onclick="setDevice('mobile')">📱 Mobile</button>
+      </div>
+      <button class="fsbtn" onclick="openFull()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Open full-screen preview</button>
+      <div class="prevbox" id="prevbox">
         <div class="prevbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span id="prev-url">yournewsite.com</span></div>
         <iframe id="prev-frame" title="Your rebuilt website preview"></iframe>
       </div>
-      <a class="openlink" id="prev-open" href="#" target="_blank" rel="noopener">Open full-screen preview ↗</a>
-      <p class="ttl">Heads up: free previews expire in <b>48 hours</b> — claim yours to keep it.</p>
+      <button class="fsbtn" onclick="openFull()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>See it full-screen</button>
+      <a class="openlink" id="prev-open" href="#" target="_blank" rel="noopener" style="display:none">Open full-screen preview ↗</a>
+      <p class="ttl">Tip: tap <b>Mobile</b> to see how it looks on a phone. Free previews expire in <b>48 hours</b> — claim yours to keep it.</p>
 
       <div class="changes">
         <h3>What we improved</h3>
@@ -540,10 +559,15 @@
         <h3>Love it? Pick your plan.</h3>
         <div class="osub">The website is free — this covers hosting &amp; care. Cancel anytime.</div>
 
+        <div class="termtoggle" id="termtoggle">
+          <button class="tt on" id="tt-quarterly" onclick="setTerm('quarterly')">Quarterly<br><span style="font-weight:500;font-size:11px;color:var(--muted)">billed every 3 months</span></button>
+          <button class="tt" id="tt-annual" onclick="setTerm('annual')">Annual · save 25%<br><span style="font-weight:500;font-size:11px;color:var(--muted)">best value</span></button>
+        </div>
+
         <div class="planpick" id="planpick">
           <button class="pp on" id="pp-basic" onclick="pickPlan('basic')">
             <div class="ppr"></div>
-            <div class="ppmain"><b>Basic — <span class="amt">$97</span>/mo</b><span>Clean one-page site · hosting · domain · business email · security</span></div>
+            <div class="ppmain"><b>Basic — <span class="amt">$97</span>/mo</b><span>Clean one-page site · hosting · free web address · business email · security</span></div>
           </button>
           <button class="pp" id="pp-standard" onclick="pickPlan('standard')">
             <div class="ppr"></div>
@@ -551,7 +575,7 @@
           </button>
           <button class="pp" id="pp-custom" onclick="pickPlan('custom')">
             <div class="ppr"></div>
-            <div class="ppmain"><b>Custom — from $500</b><span>Fully custom, multi-page — we build it with you on a call</span></div>
+            <div class="ppmain"><b>Custom — from $499</b><span>Fully custom, multi-page — we build it with you on a call</span></div>
           </button>
         </div>
 
@@ -561,7 +585,7 @@
         </div>
 
         <div class="customnote" id="customnote">
-          We'll build something fully custom with you. Leave your details below and pick a time — custom builds start at <b>$500</b>, quoted on the call.
+          We'll build something fully custom with you. Leave your details below and pick a time — custom builds start at <b>$499</b>, quoted on the call.
         </div>
 
         <div class="field"><label>Anything you'd like changed or added? (optional)</label><textarea id="in-notes" placeholder="Use our red logo colors, add our Google reviews, swap the photo on top…"></textarea></div>
@@ -571,7 +595,7 @@
         <div class="field"><label>Phone</label><input id="in-cphone" type="tel" placeholder="(555) 555-5555" /></div>
         <div class="errmsg" id="o-err"></div>
         <div class="center"><button class="cta" id="o-go" onclick="claim()">Claim my site — $97/mo →</button></div>
-        <p class="ttl" style="text-align:center">No setup fee. Delivered within 24 hours. <b>Your first 30 days of changes are free.</b> Cancel anytime — you won't be billed again (payments are non-refundable once a month starts). Hosting includes your domain, business email, security, and updates.</p>
+        <p class="ttl" style="text-align:center">Site design is free — the plan covers hosting &amp; maintenance. No setup fee. Delivered within 24 hours. <b>Your first 30 days of changes are free.</b> 3-month minimum, then cancel anytime (non-refundable once a term starts). You go live free on a yourbiz.oneapp.site address; connect a custom domain you own anytime.</p>
       </div>
     </div>
   </div>
@@ -605,7 +629,7 @@
 <script>
 var API = 'https://onevoice-checkout.vercel.app';
 
-var state = { mode:'', id:'', sourceUrl:'', email:'', plan:'basic', opts:[] };
+var state = { mode:'', id:'', sourceUrl:'', email:'', plan:'basic', opts:[], term:'quarterly' };
 
 var OPTS = [
   { k:'form',    t:'Smart contact form',  d:'Customers send you quote requests and messages right from your site.' },
@@ -624,7 +648,8 @@ var ADDONS = [
   { k:'social',   t:'Social media content' }
 ];
 var addonSel = [];
-var LOADMSGS = ['Reading your site…','Studying your business…','Rebuilding the layout…','Refreshing colors & typography…','Making it mobile-friendly…','Polishing the details…','Almost there…'];
+var LOADMSGS_URL = ['Reading your site…','Studying your business…','Rebuilding the layout…','Refreshing colors & typography…','Making it mobile-friendly…','Polishing the details…','Almost there…'];
+var LOADMSGS_NEW = ['Studying your business…','Designing your layout…','Choosing colors & typography…','Making it mobile-friendly…','Writing your content…','Polishing the details…','Almost there…'];
 var CHECK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
 
 function $(id){ return document.getElementById(id); }
@@ -677,8 +702,8 @@ var loadTimer=null;
 function showLoading(on){
   $('b-ask').style.display = on?'none':'block';
   $('b-loading').style.display = on?'block':'none';
-  if (on){ var i=0; $('b-loadmsg').textContent=LOADMSGS[0];
-    loadTimer=setInterval(function(){ i=(i+1)%LOADMSGS.length; $('b-loadmsg').textContent=LOADMSGS[i]; }, 7000);
+  if (on){ var msgs = (state.mode==='no') ? LOADMSGS_NEW : LOADMSGS_URL; var i=0; $('b-loadmsg').textContent=msgs[0];
+    loadTimer=setInterval(function(){ i=(i+1)%msgs.length; $('b-loadmsg').textContent=msgs[i]; }, 7000);
   } else if (loadTimer){ clearInterval(loadTimer); loadTimer=null; }
 }
 
@@ -717,6 +742,7 @@ function showResult(id, changes){
   $('b-ask').style.display='none';
   $('b-result').style.display='block';
   var pv = API + '/api/oneapp-preview?id=' + encodeURIComponent(id);
+  state.pv = pv;
   $('prev-frame').src = pv;
   $('prev-open').href = pv;
   $('prev-url').textContent = state.sourceUrl ? state.sourceUrl.replace(/^https?:\/\//,'') + ' — rebuilt' : 'your-new-site.com — preview';
@@ -743,13 +769,17 @@ function showResult(id, changes){
 function pickPlan(p){
   state.plan = p;
   ['basic','standard','custom'].forEach(function(k){ $('pp-'+k).classList.toggle('on', k===p); });
-  $('picktwo').classList.remove('show'); /* Standard now includes form+photo+text — no pick step */
+  $('picktwo').classList.remove('show'); /* Standard now includes contact form — no pick step */
   $('customnote').classList.toggle('show', p==='custom');
+  $('termtoggle').style.display = (p==='custom') ? 'none' : 'flex';
   var btn=$('o-go');
   if (p==='basic')    btn.textContent='Claim my site — $97/mo →';
   if (p==='standard') btn.textContent='Claim my site — $197/mo →';
   if (p==='custom')   btn.textContent='Book my call →';
 }
+function setTerm(t){ state.term=t; $('tt-quarterly').classList.toggle('on', t==='quarterly'); $('tt-annual').classList.toggle('on', t==='annual'); }
+function openFull(){ if(state.pv) window.open(state.pv, '_blank', 'noopener'); }
+function setDevice(d){ $('prevbox').classList.toggle('mobile', d==='mobile'); $('dv-mobile').classList.toggle('on', d==='mobile'); $('dv-desktop').classList.toggle('on', d==='desktop'); }
 
 function toggleOpt(k){
   var i = state.opts.indexOf(k);
@@ -775,7 +805,7 @@ function claim(){
   if (state.plan==='custom'){
     var btnc=$('o-go'); btnc.disabled=true; btnc.textContent='One moment…';
     fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:['Custom multi-page build (from $500)'], notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) })
+      body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:['Custom multi-page build (from $499)'], notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) })
       .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
       .then(function(x){ if(!x.ok) throw new Error(x.j && x.j.error || 'Please try again.'); $('b-panel').style.display='none'; $('b-addon').style.display='block'; document.getElementById('builder').scrollIntoView({behavior:'smooth'}); })
       .catch(function(e){ btnc.disabled=false; btnc.textContent='Book my call →'; err('o-err', e.message); });
@@ -784,7 +814,7 @@ function claim(){
 
   var btn=$('o-go'); btn.disabled=true; btn.textContent='One moment…';
   fetch(API+'/api/oneapp-checkout', { method:'POST', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ tier:state.plan, options:[], previewId:state.id, notes:$('in-notes').value.trim(), contact:c, sourceUrl:state.sourceUrl }) })
+    body:JSON.stringify({ tier:state.plan, term:state.term, options:[], previewId:state.id, notes:$('in-notes').value.trim(), contact:c, sourceUrl:state.sourceUrl }) })
     .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
       if (!x.ok || !x.j.url) throw new Error(x.j && x.j.error || 'Checkout failed — please try again.');
