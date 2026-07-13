@@ -67,6 +67,8 @@
   .langcode { display:none; font-size:12.5px; font-weight:800; letter-spacing:.02em; }
   @media (min-width:640px){ .langcode { display:inline; } }
   .langchev { opacity:.55; flex:0 0 auto; }
+  .flag-img { width:22px; height:16px; border-radius:3px; object-fit:cover; box-shadow:0 0 0 1px rgba(0,0,0,.12); display:block; flex:0 0 auto; }
+  .langmenu button .flag-img { width:24px; height:17px; }
   .langmenu { position:absolute; right:0; top:46px; min-width:190px; background:var(--card-solid); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:6px; display:none; z-index:80; }
   .langmenu.open { display:block; }
   .langmenu button { display:flex; align-items:center; gap:11px; width:100%; padding:9px 11px; background:none; border:0; border-radius:9px; color:var(--ink); font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; text-align:left; }
@@ -268,14 +270,14 @@
   </a>
   <div class="barbtns">
     <div class="langwrap">
-      <button class="iconbtn iconbtn-lang" id="langbtn" aria-label="Language" aria-haspopup="true"><span class="flag" id="langflag">🇺🇸</span><span class="langcode" id="langcode">EN</span><svg class="langchev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+      <button class="iconbtn iconbtn-lang" id="langbtn" aria-label="Language" aria-haspopup="true"><img class="flag-img" id="langflag" src="https://flagcdn.com/w40/us.png" width="22" height="16" alt="" /><span class="langcode" id="langcode">EN</span><svg class="langchev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="langmenu" id="langmenu" role="menu">
-        <button data-lang="en" class="active"><span class="flag">🇺🇸</span><span class="lname">English</span><span class="lcheck">✓</span></button>
-        <button data-lang="es"><span class="flag">🇪🇸</span><span class="lname">Español</span><span class="lcheck">✓</span></button>
-        <button data-lang="de"><span class="flag">🇩🇪</span><span class="lname">Deutsch</span><span class="lcheck">✓</span></button>
-        <button data-lang="ru"><span class="flag">🇷🇺</span><span class="lname">Русский</span><span class="lcheck">✓</span></button>
-        <button data-lang="zh"><span class="flag">🇨🇳</span><span class="lname">中文</span><span class="lcheck">✓</span></button>
-        <button data-lang="pt"><span class="flag">🇧🇷</span><span class="lname">Português</span><span class="lcheck">✓</span></button>
+        <button data-lang="en" class="active"><img class="flag-img" src="https://flagcdn.com/w40/us.png" width="22" height="16" alt="" /><span class="lname">English</span><span class="lcheck">✓</span></button>
+        <button data-lang="es"><img class="flag-img" src="https://flagcdn.com/w40/es.png" width="22" height="16" alt="" /><span class="lname">Español</span><span class="lcheck">✓</span></button>
+        <button data-lang="de"><img class="flag-img" src="https://flagcdn.com/w40/de.png" width="22" height="16" alt="" /><span class="lname">Deutsch</span><span class="lcheck">✓</span></button>
+        <button data-lang="ru"><img class="flag-img" src="https://flagcdn.com/w40/ru.png" width="22" height="16" alt="" /><span class="lname">Русский</span><span class="lcheck">✓</span></button>
+        <button data-lang="zh"><img class="flag-img" src="https://flagcdn.com/w40/cn.png" width="22" height="16" alt="" /><span class="lname">中文</span><span class="lcheck">✓</span></button>
+        <button data-lang="pt"><img class="flag-img" src="https://flagcdn.com/w40/br.png" width="22" height="16" alt="" /><span class="lname">Português</span><span class="lcheck">✓</span></button>
       </div>
     </div>
     <button class="iconbtn" id="menubtn" aria-label="Menu">
@@ -540,9 +542,9 @@ document.querySelectorAll('#faq .qa').forEach(function(qa){
 
 /* ---------- i18n ---------- */
 var I18N = {
-  en: { flag:'🇺🇸', code:'EN' },
+  en: { flag:'us', code:'EN' },
   es: {
-    flag:'🇪🇸', code:'ES',
+    flag:'es', code:'ES',
     pill:'Un acceso · Tres apps · Dos servicios hechos para ti',
     s_apps:'apps', s_svcs:'servicios', s_login:'acceso',
     h1_pre:'Trabaja mejor en todo tu', h1_mid:'negocio con ',
@@ -582,7 +584,7 @@ var I18N = {
     tagline_foot:'Hecho para pequeños negocios y freelancers, en todas partes.'
   },
   de: {
-    flag:'🇩🇪', code:'DE',
+    flag:'de', code:'DE',
     s_apps:'Apps', s_svcs:'Services', s_login:'Login',
     h1_pre:'Arbeite intelligenter in deinem', h1_mid:'Geschäft mit ',
     lede:'Apps, die du nutzt, und Services, die wir für dich betreiben — verbunden durch einen Login — damit kleine Unternehmen und Freelancer gesehen werden, Vertrauen gewinnen und bezahlt werden.',
@@ -599,7 +601,7 @@ var I18N = {
     d_apps:'Apps', d_services:'Services', d_contact:'Kontakt', d_appearance:'Darstellung', d_thememode:'Hell / Dunkel'
   },
   ru: {
-    flag:'🇷🇺', code:'RU',
+    flag:'ru', code:'RU',
     s_apps:'прил.', s_svcs:'сервиса', s_login:'вход',
     h1_pre:'Работайте умнее во всём вашем', h1_mid:'бизнесе с ',
     lede:'Приложения, которыми вы пользуетесь, и сервисы, которые мы ведём за вас — объединённые одним входом — чтобы малый бизнес и фрилансеры были замечены, вызывали доверие и получали оплату.',
@@ -616,7 +618,7 @@ var I18N = {
     d_apps:'Приложения', d_services:'Сервисы', d_contact:'Контакты', d_appearance:'Оформление', d_thememode:'Светлая / тёмная'
   },
   zh: {
-    flag:'🇨🇳', code:'ZH',
+    flag:'cn', code:'ZH',
     s_apps:'应用', s_svcs:'服务', s_login:'登录',
     h1_pre:'更聪明地开展您的', h1_mid:'业务，携手 ',
     lede:'您使用的应用，加上我们为您运营的服务——用一个登录连接起来——让小企业和自由职业者被看见、被信任、并获得报酬。',
@@ -633,7 +635,7 @@ var I18N = {
     d_apps:'应用', d_services:'服务', d_contact:'联系', d_appearance:'外观', d_thememode:'浅色 / 深色'
   },
   pt: {
-    flag:'🇧🇷', code:'PT',
+    flag:'br', code:'PT',
     s_apps:'apps', s_svcs:'serviços', s_login:'login',
     h1_pre:'Trabalhe de forma mais inteligente em todo o seu', h1_mid:'negócio com ',
     lede:'Apps que você usa e serviços que administramos para você — unidos por um único login — para que pequenos negócios e freelancers sejam vistos, ganhem confiança e recebam pagamento.',
@@ -657,7 +659,7 @@ function applyLang(lang){
     if (!(k in EN_CACHE)) EN_CACHE[k] = el.textContent;
     el.textContent = (lang !== 'en' && I18N[lang] && I18N[lang][k]) ? I18N[lang][k] : EN_CACHE[k];
   });
-  document.getElementById('langflag').textContent = I18N[lang].flag;
+  document.getElementById('langflag').src = 'https://flagcdn.com/w40/' + I18N[lang].flag + '.png';
   var _lc = document.getElementById('langcode'); if (_lc) _lc.textContent = I18N[lang].code;
   document.querySelectorAll('#langmenu button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang') === lang); });
   document.documentElement.lang = lang;
