@@ -253,6 +253,11 @@
   /* booking modal */
   .mscrim { position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; padding:18px; }
   .mscrim.open { display:flex; }
+  .mcard.mcal { max-width:920px; width:97%; padding:0; overflow:hidden; }
+  .mcalhead { display:flex; align-items:center; justify-content:space-between; padding:13px 18px; border-bottom:1px solid var(--border); }
+  .mcalhead b { font-size:16px; font-weight:800; }
+  #cal-frame { width:100%; height:640px; border:0; display:block; background:#fff; }
+  @media (max-width:640px){ #cal-frame { height:70vh; } }
   .mcard { width:100%; max-width:400px; background:var(--card); border:1px solid var(--border); border-radius:20px; box-shadow:var(--sh-lg); padding:24px 20px; text-align:left; }
   .mcard h3 { font-size:19px; font-weight:800; text-align:center; }
   .mcard .ms { margin-top:6px; font-size:13px; line-height:1.55; color:var(--muted); text-align:center; }
@@ -605,29 +610,19 @@
 
 <!-- ======================= BOOKING MODAL ======================= -->
 <div class="mscrim" id="mscrim" onclick="if(event.target===this)closeBooking()">
-  <div class="mcard">
-    <div id="m-form">
+  <div class="mcard mcal">
+    <div class="mcalhead">
+      <b>Book your call</b>
       <button class="mclose" onclick="closeBooking()" aria-label="Close">✕</button>
-      <h3>Book a call</h3>
-      <p class="ms">Leave your details and we'll call you back (1–7pm Central) to map out exactly what you want and quote it — no obligation.</p>
-      <div class="field"><label>Your name</label><input id="bk-name" type="text" placeholder="Full name" /></div>
-      <div class="field"><label>Email</label><input id="bk-email" type="email" placeholder="you@email.com" /></div>
-      <div class="field"><label>Phone</label><input id="bk-phone" type="tel" placeholder="(555) 555-5555" /></div>
-      <div class="field"><label>What do you need? (optional)</label><textarea id="bk-note" placeholder="A custom multi-page site, a chat widget, booking, SEO…"></textarea></div>
-      <div class="errmsg" id="bk-err"></div>
-      <div class="center"><button class="cta" id="bk-go" onclick="submitBooking()">Request my call →</button></div>
     </div>
-    <div class="mdone" id="m-done">
-      <div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-      <h3>You're on the list</h3>
-      <p class="ms">We'll call you within 1 business day. Talk soon!</p>
-      <div class="center"><button class="cta ghost" onclick="closeBooking()">Done</button></div>
-    </div>
+    <iframe id="cal-frame" title="Book your OneApp strategy call" src="about:blank"></iframe>
+    <div style="text-align:center;padding:10px 0 12px"><a class="openlink" id="cal-open" href="#" target="_blank" rel="noopener">Trouble loading? Open the calendar in a new tab ↗</a></div>
   </div>
 </div>
 
 <script>
 var API = 'https://onevoice-checkout.vercel.app';
+var BOOKING_URL = 'https://api.leadconnectorhq.com/widget/booking/rghlggjZP931B1mISGls';
 
 var state = { mode:'', id:'', sourceUrl:'', email:'', plan:'basic', opts:[], term:'quarterly' };
 
@@ -673,7 +668,7 @@ function openDrawer(on){
   $('scrim').classList.toggle('open', on);
   $('drawer').setAttribute('aria-hidden', on?'false':'true');
 }
-function bookCall(src){ $('m-form').style.display='block'; $('m-done').style.display='none'; $('bk-err').style.display='none'; $('mscrim').classList.add('open'); }
+function bookCall(src){ var f=$('cal-frame'); if(!/leadconnector/.test(f.src||'')) f.src=BOOKING_URL; $('cal-open').href=BOOKING_URL; $('mscrim').classList.add('open'); }
 function closeBooking(){ $('mscrim').classList.remove('open'); }
 function submitBooking(){
   $('bk-err').style.display='none';
@@ -803,12 +798,10 @@ function claim(){
 
   // Custom → request a callback (no card), then send to booking.
   if (state.plan==='custom'){
-    var btnc=$('o-go'); btnc.disabled=true; btnc.textContent='One moment…';
-    fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:['Custom multi-page build (from $499)'], notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) })
-      .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
-      .then(function(x){ if(!x.ok) throw new Error(x.j && x.j.error || 'Please try again.'); $('b-panel').style.display='none'; $('b-addon').style.display='block'; document.getElementById('builder').scrollIntoView({behavior:'smooth'}); })
-      .catch(function(e){ btnc.disabled=false; btnc.textContent='Book my call →'; err('o-err', e.message); });
+    // capture the lead for Lee (best-effort), then open the calendar to pick a time
+    try { fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:['Custom multi-page build (from $499)'], notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) }); } catch(e){}
+    bookCall('custom');
     return;
   }
 
