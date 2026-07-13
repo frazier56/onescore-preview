@@ -655,7 +655,7 @@ function applyLang(lang){
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var k = el.getAttribute('data-i18n');
     if (!(k in EN_CACHE)) EN_CACHE[k] = el.textContent;
-    el.textContent = (lang === 'es' && I18N.es[k]) ? I18N.es[k] : EN_CACHE[k];
+    el.textContent = (lang !== 'en' && I18N[lang] && I18N[lang][k]) ? I18N[lang][k] : EN_CACHE[k];
   });
   document.getElementById('langflag').textContent = I18N[lang].flag;
   var _lc = document.getElementById('langcode'); if (_lc) _lc.textContent = I18N[lang].code;
