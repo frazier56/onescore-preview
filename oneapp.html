@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OneApp — Your Business. One App. | One World Labs</title>
-<meta name="description" content="Our AI rebuilds your website free. You only pay $199/mo hosting — domain, business email, security included. By One World Labs." />
+<meta name="description" content="Our AI builds you a modern website — free. See it before you pay. Then keep it from $97/mo: hosting, domain, business email, security included. By One World Labs." />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="theme-color" content="#0B0F1A" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,44 +20,68 @@
     --sh-lg:0 8px 32px rgba(11,15,26,.12);
     --r-card:16px; --r-btn:12px;
   }
+  html[data-theme="dark"] {
+    --bg:#0B0F1A; --ink:#F2F4F8; --muted:#A8B0BD; --faint:#6b7280;
+    --card:#141A24; --border:#232b38;
+    --sh-sm:0 1px 3px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.3);
+    --sh-lg:0 8px 32px rgba(0,0,0,.45);
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body { background:var(--bg); color:var(--ink); font-family:Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
-  .wrap { max-width:640px; margin:0 auto; padding:0 20px; }
+  body { background:var(--bg); color:var(--ink); font-family:Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; transition:background .3s ease, color .3s ease; }
+  .wrap { max-width:660px; margin:0 auto; padding:0 20px; }
   .seclabel { font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
   .sechead { margin-top:10px; font-size:26px; line-height:1.15; font-weight:800; letter-spacing:-.02em; text-align:center; }
-  .secsub { margin-top:10px; font-size:14.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:30rem; margin-left:auto; margin-right:auto; }
+  .secsub { margin-top:10px; font-size:14.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:32rem; margin-left:auto; margin-right:auto; }
   section { padding:64px 0 0; }
   .cta { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:16px 32px; border-radius:var(--r-btn); background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:15.5px; font-weight:800; text-decoration:none; border:0; cursor:pointer; font-family:inherit; box-shadow:0 8px 26px rgba(13,148,136,.32), inset 0 1px 0 rgba(255,255,255,.22); transition:transform .15s ease, box-shadow .15s ease; }
   .cta:hover { transform:translateY(-1px); box-shadow:0 12px 32px rgba(13,148,136,.4), inset 0 1px 0 rgba(255,255,255,.22); }
   .cta:disabled { opacity:.55; cursor:default; transform:none; }
+  .cta.ghost { background:transparent; color:var(--teal-d); border:1.5px solid var(--teal-d); box-shadow:none; }
   .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity:1; transform:none; }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; transition:none; } html { scroll-behavior:auto; } }
 
-  /* ---------- sticky bar ---------- */
-  .bar { position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:10px 18px; background:rgba(11,15,26,.72); backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); border-bottom:1px solid rgba(250,250,248,.08); transform:translateY(-100%); transition:transform .3s ease; }
-  .bar.show { transform:none; }
-  .bar .lk { font-size:18px; font-weight:800; color:var(--cream); }
-  .bar .lk b { color:var(--teal); font-weight:700; }
-  .bar a { padding:9px 18px; border-radius:10px; background:var(--teal); color:#04302b; font-size:13px; font-weight:800; text-decoration:none; }
+  /* ---------- top nav (hub-consistent) ---------- */
+  .nav { position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:11px 18px; background:rgba(11,15,26,.72); backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); border-bottom:1px solid rgba(250,250,248,.08); }
+  .nav .brand { display:flex; align-items:center; gap:9px; font-size:18px; font-weight:800; color:var(--cream); letter-spacing:-.01em; }
+  .nav .brand b { color:var(--teal); font-weight:700; }
+  .nav .brand .mk { width:26px; height:26px; border-radius:8px; background:linear-gradient(135deg,var(--teal),var(--teal-d)); display:flex; align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(13,148,136,.4); }
+  .nav .brand .mk svg { color:#04302b; }
+  .nav .ctrl { display:flex; align-items:center; gap:8px; }
+  .iconbtn { width:38px; height:38px; border-radius:10px; border:1px solid rgba(250,250,248,.12); background:rgba(26,33,46,.5); color:var(--cream); display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:inherit; transition:background .15s ease; }
+  .iconbtn:hover { background:rgba(26,33,46,.9); }
+  .navcta { padding:9px 16px; border-radius:10px; background:var(--teal); color:#04302b; font-size:13px; font-weight:800; text-decoration:none; }
+  @media (max-width:480px){ .navcta { display:none; } }
+  /* drawer */
+  .scrim { position:fixed; inset:0; z-index:70; background:rgba(0,0,0,.5); opacity:0; pointer-events:none; transition:opacity .25s ease; }
+  .scrim.open { opacity:1; pointer-events:auto; }
+  .drawer { position:fixed; top:0; right:0; bottom:0; z-index:71; width:290px; max-width:84vw; background:var(--dark); border-left:1px solid rgba(250,250,248,.08); transform:translateX(100%); transition:transform .28s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; padding:18px; }
+  .drawer.open { transform:none; }
+  .drawer .dhead { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .drawer .dhead .brand { font-size:17px; font-weight:800; color:var(--cream); }
+  .drawer .dhead .brand b { color:var(--teal); }
+  .drawer a, .drawer button.dlink { display:flex; align-items:center; gap:11px; padding:13px 12px; border-radius:11px; color:var(--cream); text-decoration:none; font-size:14.5px; font-weight:600; background:none; border:0; font-family:inherit; cursor:pointer; text-align:left; width:100%; }
+  .drawer a:hover, .drawer button.dlink:hover { background:rgba(26,33,46,.7); }
+  .drawer .prime { background:var(--teal); color:#04302b; font-weight:800; justify-content:center; margin-top:4px; }
+  .drawer .prime:hover { background:var(--teal-l); }
+  .drawer .dsec { margin-top:14px; padding-top:12px; border-top:1px solid rgba(250,250,248,.09); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-dark); padding-left:12px; margin-bottom:4px; }
+  .drawer .dfoot { margin-top:auto; font-size:11.5px; color:var(--muted-dark); text-align:center; padding-top:14px; }
 
   /* ---------- hero (dark) ---------- */
-  .hero { background:linear-gradient(135deg,var(--dark) 0%,var(--raised) 100%); color:var(--cream); padding:56px 0 0; position:relative; overflow:hidden; }
-  .hero::before { content:""; position:absolute; top:-180px; left:50%; transform:translateX(-50%); width:640px; height:520px; background:radial-gradient(closest-side, rgba(20,184,166,.14), transparent); pointer-events:none; }
+  .hero { background:linear-gradient(135deg,var(--dark) 0%,var(--raised) 100%); color:var(--cream); padding:78px 0 0; position:relative; overflow:hidden; }
+  .hero::before { content:""; position:absolute; top:-160px; left:50%; transform:translateX(-50%); width:640px; height:520px; background:radial-gradient(closest-side, rgba(20,184,166,.14), transparent); pointer-events:none; }
   .hero .wrap { position:relative; text-align:center; }
-  .hero .lockup { font-size:34px; font-weight:800; letter-spacing:-.01em; }
-  .hero .lockup b { color:var(--teal); font-weight:700; }
-  .hero .tag { margin-top:6px; font-size:11.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted-dark); }
-  .hero h1 { margin-top:38px; font-size:34px; line-height:1.12; font-weight:900; letter-spacing:-.025em; }
+  .hero .kick { display:inline-block; padding:6px 14px; border-radius:999px; background:rgba(20,184,166,.13); border:1px solid rgba(20,184,166,.4); color:var(--teal-l); font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+  .hero h1 { margin-top:20px; font-size:35px; line-height:1.1; font-weight:900; letter-spacing:-.025em; }
   .hero h1 span { color:var(--teal); }
-  .hero .sub { margin-top:14px; font-size:15.5px; line-height:1.65; color:var(--muted-dark); max-width:29rem; margin-left:auto; margin-right:auto; }
+  .hero .sub { margin-top:14px; font-size:15.5px; line-height:1.65; color:var(--muted-dark); max-width:31rem; margin-left:auto; margin-right:auto; }
   .hero .sub b { color:var(--cream); font-weight:700; }
   .trust { margin-top:22px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
   .trust span { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; background:rgba(26,33,46,.55); border:1px solid rgba(250,250,248,.08); font-size:12px; font-weight:600; color:var(--muted-dark); }
   .trust svg { color:var(--teal); flex-shrink:0; }
   /* before/after mockup */
-  .mock { position:relative; margin:46px auto -70px; max-width:480px; height:300px; }
+  .mock { position:relative; margin:44px auto -70px; max-width:480px; height:300px; }
   .mockcard { position:absolute; border-radius:14px; overflow:hidden; box-shadow:0 22px 60px rgba(0,0,0,.5); }
   .mock .old { top:0; left:0; width:62%; transform:rotate(-3.5deg); opacity:.55; filter:grayscale(1); }
   .mock .new { top:24px; right:0; width:76%; animation:float 6s ease-in-out infinite; }
@@ -78,7 +102,18 @@
   .new .imgrow i { flex:1; height:44px; border-radius:8px; background:linear-gradient(135deg,#1f2937,#111827); border:1px solid rgba(250,250,248,.06); }
   .badge-ai { position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:rgba(26,33,46,.85); backdrop-filter:blur(12px); border:1px solid rgba(20,184,166,.35); font-size:12px; font-weight:700; color:var(--cream); white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.45); }
   .badge-ai svg { color:var(--teal); }
-  .hero-pad { height:96px; background:var(--bg); }
+  .hero-pad { height:96px; background:var(--bg); transition:background .3s ease; }
+
+  /* ---------- Summer-of-AI offer band ---------- */
+  .offerband { margin-top:26px; border:1.5px solid rgba(20,184,166,.4); border-radius:20px; background:linear-gradient(180deg, rgba(20,184,166,.07), rgba(20,184,166,.02)); padding:26px 20px; text-align:center; }
+  .offerband .pin { display:inline-block; padding:5px 13px; border-radius:999px; background:var(--teal-d); color:#fff; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+  .offerband h2 { margin-top:14px; font-size:23px; line-height:1.2; font-weight:900; letter-spacing:-.02em; }
+  .offerband h2 s { color:var(--faint); text-decoration-thickness:3px; font-weight:700; }
+  .offerband h2 em { color:var(--teal-d); font-style:normal; }
+  .offerband p { margin-top:12px; font-size:14px; line-height:1.65; color:var(--muted); max-width:32rem; margin-left:auto; margin-right:auto; }
+  .offerband .mini { margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .offerband .mini span { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; background:var(--card); border:1px solid var(--border); font-size:12.5px; font-weight:700; color:var(--ink); box-shadow:var(--sh-sm); }
+  .offerband .mini svg { color:var(--teal-d); }
 
   /* ---------- features ---------- */
   .fgrid { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; }
@@ -96,27 +131,46 @@
   .step p { font-size:14px; font-weight:700; }
   .step span { display:block; margin-top:3px; font-size:12.5px; line-height:1.55; color:var(--muted); }
 
-  /* ---------- upgrades ---------- */
-  .ugrid { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:left; }
-  @media (max-width:430px){ .ugrid { grid-template-columns:1fr; } }
-  .uc { display:flex; gap:11px; align-items:center; border:1px solid var(--border); border-radius:14px; background:var(--card); padding:13px 14px; box-shadow:var(--sh-sm); }
-  .uc .ic { width:34px; height:34px; border-radius:9px; flex-shrink:0; }
-  .uc p { font-size:13px; font-weight:700; line-height:1.35; }
-  .unote { margin-top:16px; font-size:12.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:28rem; margin-left:auto; margin-right:auto; }
+  /* ---------- pricing tiers ---------- */
+  .tiers { margin-top:26px; display:grid; grid-template-columns:1fr; gap:14px; text-align:left; }
+  .tier { border:1px solid var(--border); border-radius:20px; background:var(--card); box-shadow:var(--sh-sm); padding:22px 20px; position:relative; }
+  .tier.feat { border:1.5px solid rgba(20,184,166,.55); box-shadow:var(--sh-lg); }
+  .tier .flag { position:absolute; top:-11px; left:20px; padding:5px 12px; border-radius:999px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; box-shadow:0 4px 12px rgba(13,148,136,.35); }
+  .tier .tname { font-size:13px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--teal-d); }
+  .tier .tp { margin-top:8px; display:flex; align-items:baseline; gap:4px; }
+  .tier .tp b { font-size:38px; font-weight:900; letter-spacing:-.03em; }
+  .tier .tp span { font-size:14px; color:var(--muted); font-weight:600; }
+  .tier .tdesc { margin-top:6px; font-size:13px; line-height:1.55; color:var(--muted); }
+  .tier ul { list-style:none; margin-top:14px; display:flex; flex-direction:column; gap:9px; }
+  .tier li { display:flex; gap:9px; align-items:flex-start; font-size:13.5px; line-height:1.5; }
+  .tier li svg { flex-shrink:0; margin-top:2px; color:var(--teal-d); }
+  .tier .tcta { margin-top:18px; }
+  .tier .tcta a { display:block; text-align:center; }
+  .valuenote { margin-top:16px; font-size:12.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:32rem; margin-left:auto; margin-right:auto; }
 
-  /* ---------- pricing ---------- */
-  .price-card { margin-top:26px; border:1px solid rgba(20,184,166,.35); border-radius:20px; background:var(--card); box-shadow:var(--sh-lg); overflow:hidden; text-align:left; }
-  .price-top { background:linear-gradient(135deg,var(--dark),var(--raised)); padding:26px 22px; text-align:center; position:relative; overflow:hidden; }
-  .price-top::before { content:""; position:absolute; top:-90px; left:50%; transform:translateX(-50%); width:360px; height:260px; background:radial-gradient(closest-side, rgba(20,184,166,.18), transparent); }
-  .price-top .free { position:relative; display:inline-block; padding:6px 14px; border-radius:999px; background:rgba(20,184,166,.14); border:1px solid rgba(20,184,166,.4); color:var(--teal-l); font-size:11.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
-  .price-top .amt { position:relative; margin-top:14px; color:var(--cream); }
-  .price-top .amt b { font-size:46px; font-weight:900; letter-spacing:-.03em; }
-  .price-top .amt span { font-size:15px; color:var(--muted-dark); font-weight:600; }
-  .price-top .bill { position:relative; margin-top:6px; font-size:12.5px; color:var(--muted-dark); }
-  .price-body { padding:20px 22px 24px; }
-  .inc-item { display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.55; margin-top:10px; }
-  .inc-item svg { flex-shrink:0; margin-top:2px; color:var(--teal-d); }
-  .terms { margin-top:16px; font-size:11.5px; line-height:1.7; color:var(--faint); }
+  /* ---------- add-ons / grow ---------- */
+  .addons { margin-top:26px; border:1px solid var(--border); border-radius:20px; background:var(--card); box-shadow:var(--sh-sm); padding:22px 18px; text-align:left; }
+  .addons h3 { font-size:16px; font-weight:800; text-align:center; }
+  .addons .as { margin-top:8px; font-size:13px; line-height:1.6; color:var(--muted); text-align:center; }
+  .aopts { margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+  @media (max-width:430px){ .aopts { grid-template-columns:1fr; } }
+  .aopt { display:flex; gap:10px; align-items:center; border:1.5px solid var(--border); border-radius:12px; background:var(--bg); padding:12px 13px; cursor:pointer; font-family:inherit; text-align:left; color:var(--ink); font-size:13px; font-weight:600; transition:border-color .15s ease, background .15s ease; }
+  .aopt.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); }
+  .aopt .abox { flex-shrink:0; width:18px; height:18px; border-radius:5px; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; }
+  .aopt.on .abox { border-color:var(--teal-d); background:var(--teal-d); }
+  .aopt .abox svg { color:#fff; opacity:0; }
+  .aopt.on .abox svg { opacity:1; }
+  .addform { display:none; margin-top:14px; }
+  .addform.show { display:block; }
+
+  /* ---------- FAQ ---------- */
+  .faq { margin-top:24px; display:flex; flex-direction:column; gap:10px; text-align:left; }
+  .faq details { border:1px solid var(--border); border-radius:14px; background:var(--card); box-shadow:var(--sh-sm); overflow:hidden; }
+  .faq summary { list-style:none; cursor:pointer; padding:16px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary .pm { flex-shrink:0; width:20px; height:20px; color:var(--teal-d); transition:transform .2s ease; }
+  .faq details[open] summary .pm { transform:rotate(45deg); }
+  .faq .fa { padding:0 18px 16px; font-size:13.5px; line-height:1.65; color:var(--muted); }
 
   /* ---------- builder ---------- */
   .panel { margin-top:26px; border:1px solid var(--border); border-radius:20px; background:var(--card); padding:26px 18px; text-align:left; box-shadow:var(--sh-lg); }
@@ -128,7 +182,7 @@
   .chip.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); }
   .field { margin-top:12px; }
   .field label { display:block; font-size:12px; font-weight:700; color:var(--muted); margin-bottom:5px; }
-  .field input, .field textarea { width:100%; border:1.5px solid var(--border); border-radius:12px; background:#fff; padding:13px 14px; font-size:15px; font-family:inherit; color:var(--ink); outline:none; transition:border-color .15s ease; }
+  .field input, .field textarea { width:100%; border:1.5px solid var(--border); border-radius:12px; background:var(--card); padding:13px 14px; font-size:15px; font-family:inherit; color:var(--ink); outline:none; transition:border-color .15s ease; }
   .field input:focus, .field textarea:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(20,184,166,.12); }
   .field textarea { min-height:84px; resize:vertical; }
   .errmsg { margin-top:12px; font-size:13px; font-weight:600; color:#dc2626; display:none; }
@@ -150,19 +204,35 @@
   .changes h3 { font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
   .chg { display:flex; gap:10px; align-items:flex-start; margin-top:10px; font-size:13.5px; line-height:1.5; }
   .chg svg { flex-shrink:0; margin-top:1px; color:var(--teal-d); }
+
+  /* plan chooser (post-preview) */
   .offer { margin-top:28px; border:1.5px solid rgba(20,184,166,.4); border-radius:18px; padding:22px 16px; background:linear-gradient(180deg, rgba(20,184,166,.05), rgba(20,184,166,.02)); }
-  .offer h3 { font-size:17px; font-weight:800; text-align:center; }
-  .oprice { text-align:center; margin-top:8px; }
-  .oprice b { font-size:36px; font-weight:900; letter-spacing:-.03em; }
-  .oprice span { font-size:14px; color:var(--muted); font-weight:600; }
-  .obill { text-align:center; margin-top:4px; font-size:12px; color:var(--faint); }
-  .freeb { margin-top:20px; display:grid; grid-template-columns:1fr; gap:8px; }
-  .fb { display:flex; gap:11px; align-items:flex-start; border:1.5px solid var(--border); border-radius:12px; background:#fff; padding:13px; cursor:pointer; font-family:inherit; text-align:left; width:100%; transition:border-color .15s ease, background .15s ease; }
+  .offer h3 { font-size:18px; font-weight:800; text-align:center; }
+  .offer .osub { margin-top:6px; font-size:13px; line-height:1.55; color:var(--muted); text-align:center; }
+  .planpick { margin-top:18px; display:flex; flex-direction:column; gap:10px; }
+  .pp { display:flex; gap:12px; align-items:flex-start; border:1.5px solid var(--border); border-radius:14px; background:var(--card); padding:15px 14px; cursor:pointer; font-family:inherit; text-align:left; width:100%; transition:border-color .15s ease, background .15s ease; }
+  .pp.on { border-color:var(--teal-d); background:rgba(20,184,166,.07); }
+  .pp .ppr { flex-shrink:0; width:18px; height:18px; margin-top:2px; border-radius:999px; border:2px solid var(--border); }
+  .pp.on .ppr { border-color:var(--teal-d); background:radial-gradient(circle, var(--teal-d) 45%, transparent 50%); }
+  .pp .ppmain b { font-size:14.5px; }
+  .pp .ppmain .amt { font-weight:900; }
+  .pp .ppmain span { display:block; margin-top:2px; font-size:12.5px; line-height:1.45; color:var(--muted); }
+  .picktwo { display:none; margin-top:14px; padding:14px; border:1px dashed var(--border); border-radius:12px; }
+  .picktwo.show { display:block; }
+  .picktwo .pt-h { font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
+  .picktwo .pt-h b { color:var(--ink); }
+  .freeb { margin-top:12px; display:grid; grid-template-columns:1fr; gap:8px; }
+  .fb { display:flex; gap:11px; align-items:flex-start; border:1.5px solid var(--border); border-radius:12px; background:var(--card); padding:13px; cursor:pointer; font-family:inherit; text-align:left; width:100%; transition:border-color .15s ease, background .15s ease; }
   .fb.on { border-color:var(--teal-d); background:rgba(20,184,166,.07); }
+  .fb.dim { opacity:.5; }
   .fb b { font-size:13.5px; }
   .fb span { display:block; margin-top:2px; font-size:12px; line-height:1.45; color:var(--muted); }
-  .fbr { flex-shrink:0; width:18px; height:18px; margin-top:2px; border-radius:999px; border:2px solid var(--border); }
-  .fb.on .fbr { border-color:var(--teal-d); background:radial-gradient(circle, var(--teal-d) 45%, transparent 50%); }
+  .fbr { flex-shrink:0; width:18px; height:18px; margin-top:2px; border-radius:5px; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; }
+  .fb.on .fbr { border-color:var(--teal-d); background:var(--teal-d); }
+  .fbr svg { color:#fff; opacity:0; }
+  .fb.on .fbr svg { opacity:1; }
+  .customnote { display:none; margin-top:12px; font-size:13px; line-height:1.6; color:var(--muted); text-align:center; padding:12px; border:1px dashed var(--border); border-radius:12px; }
+  .customnote.show { display:block; }
   .paidbox { display:none; margin-top:26px; border:1.5px solid rgba(20,184,166,.4); border-radius:20px; background:var(--card); box-shadow:var(--sh-lg); padding:30px 20px; text-align:center; }
   .paidbox h2 { font-size:21px; font-weight:800; }
   .paidbox p { margin-top:10px; font-size:14px; line-height:1.65; color:var(--muted); }
@@ -194,23 +264,55 @@
   setTimeout(function(){ var e=document.getElementById("oa-splash"); e&&e.remove(); }, 3600);
 </script>
 
-<div class="bar" id="topbar">
-  <div class="lk"><b>One</b>App</div>
-  <a href="#builder">Build my site free</a>
-</div>
+<!-- ======================= TOP NAV ======================= -->
+<nav class="nav">
+  <div class="brand">
+    <span class="mk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span>
+    <span><b>One</b>App</span>
+  </div>
+  <div class="ctrl">
+    <button class="iconbtn" id="themebtn" aria-label="Toggle light/dark" onclick="toggleTheme()">
+      <svg id="ic-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    </button>
+    <a class="navcta" href="#builder">See my site free</a>
+    <button class="iconbtn" aria-label="Menu" onclick="openDrawer(true)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- drawer -->
+<div class="scrim" id="scrim" onclick="openDrawer(false)"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="dhead">
+    <div class="brand"><b>One</b>App</div>
+    <button class="iconbtn" aria-label="Close" onclick="openDrawer(false)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <a class="prime" href="#builder" onclick="openDrawer(false)">See my site — free</a>
+  <a href="https://www.oneworldlabs.ai/choose.html">Sign in with One&nbsp;ID</a>
+  <button class="dlink" onclick="openDrawer(false);bookCall('nav')">Book a call</button>
+  <button class="dlink" onclick="toggleTheme()"><span id="dl-theme">Switch to light mode</span></button>
+  <div class="dsec">One World family</div>
+  <a href="https://www.oneworldlabs.ai/">One World Labs hub</a>
+  <a href="https://www.oneworldlabs.ai/">OneVoice — AI answering</a>
+  <a href="https://www.oneworldlabs.ai/onescore-preview/">OneScore — credibility</a>
+  <a href="https://www.oneworldlabs.ai/">OneSocial — bookings</a>
+  <div class="dfoot">A One World Labs company</div>
+</aside>
 
 <!-- ======================= HERO ======================= -->
 <div class="hero">
   <div class="wrap">
-    <div class="lockup"><b>One</b>App</div>
-    <div class="tag">Your Business. One App.</div>
-    <h1>Your website, rebuilt by AI.<br><span>Free.</span></h1>
-    <p class="sub">Watch our AI redesign your entire website while you wait — then keep it. <b>The website costs nothing.</b> You only pay for hosting, and we handle everything: domain, email, security, updates.</p>
-    <div style="margin-top:26px"><a class="cta" href="#builder">Build my site free →</a></div>
+    <span class="kick">☀ The Summer of AI</span>
+    <h1>Your website, built by AI.<br><span>See it free — then keep it.</span></h1>
+    <p class="sub">Show us your old site or just tell us about your business. Our AI builds you a modern website in about a minute — <b>you see it before you pay a dime.</b> Love it? Keep it from <b>$97/mo</b>, hosting and everything handled.</p>
+    <div style="margin-top:26px"><a class="cta" href="#builder">See my new site free →</a></div>
     <div class="trust">
-      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No setup fee</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>See it free first</span>
       <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Live in 24 hours</span>
-      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.9H21l-5.4 4.2 2 6.9-5.6-4.3-5.6 4.3 2-6.9L3 8.9h6.6z"/></svg>$199/mo all-in</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M8 6h10v10"/></svg>From $97/mo · cancel anytime</span>
     </div>
     <div class="mock" aria-hidden="true">
       <div class="mockcard old" style="height:210px">
@@ -226,6 +328,31 @@
   </div>
   <div class="hero-pad"></div>
 </div>
+
+<!-- ======================= SUMMER-OF-AI OFFER ======================= -->
+<section class="wrap reveal" style="padding-top:8px" id="offer">
+  <div class="offerband">
+    <span class="pin">Limited summer promotion</span>
+    <h2>A professional website: <s>$2,500</s> → <em>free to build.</em></h2>
+    <p>New AI tools let us build a real, custom website at a fraction of the old cost — so this summer we're giving the <b>build away free</b> (a basic professional site normally runs about $2,500). You only cover simple monthly hosting &amp; care. See exactly what you'll get first — pay only if you love it.</p>
+    <div class="mini">
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Built in ~24 hours</span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Try it before you pay</span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No setup fee</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= WHO IT'S FOR ======================= -->
+<section class="wrap reveal">
+  <div class="seclabel">Who it's for</div>
+  <div class="sechead">A website isn't an expense.<br>It's protection.</div>
+  <p class="secsub">Every customer who can't find you — or can't trust what they see — is business you lost without knowing it. A modern site gives you instant credibility, captures leads, and gives people a reason to call.</p>
+  <div class="steps">
+    <div class="step"><div class="stepn">✓</div><div><p>You have an outdated website</p><span>If it looks like 2010, it's working against you. We rebuild it into something that earns trust and actually captures leads.</span></div></div>
+    <div class="step"><div class="stepn">✓</div><div><p>You have no website at all</p><span>In 2026, no website means invisible. Get a credible online home — with a contact form and a way for customers to reach you — in 24 hours.</span></div></div>
+  </div>
+</section>
 
 <!-- ======================= FEATURES ======================= -->
 <section class="wrap reveal" id="features">
@@ -247,47 +374,92 @@
   <div class="seclabel">How it works</div>
   <div class="sechead">Three steps. One day.</div>
   <div class="steps">
-    <div class="step"><div class="stepn">1</div><div><p>Show us your site — or tell us about your business</p><span>Our AI rebuilds it, free. You watch the preview appear on screen.</span></div></div>
-    <div class="step"><div class="stepn">2</div><div><p>Love it? Claim it — the website is free</p><span>You only pay hosting: $199/mo — billed $597 every 4 months, so your 4th month is FREE. We register your domain, set up your business email, and apply any changes you request.</span></div></div>
+    <div class="step"><div class="stepn">1</div><div><p>Show us your site — or tell us about your business</p><span>Our AI builds it, free. You watch the preview appear on screen in about a minute.</span></div></div>
+    <div class="step"><div class="stepn">2</div><div><p>Love it? Pick a plan and claim it</p><span>The build is free — you only pay to host and maintain it, from $97/mo. We register your domain, set up your business email, and apply any changes you ask for.</span></div></div>
     <div class="step"><div class="stepn">3</div><div><p>Live within 24 hours</p><span>Your finished site lands in your inbox — hosted, secured, and connected to the One World family: OneVoice answering, OneScore credibility, OneSocial bookings.</span></div></div>
   </div>
 </section>
 
-<!-- ======================= UPGRADES ======================= -->
-<section class="wrap reveal">
-  <div class="seclabel">Grow whenever you're ready</div>
-  <div class="sechead">Upgrades, on request</div>
-  <p class="secsub">Every OneApp customer can request any of these, anytime. A real person calls you back, makes sure we understand exactly what you want, and quotes it straight.</p>
-  <div class="ugrid">
-    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.1-7-11a7 7 0 1114 0c0 5.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><p>Google Business Profile &amp; Maps</p></div>
-    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.9H21l-5.4 4.2 2 6.9-5.6-4.3-5.6 4.3 2-6.9L3 8.9h6.6z"/></svg></div><p>Google review management</p></div>
-    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16M9 15h2v2H9z"/></svg></div><p>Online booking &amp; scheduling</p></div>
-    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/><path d="M12 3l.9 2.4L15.3 6l-2.4.9L12 9.3l-.9-2.4L8.7 6l2.4-.6z"/></svg></div><p>Enhanced AI chatbot</p></div>
-    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div><p>Full SEO — rank higher</p></div>
-    <div class="uc"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4z"/><path d="M8 8h8M8 12h5"/></svg></div><p>Social media content</p></div>
+<!-- ======================= PRICING (3 tiers) ======================= -->
+<section class="wrap reveal" id="pricing">
+  <div class="seclabel">Simple, honest pricing</div>
+  <div class="sechead">The website is free.<br>Pick how much you want it to do.</div>
+  <p class="secsub">Every plan includes the free AI build, managed hosting, your domain, a business email, security &amp; backups, and our 48-hour support promise. No setup fee. Cancel anytime.</p>
+  <div class="tiers">
+    <!-- Basic -->
+    <div class="tier">
+      <div class="tname">Basic</div>
+      <div class="tp"><b>$97</b><span>/month</span></div>
+      <div class="tdesc">A clean, professional one-page website that says who you are, what you do, and how to reach you.</div>
+      <ul>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Free AI-built one-page site</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Managed hosting + SSL security</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Your domain + business email</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>48-hour support promise</div></li>
+      </ul>
+      <div class="tcta"><a class="cta ghost" href="#builder">Start free →</a></div>
+    </div>
+    <!-- Standard -->
+    <div class="tier feat">
+      <div class="flag">Most popular</div>
+      <div class="tname">Standard</div>
+      <div class="tp"><b>$197</b><span>/month</span></div>
+      <div class="tdesc">Everything in Basic, plus <b>pick 2 of 3</b> lead-getting features to turn visitors into customers.</div>
+      <ul>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Everything in Basic</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Contact form</b> — capture &amp; call back leads</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>AI chat widget</b> — answers visitors 24/7</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Photo &amp; text edits</b> — dialed in for you</div></li>
+      </ul>
+      <div class="tcta"><a class="cta" href="#builder">Start free →</a></div>
+    </div>
+    <!-- Custom -->
+    <div class="tier">
+      <div class="tname">Custom</div>
+      <div class="tp"><b>From $500</b></div>
+      <div class="tdesc">A fully custom, multi-page site or web app — designed with you on a quick call. Perfect when you want something bigger.</div>
+      <ul>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Multi-page, fully custom design</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>SEO, bookings, dashboards — whatever you need</div></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Built with you on a short strategy call</div></li>
+      </ul>
+      <div class="tcta"><a class="cta ghost" href="#" onclick="bookCall('pricing');return false;">Book a call →</a></div>
+    </div>
   </div>
-  <p class="unote">Want something not on the list? If a web team can build it, we can build it — just ask.</p>
+  <p class="valuenote">Your $97–$197/mo covers real work: fast managed hosting &amp; SSL, your domain (we find, buy &amp; manage it), a business email on your domain, security &amp; backups, our 48-hour fix promise, and a 7-day launch grace where text and photo edits are free. Cancel anytime — you simply won't be billed again.</p>
 </section>
 
-<!-- ======================= PRICING ======================= -->
-<section class="wrap reveal">
-  <div class="seclabel">Simple, honest pricing</div>
-  <div class="price-card">
-    <div class="price-top">
-      <div class="free">Your website — built free</div>
-      <div class="amt"><b>$199</b><span>/month</span></div>
-      <div class="bill">Billed $597 every 4 months — 4th month FREE · no setup fee · cancel anytime</div>
+<!-- ======================= ADD-ONS ======================= -->
+<section class="wrap reveal" id="addons">
+  <div class="seclabel">Grow when you're ready</div>
+  <div class="sechead">Add more, anytime</div>
+  <p class="secsub">Your site is the foundation. When you want more — SEO, Google presence, an AI receptionist, a full dashboard — pick what you're interested in and we'll build a plan with you on a quick call.</p>
+  <div class="addons">
+    <h3>What would you like to add?</h3>
+    <p class="as">Select anything you're curious about. Add-ons start at <b>$29/mo</b> — you put a card on file to book your call, and we quote the exact plan with you (no charge to talk beyond that).</p>
+    <div class="aopts" id="aopts"></div>
+    <div class="addform" id="addform">
+      <div class="field"><label>Your name</label><input id="ad-name" type="text" placeholder="Full name" /></div>
+      <div class="field"><label>Email</label><input id="ad-email" type="email" placeholder="you@email.com" /></div>
+      <div class="field"><label>Phone</label><input id="ad-phone" type="tel" placeholder="(555) 555-5555" /></div>
+      <div class="errmsg" id="ad-err"></div>
+      <div class="center"><button class="cta" id="ad-go" onclick="addonCheckout()">Continue — $29/mo &amp; book my call →</button></div>
+      <p class="ttl">You'll pick a time to talk (1–7pm Central). We only build what you approve on the call.</p>
     </div>
-    <div class="price-body">
-      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Your website, built for you</b> — free, delivered within 24 hours</div></div>
-      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Fast, secure hosting</b> with SSL — fully managed, always on</div></div>
-      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Your domain</b> — we find it, buy it, and manage it for you</div></div>
-      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Business email</b> on your own domain</div></div>
-      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Ongoing updates &amp; security</b> — we keep it fast and fresh</div></div>
-      <div class="inc-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>One free add-on</b> — contact form, basic SEO, or AI chatbot</div></div>
-      <div class="center"><a class="cta" href="#builder">See my new site first — free →</a></div>
-      <p class="terms">Billed $597 every 4 months — you pay 3 months, the 4th is FREE. Cancel anytime — you simply won't be billed again. Payments are non-refundable once a period starts. No contracts beyond the current period, no hidden fees.</p>
-    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section class="wrap reveal" id="faq">
+  <div class="seclabel">Good questions</div>
+  <div class="sechead">Everything you're wondering</div>
+  <div class="faq">
+    <details><summary>Is it really free to build?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Yes. AI lets us build a real, custom website at a fraction of the old cost, so this summer the build is free (a basic professional site normally runs ~$2,500). You see it before you pay, and you only ever pay for hosting &amp; care — from $97/mo.</div></details>
+    <details><summary>What's the difference between $97 and $197?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Basic ($97/mo) is a clean one-page site with hosting, your domain, business email, and security. Standard ($197/mo) adds two of three lead-getters — a contact form, an AI chat widget, or on-demand photo &amp; text edits — so your site actively brings you business.</div></details>
+    <details><summary>What if I want changes after it's live?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Your first 7 days include free text and photo edits — we dial it in until it's right. After that, small updates are part of your plan, and bigger changes are quick to request. Call us anytime and a real person helps.</div></details>
+    <details><summary>Do I own my domain?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Yes — the domain is registered for your business. We find it, buy it, and manage it for you so you never touch DNS settings, but it's yours.</div></details>
+    <details><summary>What if I don't buy — can I try again later?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Your free preview is your one free design. If you leave without keeping it, that design is removed. You're welcome to come back for a brand-new design anytime for a small $79 design fee — the AI builds you a fresh one to review.</div></details>
+    <details><summary>Can I upgrade later?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="fa">Absolutely. Start Basic and move up whenever you want more. SEO, Google Business &amp; reviews, bookings, a mobile app, a full dashboard — we can build all of it on top. Just ask and we'll quote it.</div></details>
   </div>
 </section>
 
@@ -298,17 +470,24 @@
 
   <div class="paidbox" id="b-paid">
     <h2>🎉 You're in!</h2>
-    <p>Your payment went through and our team is on it. <b>Your finished website lands in your inbox within 24 hours</b> — with your new domain, business email, and free add-on ready to go. Check your email for confirmation.</p>
+    <p>Your payment went through and our team is on it. <b>Your finished website lands in your inbox within 24 hours</b> — with your domain, business email, and features ready to go. Check your email for confirmation.</p>
+  </div>
+
+  <div class="paidbox" id="b-addon">
+    <h2>✅ You're set — let's talk</h2>
+    <p>Thanks! Your add-on is reserved. <b>Pick a time and we'll map out exactly what to build.</b></p>
+    <div class="center"><a class="cta" id="addon-book" href="#" target="_blank" rel="noopener">Pick a time to talk →</a></div>
   </div>
 
   <div class="panel" id="b-panel">
-    <!-- step 1: yes/no -->
+    <!-- step 1: email gate + yes/no -->
     <div id="b-ask">
-      <h2>Do you have a website today?</h2>
-      <p class="ps">Either way, it costs nothing.</p>
+      <h2>See your free website</h2>
+      <p class="ps">Enter your email, then tell us about your business. The AI builds your site in about a minute.</p>
+      <div class="field"><label>Your email — where we save your preview</label><input id="in-email" type="email" placeholder="you@email.com" /></div>
       <div class="choice">
-        <button class="chip" id="c-yes" onclick="pick('yes')">Yes, I do<small>We'll redesign it</small></button>
-        <button class="chip" id="c-no" onclick="pick('no')">Not yet<small>We'll build your first</small></button>
+        <button class="chip" id="c-yes" onclick="pick('yes')">I have a website<small>We'll redesign it</small></button>
+        <button class="chip" id="c-no" onclick="pick('no')">I don't yet<small>We'll build your first</small></button>
       </div>
       <div id="f-url" style="display:none">
         <div class="field"><label>Your website address</label><input id="in-url" type="url" placeholder="www.yourbusiness.com" /></div>
@@ -321,6 +500,7 @@
       </div>
       <div class="errmsg" id="b-err"></div>
       <div class="center" id="b-gowrap" style="display:none"><button class="cta" id="b-go" onclick="build()">Build it free →</button></div>
+      <p class="ttl" style="margin-top:14px">Free previews are saved for 48 hours. This is your one free design.</p>
     </div>
 
     <!-- step 2: loading -->
@@ -330,7 +510,7 @@
       <div id="b-loadsub">This usually takes 30–90 seconds. Don't close the page.</div>
     </div>
 
-    <!-- step 3: result + offer -->
+    <!-- step 3: result + plan chooser -->
     <div id="b-result">
       <h2>Your new site is ready. 👇</h2>
       <p class="ps">This is a live preview of your rebuilt website — scroll around inside it.</p>
@@ -347,42 +527,98 @@
       </div>
 
       <div class="offer">
-        <h3>Want it? The website is free.</h3>
-        <div class="oprice"><b>$199</b><span>/month hosting — that's everything</span></div>
-        <div class="obill">Billed $597 every 4 months — 4th month FREE · no setup fee</div>
-        <div class="freeb" id="fb-list">
-          <div style="font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d);text-align:center;">Pick your free add-on</div>
+        <h3>Love it? Pick your plan.</h3>
+        <div class="osub">The website is free — this covers hosting &amp; care. Cancel anytime.</div>
+
+        <div class="planpick" id="planpick">
+          <button class="pp on" id="pp-basic" onclick="pickPlan('basic')">
+            <div class="ppr"></div>
+            <div class="ppmain"><b>Basic — <span class="amt">$97</span>/mo</b><span>Clean one-page site · hosting · domain · business email · security</span></div>
+          </button>
+          <button class="pp" id="pp-standard" onclick="pickPlan('standard')">
+            <div class="ppr"></div>
+            <div class="ppmain"><b>Standard — <span class="amt">$197</span>/mo</b><span>Everything in Basic + pick 2 of 3 lead-getters</span></div>
+          </button>
+          <button class="pp" id="pp-custom" onclick="pickPlan('custom')">
+            <div class="ppr"></div>
+            <div class="ppmain"><b>Custom — from $500</b><span>Fully custom, multi-page — we build it with you on a call</span></div>
+          </button>
         </div>
+
+        <div class="picktwo" id="picktwo">
+          <div class="pt-h">Pick <b>2 of 3</b> — <span id="pt-count">0 of 2 chosen</span></div>
+          <div class="freeb" id="fb-list"></div>
+        </div>
+
+        <div class="customnote" id="customnote">
+          We'll build something fully custom with you. Leave your details below and pick a time — custom builds start at <b>$500</b>, quoted on the call.
+        </div>
+
         <div class="field"><label>Anything you'd like changed or added? (optional)</label><textarea id="in-notes" placeholder="Use our red logo colors, add our Google reviews, swap the photo on top…"></textarea></div>
         <div class="field"><label>Your name</label><input id="in-cname" type="text" placeholder="Full name" /></div>
         <div class="field"><label>Business name</label><input id="in-ccompany" type="text" placeholder="Company" /></div>
         <div class="field"><label>Email</label><input id="in-cemail" type="email" placeholder="you@email.com" /></div>
         <div class="field"><label>Phone</label><input id="in-cphone" type="tel" placeholder="(555) 555-5555" /></div>
         <div class="errmsg" id="o-err"></div>
-        <div class="center"><button class="cta" id="o-go" onclick="checkout()">Claim my site — $199/mo →</button></div>
-        <p class="terms" style="text-align:center">No setup fee. Delivered <b>within 24 hours</b>. Billed $597 every 4 months (4th month FREE) — cancel anytime and you won't be billed again (payments non-refundable once a period starts). Hosting includes your domain, business email, security, and updates. Upgrades — full SEO, Google presence, bookings, social content — available anytime by request.</p>
+        <div class="center"><button class="cta" id="o-go" onclick="claim()">Claim my site — $97/mo →</button></div>
+        <p class="ttl" style="text-align:center">No setup fee. Delivered within 24 hours. Cancel anytime — you won't be billed again (payments are non-refundable once a month starts). Hosting includes your domain, business email, security, and updates.</p>
       </div>
-      <p class="ps" style="margin-top:18px;">Want more — full SEO, Google Maps &amp; reviews, bookings, social content? <a href="mailto:contact@oneworldlabs.inc?subject=OneApp%20—%20upgrade%20question" style="color:var(--teal-d);font-weight:700;text-decoration:none;">Talk to us</a> — a real person calls you back with a straight quote.</p>
     </div>
   </div>
 </section>
 
-<div class="foot wrap">A <a href="./oneworldlabs.html">One World Labs</a> company · OneVoice · OneApp · OneScore · OneSocial</div>
+<div class="foot wrap">A <a href="https://www.oneworldlabs.ai/">One World Labs</a> company · OneVoice · OneApp · OneScore · OneSocial</div>
 
 <script>
 var API = 'https://onevoice-checkout.vercel.app';
-var state = { mode:'', id:'', sourceUrl:'', freebie:'form' };
+/* TODO(Lee): replace with your real GHL booking-calendar link (1–7pm Central). */
+var BOOKING_URL = 'https://www.oneworldlabs.ai/onescore-preview/oneapp.html#pricing';
 
-var FREEBIES = [
+var state = { mode:'', id:'', sourceUrl:'', email:'', plan:'basic', opts:[] };
+
+var OPTS = [
   { k:'form',    t:'Smart contact form',  d:'Customers send you quote requests and messages right from your site.' },
-  { k:'seo',     t:'Basic SEO setup',     d:'The groundwork so people can find you on Google. (Builds gradually — full SEO available anytime.)' },
-  { k:'chatbot', t:'AI chatbot',          d:'A chat bubble that answers visitors and captures their info while you sleep.' }
+  { k:'chatbot', t:'AI chat widget',      d:'A chat bubble that answers visitors and captures their info 24/7.' },
+  { k:'edits',   t:'Photo & text edits',  d:'We swap photos and reword copy on demand so it always looks right.' }
 ];
+var ADDONS = [
+  { k:'seo',      t:'SEO — rank higher' },
+  { k:'gbp',      t:'Google Business & Maps' },
+  { k:'reviews',  t:'Review management' },
+  { k:'booking',  t:'Online booking' },
+  { k:'voice',    t:'OneVoice AI answering' },
+  { k:'app',      t:'Mobile app version' },
+  { k:'dashboard',t:'Full CRM dashboard' },
+  { k:'social',   t:'Social media content' }
+];
+var addonSel = [];
 var LOADMSGS = ['Reading your site…','Studying your business…','Rebuilding the layout…','Refreshing colors & typography…','Making it mobile-friendly…','Polishing the details…','Almost there…'];
+var CHECK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
 
 function $(id){ return document.getElementById(id); }
 function esc(s){ var d=document.createElement('div'); d.textContent=String(s==null?'':s); return d.innerHTML; }
+function validEmail(e){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e); }
+function err(id,msg){ var e=$(id); e.textContent=msg; e.style.display='block'; }
 
+/* ---------- theme ---------- */
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('oa-theme', t); } catch(e){}
+  var dl=$('dl-theme'); if(dl) dl.textContent = (t==='dark') ? 'Switch to light mode' : 'Switch to dark mode';
+  document.querySelector('meta[name=theme-color]').setAttribute('content', t==='dark' ? '#0B0F1A' : '#0B0F1A');
+}
+function toggleTheme(){ applyTheme(document.documentElement.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); }
+(function(){ var t='light'; try{ t=localStorage.getItem('oa-theme')|| (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'); }catch(e){} applyTheme(t); })();
+
+/* ---------- drawer ---------- */
+function openDrawer(on){
+  $('drawer').classList.toggle('open', on);
+  $('scrim').classList.toggle('open', on);
+  $('drawer').setAttribute('aria-hidden', on?'false':'true');
+}
+function bookCall(src){ window.open(BOOKING_URL, '_blank', 'noopener'); }
+
+/* ---------- builder step 1 ---------- */
 function pick(m){
   state.mode = m;
   $('c-yes').classList.toggle('on', m==='yes');
@@ -402,22 +638,23 @@ function showLoading(on){
   } else if (loadTimer){ clearInterval(loadTimer); loadTimer=null; }
 }
 
-function err(id,msg){ var e=$(id); e.textContent=msg; e.style.display='block'; }
-
 function build(){
   $('b-err').style.display='none';
+  var email = $('in-email').value.trim();
+  if (!validEmail(email)) return err('b-err','Enter a valid email so we can save your preview.');
+  state.email = email;
   var body;
   if (state.mode==='yes'){
     var u = $('in-url').value.trim();
     if (!u) return err('b-err','Enter your website address first.');
     state.sourceUrl = /^https?:\/\//i.test(u) ? u : 'https://'+u;
-    body = { mode:'url', url:u };
+    body = { mode:'url', url:u, email:email };
   } else if (state.mode==='no'){
     var nm=$('in-name').value.trim(), ds=$('in-desc').value.trim();
     if (!nm || !ds) return err('b-err','Add your business name and a few words about what you do.');
-    body = { mode:'new', brief:{ name:nm, industry:$('in-ind').value.trim(), city:$('in-city').value.trim(), description:ds } };
-    if (nm) $('in-ccompany').value = nm;
-  } else return err('b-err','Choose yes or no above.');
+    body = { mode:'new', email:email, brief:{ name:nm, industry:$('in-ind').value.trim(), city:$('in-city').value.trim(), description:ds } };
+    if (nm) state._company = nm;
+  } else return err('b-err','Choose an option above.');
 
   showLoading(true);
   fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) })
@@ -429,6 +666,7 @@ function build(){
     .catch(function(e){ showLoading(false); err('b-err', e.message||'Something went wrong — please try again.'); });
 }
 
+/* ---------- builder step 3 ---------- */
 function showResult(id, changes){
   state.id = id;
   showLoading(false);
@@ -442,40 +680,112 @@ function showResult(id, changes){
   (changes.length?changes:['A complete modern redesign of your site']).forEach(function(c){
     cl.innerHTML += '<div class="chg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>'+esc(c)+'</div></div>';
   });
-  var fl=$('fb-list');
-  FREEBIES.forEach(function(f){
-    if ($('fb-'+f.k)) return; // don't duplicate on resume
+  // build pick-2 options
+  var fl=$('fb-list'); fl.innerHTML='';
+  OPTS.forEach(function(f){
     var b=document.createElement('button');
-    b.className='fb'+(f.k===state.freebie?' on':''); b.id='fb-'+f.k;
-    b.innerHTML='<div class="fbr"></div><div><b>'+esc(f.t)+'</b><span>'+esc(f.d)+'</span></div>';
-    b.onclick=function(){ state.freebie=f.k; FREEBIES.forEach(function(g){ $('fb-'+g.k).classList.toggle('on', g.k===f.k); }); };
+    b.className='fb'; b.id='fb-'+f.k;
+    b.innerHTML='<div class="fbr">'+CHECK+'</div><div><b>'+esc(f.t)+'</b><span>'+esc(f.d)+'</span></div>';
+    b.onclick=function(){ toggleOpt(f.k); };
     fl.appendChild(b);
   });
+  // prefill email captured at step 1
+  if (state.email) $('in-cemail').value = state.email;
+  if (state._company) $('in-ccompany').value = state._company;
+  pickPlan('basic');
   document.getElementById('builder').scrollIntoView({behavior:'smooth'});
 }
 
-function checkout(){
+function pickPlan(p){
+  state.plan = p;
+  ['basic','standard','custom'].forEach(function(k){ $('pp-'+k).classList.toggle('on', k===p); });
+  $('picktwo').classList.toggle('show', p==='standard');
+  $('customnote').classList.toggle('show', p==='custom');
+  var btn=$('o-go');
+  if (p==='basic')    btn.textContent='Claim my site — $97/mo →';
+  if (p==='standard') btn.textContent='Claim my site — $197/mo →';
+  if (p==='custom')   btn.textContent='Book my call →';
+}
+
+function toggleOpt(k){
+  var i = state.opts.indexOf(k);
+  if (i>=0) state.opts.splice(i,1);
+  else { if (state.opts.length>=2){ return; } state.opts.push(k); }
+  OPTS.forEach(function(f){
+    var on = state.opts.indexOf(f.k)>=0;
+    var full = state.opts.length>=2 && !on;
+    var el=$('fb-'+f.k);
+    el.classList.toggle('on', on);
+    el.classList.toggle('dim', full);
+  });
+  $('pt-count').textContent = state.opts.length + ' of 2 chosen';
+}
+
+function claim(){
   $('o-err').style.display='none';
   var c = { name:$('in-cname').value.trim(), email:$('in-cemail').value.trim(), phone:$('in-cphone').value.trim(), company:$('in-ccompany').value.trim() };
   if (!c.name || !c.email) return err('o-err','Add your name and email so we can deliver your site.');
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.email)) return err('o-err','That email doesn\'t look right — double-check it.');
+  if (!validEmail(c.email)) return err('o-err','That email doesn\'t look right — double-check it.');
+
+  // Custom → request a callback (no card), then send to booking.
+  if (state.plan==='custom'){
+    var btnc=$('o-go'); btnc.disabled=true; btnc.textContent='One moment…';
+    fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:['Custom multi-page build (from $500)'], notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) })
+      .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+      .then(function(x){ if(!x.ok) throw new Error(x.j && x.j.error || 'Please try again.'); bookCall('custom'); btnc.disabled=false; btnc.textContent='Booked ✓ — pick a time'; })
+      .catch(function(e){ btnc.disabled=false; btnc.textContent='Book my call →'; err('o-err', e.message); });
+    return;
+  }
+
+  if (state.plan==='standard' && state.opts.length!==2) return err('o-err','Pick exactly 2 features for the Standard plan.');
+
   var btn=$('o-go'); btn.disabled=true; btn.textContent='One moment…';
   fetch(API+'/api/oneapp-checkout', { method:'POST', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ previewId:state.id, freebie:state.freebie, notes:$('in-notes').value.trim(), contact:c, sourceUrl:state.sourceUrl }) })
+    body:JSON.stringify({ tier:state.plan, options:(state.plan==='standard'?state.opts:[]), previewId:state.id, notes:$('in-notes').value.trim(), contact:c, sourceUrl:state.sourceUrl }) })
     .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
       if (!x.ok || !x.j.url) throw new Error(x.j && x.j.error || 'Checkout failed — please try again.');
       window.location.href = x.j.url;
     })
-    .catch(function(e){ btn.disabled=false; btn.textContent='Claim my site — $199/mo →'; err('o-err', e.message); });
+    .catch(function(e){ btn.disabled=false; pickPlan(state.plan); err('o-err', e.message); });
 }
 
-// sticky bar + scroll reveals
+/* ---------- add-on menu ---------- */
 (function(){
-  var bar = $('topbar');
-  window.addEventListener('scroll', function(){
-    bar.classList.toggle('show', window.scrollY > 420);
-  }, { passive:true });
+  var box=$('aopts');
+  ADDONS.forEach(function(a){
+    var b=document.createElement('button');
+    b.className='aopt'; b.id='ao-'+a.k;
+    b.innerHTML='<div class="abox">'+CHECK+'</div><div>'+esc(a.t)+'</div>';
+    b.onclick=function(){
+      var i=addonSel.indexOf(a.k);
+      if(i>=0) addonSel.splice(i,1); else addonSel.push(a.k);
+      b.classList.toggle('on', addonSel.indexOf(a.k)>=0);
+      $('addform').classList.toggle('show', addonSel.length>0);
+    };
+    box.appendChild(b);
+  });
+})();
+
+function addonCheckout(){
+  $('ad-err').style.display='none';
+  if (addonSel.length===0) return err('ad-err','Pick at least one thing you\'d like to add.');
+  var c = { name:$('ad-name').value.trim(), email:$('ad-email').value.trim(), phone:$('ad-phone').value.trim(), company:'' };
+  if (!c.name || !validEmail(c.email)) return err('ad-err','Add your name and a valid email.');
+  var btn=$('ad-go'); btn.disabled=true; btn.textContent='One moment…';
+  fetch(API+'/api/oneapp-checkout', { method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ tier:'addon', options:addonSel, contact:c }) })
+    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+    .then(function(x){
+      if (!x.ok || !x.j.url) throw new Error(x.j && x.j.error || 'Please try again.');
+      window.location.href = x.j.url;
+    })
+    .catch(function(e){ btn.disabled=false; btn.textContent='Continue — $29/mo & book my call →'; err('ad-err', e.message); });
+}
+
+/* ---------- sticky reveals ---------- */
+(function(){
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(es){
       es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -486,11 +796,15 @@ function checkout(){
   }
 })();
 
-// post-checkout + resume handling
+/* ---------- post-checkout + resume ---------- */
 (function(){
   var q = new URLSearchParams(window.location.search);
   if (q.get('paid')){
     $('b-paid').style.display='block'; $('b-panel').style.display='none';
+    setTimeout(function(){ document.getElementById('builder').scrollIntoView(); }, 2300);
+  } else if (q.get('addon')){
+    $('b-addon').style.display='block'; $('b-panel').style.display='none';
+    $('addon-book').href = BOOKING_URL;
     setTimeout(function(){ document.getElementById('builder').scrollIntoView(); }, 2300);
   } else if (q.get('resume')){
     var id = q.get('resume').replace(/[^a-z0-9]/gi,'');
