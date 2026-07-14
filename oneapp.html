@@ -187,7 +187,8 @@
   .field input:focus, .field textarea:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(20,184,166,.12); }
   .field textarea { min-height:64px; resize:vertical; overflow:hidden; transition:height .12s ease; }
   .field .fieldtip { margin-top:6px; font-size:11.5px; line-height:1.5; color:var(--faint); }
-  .errmsg { margin-top:12px; font-size:13px; font-weight:600; color:#dc2626; display:none; }
+  .errmsg { margin-top:12px; font-size:13px; font-weight:600; color:#dc2626; display:none; line-height:1.5; }
+  .retrylink { margin-left:2px; background:none; border:0; color:var(--teal-d); font-weight:800; font-size:13px; cursor:pointer; font-family:inherit; text-decoration:underline; padding:0; }
   .center { text-align:center; margin-top:18px; }
   #b-loading { display:none; text-align:center; padding:22px 0 12px; }
   .bprog { width:100%; max-width:320px; margin:0 auto; height:8px; border-radius:999px; background:var(--border); overflow:hidden; }
@@ -548,7 +549,7 @@
       <div class="bprog"><div class="bprogfill" id="b-progfill"></div></div>
       <div id="b-progpct">Building your site — 0%</div>
       <div class="bsteps" id="b-steps"></div>
-      <div id="b-loadsub">This usually takes 30–90 seconds. Don't close the page.</div>
+      <div id="b-loadsub">Usually 30–90 seconds (can take up to 2 minutes for a fully custom build). Keep this tab open and your phone unlocked.</div>
     </div>
 
     <!-- step 3: result + plan chooser -->
@@ -722,12 +723,17 @@ function updateProg(){
   $('b-progfill').style.width = pct+'%';
   $('b-progpct').textContent = 'Building your site — '+pct+'%';
 }
+var reassureTick=0;
+var REASSURE_DEFAULT = "Usually 30–90 seconds (can take up to 2 minutes for a fully custom build). Keep this tab open and your phone unlocked.";
+var REASSURE_LONG = "Still working — this one's taking a little extra care. Please keep this tab open and your phone unlocked; it'll be ready shortly.";
 function buildStepsStart(msgs){
-  buildMsgs = msgs; buildIdx = 0;
+  buildMsgs = msgs; buildIdx = 0; reassureTick = 0;
+  if ($('b-loadsub')) $('b-loadsub').textContent = REASSURE_DEFAULT;
   renderSteps(); updateProg();
   if (buildTimer) clearInterval(buildTimer);
   buildTimer = setInterval(function(){
     if (buildIdx < buildMsgs.length-1){ buildIdx++; renderSteps(); updateProg(); }
+    else { reassureTick++; if (reassureTick % 4 === 0 && $('b-loadsub')) $('b-loadsub').textContent = REASSURE_LONG; }
   }, 2200);
 }
 function buildStepsStop(){ if (buildTimer){ clearInterval(buildTimer); buildTimer=null; } }
@@ -764,13 +770,28 @@ function build(){
   } else return err('b-err','Choose an option above.');
 
   showLoading(true);
-  fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) })
-    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+  var ctrl = new AbortController();
+  var toId = setTimeout(function(){ ctrl.abort(); }, 175000);
+  fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body), signal: ctrl.signal })
+    .then(function(r){ clearTimeout(toId); return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
       if (!x.ok || !x.j.id) throw new Error(x.j && x.j.error || 'Build failed — please try again.');
       showResult(x.j.id, x.j.changes||[]);
     })
-    .catch(function(e){ showLoading(false); err('b-err', e.message||'Something went wrong — please try again.'); });
+    .catch(function(e){ clearTimeout(toId); showBuildError(e); });
+}
+
+function buildErrorMessage(e){
+  if (e && e.name==='AbortError') return "That build is taking longer than usual and timed out. Your info is still filled in below —";
+  var m = (e && e.message) || '';
+  if (e && e.name==='TypeError' && /fetch/i.test(m)) return "Lost connection while building your site — this usually happens if your phone locked or you switched apps during the build. Your info is still filled in below —";
+  return (m || 'Something went wrong.') + ' —';
+}
+function showBuildError(e){
+  showLoading(false);
+  var box=$('b-err');
+  box.innerHTML = esc(buildErrorMessage(e)) + ' <button type="button" class="retrylink" onclick="build()">tap here to try again →</button>';
+  box.style.display='block';
 }
 
 /* ---------- builder step 3 ---------- */
