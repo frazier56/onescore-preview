@@ -347,11 +347,11 @@
   <div class="wrap">
     <span class="kick">☀ The Summer of AI</span>
     <h1>Your website, built by AI.<br><span>See it free — then keep it.</span></h1>
-    <p class="sub">Show us your old site or just tell us about your business. Our AI builds you a modern website in about a minute — <b>you see it before you pay a dime.</b> Love it? Keep it from <b>$97/mo</b>, hosting and everything handled.</p>
+    <p class="sub">Show us your old site or just tell us about your business. Our AI builds you a modern website in as little as 30 seconds (up to a few minutes for more detailed builds) — <b>you see it before you pay a dime.</b> Love it? Keep it from <b>$97/mo</b>, hosting and everything handled.</p>
     <div style="margin-top:26px"><a class="cta" href="#builder">See my new site free →</a></div>
     <div class="trust">
       <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>See it free first</span>
-      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Live in 24 hours</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Free preview in minutes</span>
       <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M8 6h10v10"/></svg>From $97/mo · cancel anytime</span>
     </div>
     <div class="mock" aria-hidden="true">
@@ -376,7 +376,7 @@
     <h2>A professional website: <s>$2,500</s> → <em>free to build.</em></h2>
     <p>New AI tools let us build a real, custom website at a fraction of the old cost — so this summer we're giving the <b>build away free</b> (a basic professional site normally runs about $2,500). You only cover simple monthly hosting &amp; care. See exactly what you'll get first — pay only if you love it.</p>
     <div class="mini">
-      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Built in ~24 hours</span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>See it in minutes</span>
       <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Try it before you pay</span>
       <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No setup fee</span>
     </div>
@@ -414,7 +414,7 @@
   <div class="seclabel">How it works</div>
   <div class="sechead">Three steps. One day.</div>
   <div class="steps">
-    <div class="step"><div class="stepn">1</div><div><p>Show us your site — or tell us about your business</p><span>Our AI builds it, free. You watch the preview appear on screen in about a minute.</span></div></div>
+    <div class="step"><div class="stepn">1</div><div><p>Show us your site — or tell us about your business</p><span>Our AI builds it, free. You watch the preview appear on screen — usually 30 seconds to 2 minutes, up to 3 minutes for more detailed builds.</span></div></div>
     <div class="step"><div class="stepn">2</div><div><p>Love it? Pick a plan and claim it</p><span>The build is free — you only pay to host and maintain it, from $97/mo. You go live instantly on a free yourbiz.oneapp.site address (connect your own domain anytime), we set up your business email, and apply any changes you ask for.</span></div></div>
     <div class="step"><div class="stepn">3</div><div><p>Live within 24 hours</p><span>Your finished site lands in your inbox — hosted, secured, and connected to the One World family: OneVoice answering, OneScore credibility, OneSocial bookings.</span></div></div>
   </div>
@@ -524,7 +524,7 @@
     <!-- step 1: email gate + yes/no -->
     <div id="b-ask">
       <h2>See your free website</h2>
-      <p class="ps">Enter your email, then tell us about your business. The AI builds your site in about a minute.</p>
+      <p class="ps">Enter your email, then tell us about your business. The AI builds your site in about 30 seconds to 3 minutes.</p>
       <div class="field"><label>Your email — where we save your preview</label><input id="in-email" type="email" placeholder="you@email.com" /></div>
       <div class="choice">
         <button class="chip" id="c-yes" onclick="pick('yes')">I have a website<small>We'll redesign it</small></button>
@@ -549,7 +549,7 @@
       <div class="bprog"><div class="bprogfill" id="b-progfill"></div></div>
       <div id="b-progpct">Building your site — 0%</div>
       <div class="bsteps" id="b-steps"></div>
-      <div id="b-loadsub">Usually 30–90 seconds (can take up to 2 minutes for a fully custom build). Keep this tab open and your phone unlocked.</div>
+      <div id="b-loadsub">Usually 30 seconds to 2 minutes, and can take up to 3 minutes. Keep this tab open and your phone unlocked.</div>
     </div>
 
     <!-- step 3: result + plan chooser -->
@@ -718,23 +718,26 @@ function renderSteps(){
     box.innerHTML += '<div class="'+cls+'"><div class="bdot">'+icon+'</div><div>'+esc(m)+'</div></div>';
   });
 }
-function updateProg(){
-  var pct = buildMsgs.length>1 ? Math.min(92, Math.round((buildIdx/(buildMsgs.length-1))*92)) : 10;
+var reassureTick=0, buildStartTime=0;
+var BUILD_TARGET_MS = 100000; /* pace the step list against ~100s — real builds range ~30-180s, this just sets the visual pace so bullets don't race ahead of the real work */
+var REASSURE_DEFAULT = "Usually 30 seconds to 2 minutes, and can take up to 3 minutes. Keep this tab open and your phone unlocked.";
+var REASSURE_LONG = "Still working — some builds take up to 3 minutes. Please keep this tab open and your phone unlocked; it'll be ready shortly.";
+function buildStepsStart(msgs){
+  buildMsgs = msgs; buildIdx = -1; reassureTick = 0; buildStartTime = Date.now();
+  if ($('b-loadsub')) $('b-loadsub').textContent = REASSURE_DEFAULT;
+  if (buildTimer) clearInterval(buildTimer);
+  tickBuild();
+  buildTimer = setInterval(tickBuild, 900);
+}
+function tickBuild(){
+  var elapsed = Date.now() - buildStartTime;
+  var frac = Math.min(1, elapsed / BUILD_TARGET_MS);
+  var idx = Math.min(buildMsgs.length-1, Math.floor(frac * buildMsgs.length));
+  if (idx !== buildIdx){ buildIdx = idx; renderSteps(); }
+  var pct = Math.min(92, Math.round(frac*92));
   $('b-progfill').style.width = pct+'%';
   $('b-progpct').textContent = 'Building your site — '+pct+'%';
-}
-var reassureTick=0;
-var REASSURE_DEFAULT = "Usually 30–90 seconds (can take up to 2 minutes for a fully custom build). Keep this tab open and your phone unlocked.";
-var REASSURE_LONG = "Still working — this one's taking a little extra care. Please keep this tab open and your phone unlocked; it'll be ready shortly.";
-function buildStepsStart(msgs){
-  buildMsgs = msgs; buildIdx = 0; reassureTick = 0;
-  if ($('b-loadsub')) $('b-loadsub').textContent = REASSURE_DEFAULT;
-  renderSteps(); updateProg();
-  if (buildTimer) clearInterval(buildTimer);
-  buildTimer = setInterval(function(){
-    if (buildIdx < buildMsgs.length-1){ buildIdx++; renderSteps(); updateProg(); }
-    else { reassureTick++; if (reassureTick % 4 === 0 && $('b-loadsub')) $('b-loadsub').textContent = REASSURE_LONG; }
-  }, 2200);
+  if (frac>=1){ reassureTick++; if (reassureTick % 10 === 0 && $('b-loadsub')) $('b-loadsub').textContent = REASSURE_LONG; }
 }
 function buildStepsStop(){ if (buildTimer){ clearInterval(buildTimer); buildTimer=null; } }
 function buildStepsFinish(){
@@ -771,7 +774,7 @@ function build(){
 
   showLoading(true);
   var ctrl = new AbortController();
-  var toId = setTimeout(function(){ ctrl.abort(); }, 175000);
+  var toId = setTimeout(function(){ ctrl.abort(); }, 200000);
   fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body), signal: ctrl.signal })
     .then(function(r){ clearTimeout(toId); return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
