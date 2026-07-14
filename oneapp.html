@@ -341,6 +341,21 @@
   #oa-splash .bar2 i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--teal-d)); animation:oa-load 1.9s ease-out forwards; }
   @keyframes oa-heart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.045)} }
   @keyframes oa-load { to { width:100% } }
+
+  /* ---------- Round 16: required markers, primary-field emphasis, error flag, arrows, places dropdown ---------- */
+  .field label .req { color:#dc2626; font-weight:800; margin-left:2px; }
+  .field.primary textarea { border-color:var(--teal); min-height:100px; box-shadow:0 0 0 3px rgba(20,184,166,.08); }
+  .field.primary textarea::placeholder { color:var(--muted); opacity:1; }
+  .field input.errfield, .field textarea.errfield { border-color:#dc2626 !important; box-shadow:0 0 0 3px rgba(220,38,38,.12) !important; }
+  .arr { display:inline-block; vertical-align:-2px; margin-left:2px; transition:transform .15s ease; }
+  .cta:hover .arr, .fsbtn:hover .arr { transform:translateX(3px); }
+  .placeswrap { position:relative; }
+  .placesbox { position:absolute; left:0; right:0; top:calc(100% + 4px); background:var(--card); border:1.5px solid var(--border); border-radius:12px; box-shadow:var(--sh-lg); z-index:20; overflow-y:auto; max-height:220px; display:none; }
+  .placesbox.show { display:block; }
+  .placeitem { padding:10px 14px; font-size:13.5px; cursor:pointer; border-bottom:1px solid var(--border); }
+  .placeitem:last-child { border-bottom:0; }
+  .placeitem:hover { background:rgba(20,184,166,.08); }
+  #b-panel, #b-loading { scroll-margin-top:80px; }
 </style>
 </head>
 <body>
@@ -579,8 +594,8 @@
         <div class="field"><label>Your website address</label><input id="in-url" type="url" placeholder="www.yourbusiness.com" /></div>
       </div>
       <div id="f-brief" style="display:none">
-        <div class="field"><label>Business name</label><input id="in-name" type="text" placeholder="Smith &amp; Sons Plumbing" /></div>
-        <div class="field"><label>Phone number(s)</label><input id="in-phone" type="tel" placeholder="(555) 555-5555" /><div class="fieldtip">Separate multiple numbers with a comma.</div></div>
+        <div class="field"><label>Business name <span class="req">*</span></label><input id="in-name" type="text" placeholder="Smith &amp; Sons Plumbing" oninput="this.classList.remove('errfield')" /></div>
+        <div class="field"><label>Phone number <span class="req">*</span></label><input id="in-phone" type="tel" inputmode="tel" placeholder="(555) 555-5555" oninput="formatPhone(this)" /><div class="fieldtip">Separate multiple numbers with a comma.</div></div>
         <div class="tglrow">
           <div><span class="tglabel">Include your name(s) on the site</span><span class="tglsub">Owner or team names customers will see</span></div>
           <label class="tgl"><input type="checkbox" id="tg-names" onchange="toggleReveal('names')" /><span class="tslider"></span></label>
@@ -590,13 +605,13 @@
           <div><span class="tglabel">Include a location or address</span><span class="tglsub">City, service area, or full street address</span></div>
           <label class="tgl"><input type="checkbox" id="tg-loc" onchange="toggleReveal('loc')" /><span class="tslider"></span></label>
         </div>
-        <div class="field tglreveal" id="rv-loc"><label>Location / address</label><input id="in-loc" type="text" placeholder="Dover, DE or 123 Main St" /></div>
-        <div class="field"><label>Tell us what you do — in your own words</label><textarea id="in-desc" rows="2" oninput="autoGrow(this)" placeholder="e.g. We're a family plumbing company — emergency repairs, water heaters, remodels. Licensed &amp; insured, 20 years in business…"></textarea><div class="fieldtip">List your services and what makes you different — our AI sorts out the wording. Don't worry about covering everything now: your first 30–60 days of changes are free, so keep it simple and we'll refine it together.</div></div>
+        <div class="field tglreveal" id="rv-loc"><label>Location / address</label><div class="placeswrap"><input id="in-loc" type="text" placeholder="Dover, DE or 123 Main St" autocomplete="off" oninput="onLocInput()" /><div class="placesbox" id="placesbox"></div></div></div>
+        <div class="field primary"><label>Tell us what you do — in your own words <span class="req">*</span></label><textarea id="in-desc" rows="3" oninput="autoGrow(this);this.classList.remove('errfield')" placeholder="e.g. We're a family plumbing company — emergency repairs, water heaters, remodels. Licensed &amp; insured, 20 years in business…"></textarea><div class="fieldtip">This is the field the AI actually builds your site from — list your services and what makes you different, our AI sorts out the wording. Don't worry about covering everything now: your first 30–60 days of changes are free, so keep it simple and we'll refine it together.</div></div>
       </div>
       <div class="errmsg" id="b-err"></div>
       <div class="center" id="b-gowrap" style="display:none">
         <p style="font-size:15px;font-weight:800;margin-bottom:10px">Build your custom website for free right now.</p>
-        <button class="cta" id="b-go" onclick="build()">Build it free →</button>
+        <button class="cta" id="b-go" onclick="build()">Build it free <svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
       <p class="ttl" style="margin-top:14px">Free previews are saved for 48 hours. This is your one free design.</p>
     </div>
@@ -676,9 +691,9 @@
         <div class="field"><label>Your name</label><input id="in-cname" type="text" placeholder="Full name" /></div>
         <div class="field"><label>Business name</label><input id="in-ccompany" type="text" placeholder="Company" /></div>
         <div class="field"><label>Email</label><input id="in-cemail" type="email" placeholder="you@email.com" /></div>
-        <div class="field"><label>Phone</label><input id="in-cphone" type="tel" placeholder="(555) 555-5555" /></div>
+        <div class="field"><label>Phone</label><input id="in-cphone" type="tel" inputmode="tel" placeholder="(555) 555-5555" oninput="formatPhone(this)" /></div>
         <div class="errmsg" id="o-err"></div>
-        <div class="center"><button class="cta" id="o-go" onclick="openConfirm()">Claim my site — $97/mo →</button></div>
+        <div class="center"><button class="cta" id="o-go" onclick="openConfirm()">Claim my site — $97/mo <svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
         <p class="ttl" style="text-align:center">Site design is free — the plan covers hosting &amp; maintenance. No setup fee. Delivered within 24 hours. <b>Your first <span id="edit-window-days">30</span> days of changes are free.</b> 3-month minimum, then cancel anytime (non-refundable once a term starts). You go live free on a yourname.oneworldlabs.site address (custom domain available on Standard).</p>
       </div>
     </div>
@@ -711,7 +726,7 @@
     <h3>Confirm your order</h3>
     <div class="ms" style="margin-top:2px">Review before you pay — nothing charges until you continue.</div>
     <div id="confirm-body" style="margin-top:16px;font-size:13.5px;"></div>
-    <div class="center" style="margin-top:18px"><button class="cta" id="confirm-go" onclick="proceedToPayment()">Proceed to secure payment →</button></div>
+    <div class="center" style="margin-top:18px"><button class="cta" id="confirm-go" onclick="proceedToPayment()">Proceed to secure payment <svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
     <p class="ttl" style="margin-top:10px">We'll also email your free preview link so you never lose it — it's yours for 48 hours either way.</p>
   </div>
 </div>
@@ -725,9 +740,9 @@
     <div class="customfeat" id="pc-customfeat" style="margin-top:14px"></div>
     <div class="field"><label>Your name</label><input id="pc-name" type="text" placeholder="Full name" /></div>
     <div class="field"><label>Email</label><input id="pc-email" type="email" placeholder="you@email.com" /></div>
-    <div class="field"><label>Phone</label><input id="pc-phone" type="tel" placeholder="(555) 555-5555" /></div>
+    <div class="field"><label>Phone</label><input id="pc-phone" type="tel" inputmode="tel" placeholder="(555) 555-5555" oninput="formatPhone(this)" /></div>
     <div class="errmsg" id="pc-err"></div>
-    <div class="center"><button class="cta" id="pc-go" onclick="submitCustomInterest()">Continue — pick a time →</button></div>
+    <div class="center"><button class="cta" id="pc-go" onclick="submitCustomInterest()">Continue — pick a time <svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
   </div>
 </div>
 
@@ -756,12 +771,53 @@ var ADDONS = [
 var LOADMSGS_URL = ['Reading your site…','Studying your business…','Rebuilding the hero section…','Adding a clear services section…','Building a "why choose us" section…','Adding a contact section…','Refreshing colors & typography…','Making it mobile-friendly…','Polishing the details…'];
 var LOADMSGS_NEW = ['Studying your business…','Designing your hero section…','Adding a clear services section…','Building a "why choose us" section…','Adding a contact section…','Choosing colors & typography…','Making it mobile-friendly…','Writing your content…','Polishing the details…'];
 var CHECK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+var ARROW = '<svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 function autoGrow(el){ el.style.height='auto'; el.style.height=(el.scrollHeight+2)+'px'; }
 function $(id){ return document.getElementById(id); }
 function esc(s){ var d=document.createElement('div'); d.textContent=String(s==null?'':s); return d.innerHTML; }
 function validEmail(e){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e); }
 function err(id,msg){ var e=$(id); e.textContent=msg; e.style.display='block'; }
+
+/* ---------- Round 16: live phone formatting ---------- */
+function formatPhone(el){
+  var d = el.value.replace(/\D/g,'').slice(0,10);
+  var out = d;
+  if (d.length > 6) out = '('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);
+  else if (d.length > 3) out = '('+d.slice(0,3)+') '+d.slice(3);
+  else if (d.length > 0) out = '('+d;
+  el.value = out;
+  el.classList.remove('errfield');
+}
+
+/* ---------- Round 16: location autocomplete (graceful no-op if no Google key configured server-side) ---------- */
+var placesTimer = null;
+function onLocInput(){
+  var box = $('placesbox');
+  clearTimeout(placesTimer);
+  var v = $('in-loc').value.trim();
+  if (v.length < 3){ box.classList.remove('show'); box.innerHTML=''; return; }
+  placesTimer = setTimeout(function(){
+    fetch(API+'/api/oneapp-places', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ input:v }) })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        var sugg = (j && j.suggestions) || [];
+        if (!sugg.length){ box.classList.remove('show'); box.innerHTML=''; return; }
+        box.innerHTML = sugg.map(function(s){ return '<div class="placeitem" onclick="pickPlace(this)">'+esc(s)+'</div>'; }).join('');
+        box.classList.add('show');
+      })
+      .catch(function(){ box.classList.remove('show'); });
+  }, 280);
+}
+function pickPlace(el){
+  $('in-loc').value = el.textContent;
+  $('placesbox').classList.remove('show');
+  $('placesbox').innerHTML = '';
+}
+document.addEventListener('click', function(e){
+  var box = $('placesbox'); if (!box) return;
+  if (e.target.id !== 'in-loc' && !box.contains(e.target)) box.classList.remove('show');
+});
 
 /* ---------- theme ---------- */
 function applyTheme(t){
@@ -934,26 +990,31 @@ function buildStepsFinish(){
 function showLoading(on){
   $('b-ask').style.display = on?'none':'block';
   $('b-loading').style.display = on?'block':'none';
-  if (on){ buildStepsStart((state.mode==='no') ? LOADMSGS_NEW : LOADMSGS_URL); }
+  if (on){
+    buildStepsStart((state.mode==='no') ? LOADMSGS_NEW : LOADMSGS_URL);
+    setTimeout(function(){ var el=$('b-loading'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
+  }
   else { buildStepsStop(); stopPoll(); }
 }
 
 function build(){
   $('b-err').style.display='none';
+  ['in-email','in-name','in-phone','in-desc','in-url'].forEach(function(id){ var e=$(id); if(e) e.classList.remove('errfield'); });
   var email = $('in-email').value.trim();
-  if (!validEmail(email)) return err('b-err','Enter a valid email so we can save your preview.');
+  if (!validEmail(email)) { $('in-email').classList.add('errfield'); return err('b-err','Enter a valid email so we can save your preview.'); }
   state.email = email;
   state._siteName = $('in-siteslug').value.trim();
   var body;
   if (state.mode==='yes'){
     var u = $('in-url').value.trim();
-    if (!u) return err('b-err','Enter your website address first.');
+    if (!u) { $('in-url').classList.add('errfield'); return err('b-err','Enter your website address first.'); }
     state.sourceUrl = /^https?:\/\//i.test(u) ? u : 'https://'+u;
     body = { mode:'url', url:u, email:email };
   } else if (state.mode==='no'){
     var nm=$('in-name').value.trim(), ph=$('in-phone').value.trim(), ds=$('in-desc').value.trim();
-    if (!nm || !ds) return err('b-err','Add your business name and a few words about what you do.');
-    if (!ph) return err('b-err','Add a phone number so customers can reach you.');
+    if (!nm) { $('in-name').classList.add('errfield'); return err('b-err','Add your business name — that field above is empty.'); }
+    if (!ds) { $('in-desc').classList.add('errfield'); return err('b-err','Tell us what your business does — that field is what the AI actually builds your site from.'); }
+    if (!ph) { $('in-phone').classList.add('errfield'); return err('b-err','Add a phone number so customers can reach you.'); }
     var wantNames = $('tg-names').checked, wantLoc = $('tg-loc').checked;
     var pn = wantNames ? $('in-names').value.trim() : '';
     var lc = wantLoc ? $('in-loc').value.trim() : '';
@@ -1056,9 +1117,9 @@ function pickPlan(p){
   $('termtoggle').style.display = (p==='custom') ? 'none' : 'flex';
   $('notes-label').textContent = (p==='custom') ? 'Anything else? (optional — you already told us what you want above)' : 'Anything you\'d like changed or added? (optional)';
   var btn=$('o-go');
-  if (p==='basic')    btn.textContent='Claim my site — $97/mo →';
-  if (p==='standard') btn.textContent='Claim my site — $197/mo →';
-  if (p==='custom')   btn.textContent='Continue — pick a time →';
+  if (p==='basic')    btn.innerHTML='Claim my site — $97/mo '+ARROW;
+  if (p==='standard') btn.innerHTML='Claim my site — $197/mo '+ARROW;
+  if (p==='custom')   btn.innerHTML='Continue — pick a time '+ARROW;
   if ($('edit-window-days')) $('edit-window-days').textContent = (p==='standard') ? '60' : '30';
 }
 function setTerm(t){ state.term=t; $('tt-quarterly').classList.toggle('on', t==='quarterly'); $('tt-annual').classList.toggle('on', t==='annual'); }
