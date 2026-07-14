@@ -30,6 +30,9 @@
   html { scroll-behavior:smooth; }
   body { background:var(--bg); color:var(--ink); font-family:Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; transition:background .3s ease, color .3s ease; }
   .wrap { max-width:660px; margin:0 auto; padding:0 20px; }
+  .wrap.w-md { max-width:900px; }
+  .wrap.w-lg { max-width:1040px; }
+  .wrap.w-xl { max-width:1180px; }
   .seclabel { font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
   .sechead { margin-top:10px; font-size:26px; line-height:1.15; font-weight:800; letter-spacing:-.02em; text-align:center; }
   .secsub { margin-top:10px; font-size:14.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:32rem; margin-left:auto; margin-right:auto; }
@@ -74,19 +77,30 @@
   .drawer .dfoot { margin-top:auto; font-size:11.5px; color:var(--muted-dark); text-align:center; padding-top:14px; }
 
   /* ---------- hero (dark) ---------- */
-  .hero { background:linear-gradient(135deg,var(--dark) 0%,var(--raised) 100%); color:var(--cream); padding:78px 0 0; position:relative; overflow:hidden; }
-  .hero::before { content:""; position:absolute; top:-160px; left:50%; transform:translateX(-50%); width:640px; height:520px; background:radial-gradient(closest-side, rgba(20,184,166,.14), transparent); pointer-events:none; }
-  .hero .wrap { position:relative; text-align:center; }
-  .hero .kick { display:inline-block; padding:6px 14px; border-radius:999px; background:rgba(20,184,166,.13); border:1px solid rgba(20,184,166,.4); color:var(--teal-l); font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
-  .hero h1 { margin-top:20px; font-size:35px; line-height:1.1; font-weight:900; letter-spacing:-.025em; }
+  .hero { background:var(--dark); color:var(--cream); padding:96px 0 0; position:relative; overflow:hidden; }
+  .hero::before { content:""; position:absolute; top:-200px; left:-120px; width:720px; height:720px; background:radial-gradient(closest-side, rgba(20,184,166,.16), transparent); pointer-events:none; }
+  .hero .wrap { position:relative; }
+  .hero-flex { display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center; }
+  .hero-text { max-width:31rem; }
+  .hero-mock-wrap { width:100%; display:flex; justify-content:center; }
+  @media (min-width:900px){
+    .hero-flex { flex-direction:row; align-items:center; text-align:left; gap:52px; }
+    .hero-text { flex:1 1 50%; max-width:none; }
+    .hero-mock-wrap { flex:1 1 50%; justify-content:flex-end; }
+  }
+  .hero .kick { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(250,250,248,.05); border:1px solid rgba(250,250,248,.12); color:var(--teal-l); font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+  .hero .kick i { width:7px; height:7px; border-radius:999px; background:var(--teal); display:inline-block; flex-shrink:0; }
+  .hero h1 { margin-top:22px; font-size:35px; line-height:1.1; font-weight:900; letter-spacing:-.025em; }
   .hero h1 span { color:var(--teal); }
-  .hero .sub { margin-top:14px; font-size:15.5px; line-height:1.65; color:var(--muted-dark); max-width:31rem; margin-left:auto; margin-right:auto; }
+  .hero .sub { margin-top:16px; font-size:15.5px; line-height:1.65; color:var(--muted-dark); max-width:31rem; margin-left:auto; margin-right:auto; }
+  @media (min-width:900px){ .hero .sub { margin-left:0; margin-right:0; } }
   .hero .sub b { color:var(--cream); font-weight:700; }
   .trust { margin-top:22px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  @media (min-width:900px){ .trust { justify-content:flex-start; } }
   .trust span { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; background:rgba(26,33,46,.55); border:1px solid rgba(250,250,248,.08); font-size:12px; font-weight:600; color:var(--muted-dark); }
   .trust svg { color:var(--teal); flex-shrink:0; }
   /* before/after mockup */
-  .mock { position:relative; margin:44px auto -70px; max-width:480px; height:300px; }
+  .mock { position:relative; margin:0 auto; max-width:480px; height:300px; }
   .mockcard { position:absolute; border-radius:14px; overflow:hidden; box-shadow:0 22px 60px rgba(0,0,0,.5); }
   .mock .old { top:0; left:0; width:62%; transform:rotate(-3.5deg); opacity:.55; filter:grayscale(1); }
   .mock .new { top:24px; right:0; width:76%; animation:float 6s ease-in-out infinite; }
@@ -107,10 +121,12 @@
   .new .imgrow i { flex:1; height:44px; border-radius:8px; background:linear-gradient(135deg,#1f2937,#111827); border:1px solid rgba(250,250,248,.06); }
   .badge-ai { position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:rgba(26,33,46,.85); backdrop-filter:blur(12px); border:1px solid rgba(20,184,166,.35); font-size:12px; font-weight:700; color:var(--cream); white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.45); }
   .badge-ai svg { color:var(--teal); }
-  .hero-pad { height:96px; background:var(--bg); transition:background .3s ease; }
+  .hero-pad { height:56px; background:var(--bg); transition:background .3s ease; }
 
   /* ---------- Summer-of-AI offer band ---------- */
-  .offerband { margin-top:26px; border:1.5px solid rgba(20,184,166,.4); border-radius:20px; background:linear-gradient(180deg, rgba(20,184,166,.07), rgba(20,184,166,.02)); padding:26px 20px; text-align:center; }
+  .offer-sec { background:rgba(11,15,26,.03); padding:60px 0 64px; transition:background .3s ease; }
+  html[data-theme="dark"] .offer-sec { background:rgba(255,255,255,.03); }
+  .offerband { text-align:center; }
   .offerband .pin { display:inline-block; padding:5px 13px; border-radius:999px; background:var(--teal-d); color:#fff; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
   .offerband h2 { margin-top:14px; font-size:23px; line-height:1.2; font-weight:900; letter-spacing:-.02em; }
   .offerband h2 s { color:var(--faint); text-decoration-thickness:3px; font-weight:700; }
@@ -121,13 +137,22 @@
   .offerband .mini svg { color:var(--teal-d); }
 
   /* ---------- features ---------- */
-  .fgrid { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; }
-  @media (max-width:430px){ .fgrid { grid-template-columns:1fr; } }
-  .fc { border:1px solid var(--border); border-radius:var(--r-card); background:var(--card); padding:20px 16px; box-shadow:var(--sh-sm); transition:transform .18s ease, box-shadow .18s ease; }
-  .fc:hover { transform:translateY(-3px); box-shadow:var(--sh-lg); }
+  .fgrid { margin-top:26px; display:grid; grid-template-columns:1fr; gap:20px; text-align:left; }
+  @media (min-width:640px){ .fgrid { grid-template-columns:1fr 1fr; } }
+  @media (min-width:960px){ .fgrid { grid-template-columns:1fr 1fr 1fr; } }
+  .fc { border:1px solid var(--border); border-radius:24px; background:var(--card); padding:32px; box-shadow:none; transition:border-color .18s ease; }
+  .fc:hover { border-color:rgba(20,184,166,.35); }
   .ic { width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg, rgba(20,184,166,.14), rgba(13,148,136,.08)); border:1px solid rgba(20,184,166,.22); display:flex; align-items:center; justify-content:center; color:var(--teal-d); }
-  .fc p { margin-top:12px; font-size:14px; font-weight:700; letter-spacing:-.01em; }
-  .fc span { display:block; margin-top:4px; font-size:12.5px; line-height:1.55; color:var(--muted); }
+  .fc p { margin-top:16px; font-size:17px; font-weight:800; letter-spacing:-.01em; }
+  .fc span { display:block; margin-top:6px; font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  /* ---------- who it's for (bg tint + 2-col grid) ---------- */
+  .whyfor-sec { background:rgba(11,15,26,.025); transition:background .3s ease; }
+  html[data-theme="dark"] .whyfor-sec { background:rgba(255,255,255,.02); }
+  .whyfor-sec section { padding-bottom:56px; }
+  .steps.grid2 { display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:640px){ .steps.grid2 { grid-template-columns:1fr 1fr; gap:20px; } }
+  .steps.grid2 .step { align-items:flex-start; }
 
   /* ---------- how it works ---------- */
   .steps { margin-top:26px; display:flex; flex-direction:column; gap:12px; text-align:left; }
@@ -144,7 +169,7 @@
   .tiers { margin-top:26px; display:grid; grid-template-columns:1fr; gap:14px; text-align:left; }
   .tier { border:1px solid rgba(250,250,248,.1); border-radius:24px; background:rgba(0,0,0,.4); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); box-shadow:none; padding:28px 24px; position:relative; color:var(--cream); }
   .tier.feat { border:2px solid var(--teal); background:rgba(0,0,0,.6); }
-  .tier .flag { position:absolute; top:-11px; left:24px; padding:5px 12px; border-radius:999px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#04302b; font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; box-shadow:0 4px 12px rgba(13,148,136,.35); }
+  .tier .flag { position:absolute; top:0; left:50%; transform:translate(-50%,-50%); padding:5px 14px; border-radius:999px; background:linear-gradient(90deg,var(--teal-d),var(--teal)); color:#04302b; font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; box-shadow:0 4px 12px rgba(13,148,136,.35); }
   .tier .tname { font-size:13px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--teal-l); }
   .tier .tp { margin-top:8px; display:flex; align-items:baseline; gap:4px; }
   .tier .tp b { font-size:38px; font-weight:900; letter-spacing:-.03em; color:var(--cream); }
@@ -368,33 +393,40 @@
 
 <!-- ======================= HERO ======================= -->
 <div class="hero">
-  <div class="wrap">
-    <span class="kick">☀ The Summer of AI</span>
-    <h1>Your website, built by AI.<br><span>See it free — then keep it.</span></h1>
-    <p class="sub">Show us your old site or just tell us about your business. Our AI builds you a modern website in as little as 30 seconds (up to a few minutes for more detailed builds) — <b>you see it before you pay a dime.</b> Love it? Keep it from <b>$97/mo</b>, hosting and everything handled.</p>
-    <div style="margin-top:26px"><a class="cta" href="#builder">See my new site free →</a></div>
-    <div class="trust">
-      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>See it free first</span>
-      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Free preview in minutes</span>
-      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M8 6h10v10"/></svg>From $97/mo · cancel anytime</span>
-    </div>
-    <div class="mock" aria-hidden="true">
-      <div class="mockcard old" style="height:210px">
-        <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
-        <div class="mbody"><div class="ln" style="width:55%"></div><div class="ln" style="width:90%"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:40%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:70%"></div></div>
+  <div class="wrap w-xl">
+    <div class="hero-flex">
+      <div class="hero-text">
+        <span class="kick"><i></i>The Summer of AI</span>
+        <h1>Modernize your website.<br><span>Or build from scratch in 5 minutes.</span></h1>
+        <p class="sub">Our AI transforms your outdated design or builds a brand new, modern website from scratch. <b>Your business will be up and running in 5 minutes.</b> See it before you pay a dime.</p>
+        <div style="margin-top:26px"><a class="cta" href="#builder">See my new site free →</a></div>
+        <div class="trust">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>See it free first</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Free preview in minutes</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M8 6h10v10"/></svg>From $97/mo · cancel anytime</span>
+        </div>
       </div>
-      <div class="mockcard new" style="height:250px">
-        <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
-        <div class="mbody"><div class="ln h"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:64%"></div><div class="btnln"></div><div class="imgrow"><i></i><i></i><i></i></div><div class="ln" style="width:80%"></div></div>
+      <div class="hero-mock-wrap">
+        <div class="mock" aria-hidden="true">
+          <div class="mockcard old" style="height:210px">
+            <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
+            <div class="mbody"><div class="ln" style="width:55%"></div><div class="ln" style="width:90%"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:40%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:70%"></div></div>
+          </div>
+          <div class="mockcard new" style="height:250px">
+            <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
+            <div class="mbody"><div class="ln h"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:64%"></div><div class="btnln"></div><div class="imgrow"><i></i><i></i><i></i></div><div class="ln" style="width:80%"></div></div>
+          </div>
+          <div class="badge-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Rebuilt with AI</div>
+        </div>
       </div>
-      <div class="badge-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Rebuilt with AI</div>
     </div>
   </div>
   <div class="hero-pad"></div>
 </div>
 
 <!-- ======================= SUMMER-OF-AI OFFER ======================= -->
-<section class="wrap reveal" style="padding-top:8px" id="offer">
+<div class="offer-sec">
+<section class="wrap w-md reveal" style="padding:0" id="offer">
   <div class="offerband">
     <span class="pin">Limited summer promotion</span>
     <h2>A professional website: <s>$2,500</s> → <em>free to build.</em></h2>
@@ -406,20 +438,23 @@
     </div>
   </div>
 </section>
+</div>
 
 <!-- ======================= WHO IT'S FOR ======================= -->
-<section class="wrap reveal">
+<div class="whyfor-sec">
+<section class="wrap w-lg reveal">
   <div class="seclabel">Who it's for</div>
   <div class="sechead">A website isn't an expense.<br>It's protection.</div>
   <p class="secsub">Every customer who can't find you — or can't trust what they see — is business you lost without knowing it. A modern site gives you instant credibility, captures leads, and gives people a reason to call.</p>
-  <div class="steps">
+  <div class="steps grid2">
     <div class="step"><div class="stepn">✓</div><div><p>You have an outdated website</p><span>If it looks like 2010, it's working against you. We rebuild it into something that earns trust and actually captures leads.</span></div></div>
     <div class="step"><div class="stepn">✓</div><div><p>You have no website at all</p><span>In 2026, no website means invisible. Get a credible online home — with a contact form and a way for customers to reach you — in 24 hours.</span></div></div>
   </div>
 </section>
+</div>
 
 <!-- ======================= FEATURES ======================= -->
-<section class="wrap reveal" id="features">
+<section class="wrap w-xl reveal" id="features">
   <div class="seclabel">Everything a modern business needs</div>
   <div class="sechead">One team. One monthly price.<br>Zero tech headaches.</div>
   <p class="secsub">We design, build, host, and maintain it all — so you run the business and never think about the tech again.</p>
@@ -446,7 +481,7 @@
 
 <!-- ======================= PRICING (3 tiers) ======================= -->
 <div class="pricing-dark">
-<section class="wrap reveal" id="pricing">
+<section class="wrap w-xl reveal" id="pricing">
   <div class="seclabel">Simple, honest pricing</div>
   <div class="sechead">The website is free.<br>Pick how much you want it to do.</div>
   <p class="secsub">Every plan starts with a <b>free website design</b> — no charge to build it and see it. What you actually pay for is what keeps it running: managed hosting, a free <b>yourbiz.oneapp.site</b> address (bring your own domain anytime), a business email, security &amp; backups, free changes, and our 48-hour support promise. 3-month minimum · save 25% annually · cancel anytime.</p>
