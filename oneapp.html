@@ -272,20 +272,23 @@
   .chg svg { flex-shrink:0; margin-top:1px; color:var(--teal-d); }
 
   /* plan chooser (post-preview) */
-  .offer { margin-top:28px; border:1.5px solid rgba(20,184,166,.4); border-radius:18px; padding:22px 16px; background:linear-gradient(180deg, rgba(20,184,166,.05), rgba(20,184,166,.02)); }
+  .offer { margin-top:28px; border:1.5px solid rgba(20,184,166,.28); border-radius:24px; padding:32px 22px; background:linear-gradient(160deg, rgba(20,184,166,.12), rgba(20,184,166,.02) 55%), color-mix(in srgb, var(--card) 88%, transparent); backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%); box-shadow:0 16px 40px -18px rgba(20,184,166,.35), 0 1px 0 rgba(255,255,255,.5) inset; }
+  .offer h3 { font-size:21px; }
   .offer h3 { font-size:18px; font-weight:800; text-align:center; }
   .offer .osub { margin-top:6px; font-size:13px; line-height:1.55; color:var(--muted); text-align:center; }
-  .termtoggle { margin-top:14px; display:flex; gap:8px; }
-  .tt { flex:1; border:1.5px solid var(--border); border-radius:10px; background:var(--card); padding:10px 8px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
-  .tt.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); color:var(--teal-d); }
-  .planpick { margin-top:12px; display:flex; flex-direction:column; gap:10px; }
-  .pp { display:flex; gap:12px; align-items:flex-start; border:1.5px solid var(--border); border-radius:14px; background:var(--card); padding:15px 14px; cursor:pointer; font-family:inherit; text-align:left; width:100%; transition:border-color .15s ease, background .15s ease; }
-  .pp.on { border-color:var(--teal-d); background:rgba(20,184,166,.07); }
+  .termtoggle { margin-top:18px; display:flex; gap:10px; }
+  .tt { flex:1; border:1.5px solid var(--border); border-radius:14px; background:color-mix(in srgb, var(--card) 92%, transparent); padding:12px 10px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.04); transition:border-color .15s ease, background .15s ease, box-shadow .15s ease; }
+  .tt.on { border-color:var(--teal-d); background:rgba(20,184,166,.1); color:var(--teal-d); box-shadow:0 6px 16px -6px rgba(20,184,166,.4); }
+  .planpick { margin-top:16px; display:flex; flex-direction:column; gap:12px; }
+  .pp { display:flex; gap:14px; align-items:flex-start; border:1.5px solid var(--border); border-radius:16px; background:color-mix(in srgb, var(--card) 94%, transparent); backdrop-filter:blur(6px); padding:18px 16px; cursor:pointer; font-family:inherit; text-align:left; width:100%; box-shadow:0 2px 8px -3px rgba(0,0,0,.06); transition:border-color .15s ease, background .15s ease, box-shadow .15s ease, transform .15s ease; }
+  .pp:hover { transform:translateY(-1px); }
+  .pp.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); box-shadow:0 10px 24px -10px rgba(20,184,166,.4); }
   .pp .ppr { flex-shrink:0; width:18px; height:18px; margin-top:2px; border-radius:999px; border:2px solid var(--border); }
   .pp.on .ppr { border-color:var(--teal-d); background:radial-gradient(circle, var(--teal-d) 45%, transparent 50%); }
-  .pp .ppmain b { font-size:14.5px; }
+  .pp .ppmain { flex:1; min-width:0; }
+  .pp .ppmain b { font-size:14.5px; display:block; overflow-wrap:break-word; word-break:break-word; }
   .pp .ppmain .amt { font-weight:900; }
-  .pp .ppmain span { display:block; margin-top:2px; font-size:12.5px; line-height:1.45; color:var(--muted); }
+  .pp .ppmain span { display:block; margin-top:3px; font-size:12.5px; line-height:1.5; color:var(--muted); overflow-wrap:break-word; word-break:break-word; }
   .picktwo { display:none; margin-top:14px; padding:14px; border:1px dashed var(--border); border-radius:12px; }
   .picktwo.show { display:block; }
   .picktwo .pt-h { font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
@@ -666,7 +669,7 @@
           </button>
           <button class="pp" id="pp-standard" onclick="pickPlan('standard')">
             <div class="ppr"></div>
-            <div class="ppmain"><b>Standard — <span class="amt">$197</span>/mo</b><span>Everything in Basic + a built-in contact form</span></div>
+            <div class="ppmain"><b>Standard — <span class="amt">$197</span>/mo</b><span>Everything in Basic + a contact form, custom domain, and double the free-changes window</span></div>
           </button>
           <button class="pp" id="pp-custom" onclick="pickPlan('custom')">
             <div class="ppr"></div>
@@ -1028,7 +1031,11 @@ function build(){
   fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) })
     .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
-      if (!x.ok || !x.j.jobId) throw new Error(x.j && x.j.error || 'Could not start your build — please try again.');
+      if (!x.ok || !x.j.jobId) {
+        var e = new Error(x.j && x.j.error || 'Could not start your build — please try again.');
+        e.code = x.j && x.j.code;
+        throw e;
+      }
       startPoll(x.j.jobId);
     })
     .catch(function(e){ showBuildError(e); });
@@ -1041,10 +1048,19 @@ function buildErrorMessage(e){
 function showBuildError(e){
   showLoading(false);
   var box=$('b-err');
-  box.innerHTML = esc(buildErrorMessage(e)) + ' <button type="button" class="retrylink" onclick="build()">tap here to try again →</button>' +
-    '<div style="margin-top:10px;font-weight:600;color:var(--muted);font-size:13px">Rather skip the wait? ' +
-    '<button type="button" class="retrylink" onclick="requestManualBuild()">Let our team build it by hand →</button> or ' +
-    '<button type="button" class="retrylink" onclick="bookCall(\'build-fail\')">book a call →</button></div>';
+  if (e && e.code === 'ALREADY_BUILT') {
+    // Retrying will just hit the same block again — don't offer a "try again"
+    // that can't succeed. Point straight at the resolution paths instead.
+    box.innerHTML = esc(buildErrorMessage(e)) +
+      '<div style="margin-top:10px;font-weight:600;color:var(--muted);font-size:13px">' +
+      '<button type="button" class="retrylink" onclick="requestManualBuild()">Chat with our team →</button> or ' +
+      '<button type="button" class="retrylink" onclick="bookCall(\'already-built\')">book a call →</button></div>';
+  } else {
+    box.innerHTML = esc(buildErrorMessage(e)) + ' <button type="button" class="retrylink" onclick="build()">tap here to try again →</button>' +
+      '<div style="margin-top:10px;font-weight:600;color:var(--muted);font-size:13px">Rather skip the wait? ' +
+      '<button type="button" class="retrylink" onclick="requestManualBuild()">Let our team build it by hand →</button> or ' +
+      '<button type="button" class="retrylink" onclick="bookCall(\'build-fail\')">book a call →</button></div>';
+  }
   box.style.display='block';
 }
 
