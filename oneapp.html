@@ -110,15 +110,10 @@
   .old .mtop { background:#c9c9c4; }
   .mdot { width:7px; height:7px; border-radius:999px; background:rgba(250,250,248,.22); }
   .old .mdot { background:#a8a8a2; }
-  .mbody { padding:14px 14px 18px; background:var(--raised); }
-  .old .mbody { background:#efefe9; }
-  .ln { height:8px; border-radius:4px; margin-top:8px; }
-  .old .ln { background:#cfcfc8; }
-  .new .h { height:12px; width:70%; background:linear-gradient(90deg,var(--teal),var(--teal-d)); }
-  .new .ln { background:#242c3b; }
-  .new .btnln { height:22px; width:44%; border-radius:7px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); margin-top:12px; }
-  .new .imgrow { display:flex; gap:8px; margin-top:12px; }
-  .new .imgrow i { flex:1; height:44px; border-radius:8px; background:linear-gradient(135deg,#1f2937,#111827); border:1px solid rgba(250,250,248,.06); }
+  .murl { margin-left:6px; font-size:10px; font-family:monospace; color:rgba(250,250,248,.4); }
+  .old .murl { color:#8a8a84; }
+  .new .murl { color:var(--teal); background:rgba(20,184,166,.12); padding:1px 6px; border-radius:4px; }
+  .mockcard img { display:block; width:100%; height:auto; max-height:280px; object-fit:cover; object-position:top; }
   .badge-ai { position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:rgba(26,33,46,.85); backdrop-filter:blur(12px); border:1px solid rgba(20,184,166,.35); font-size:12px; font-weight:700; color:var(--cream); white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.45); }
   .badge-ai svg { color:var(--teal); }
   .hero-pad { height:56px; background:var(--bg); transition:background .3s ease; }
@@ -129,8 +124,9 @@
   .offerband { text-align:center; }
   .offerband .pin { display:inline-block; padding:5px 13px; border-radius:999px; background:var(--teal-d); color:#fff; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
   .offerband h2 { margin-top:14px; font-size:23px; line-height:1.2; font-weight:900; letter-spacing:-.02em; }
-  .offerband h2 s { color:var(--faint); text-decoration-thickness:3px; font-weight:700; }
+  .offerband h2 s { color:var(--faint); text-decoration-color:#dc2626; text-decoration-thickness:2.5px; font-weight:700; }
   .offerband h2 em { color:var(--teal-d); font-style:normal; }
+  .offerband .limited { margin-top:6px; font-size:13px; font-weight:700; color:var(--teal-d); }
   .offerband p { margin-top:12px; font-size:14px; line-height:1.65; color:var(--muted); max-width:32rem; margin-left:auto; margin-right:auto; }
   .offerband .mini { margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
   .offerband .mini span { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; background:var(--card); border:1px solid var(--border); font-size:12.5px; font-weight:700; color:var(--ink); box-shadow:var(--sh-sm); }
@@ -408,13 +404,13 @@
       </div>
       <div class="hero-mock-wrap">
         <div class="mock" aria-hidden="true">
-          <div class="mockcard old" style="height:210px">
-            <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
-            <div class="mbody"><div class="ln" style="width:55%"></div><div class="ln" style="width:90%"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:40%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:70%"></div></div>
+          <div class="mockcard old">
+            <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div><span class="murl">old-website.com</span></div>
+            <img src="./oneapp-hero-old.png" alt="" />
           </div>
-          <div class="mockcard new" style="height:250px">
-            <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div>
-            <div class="mbody"><div class="ln h"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:64%"></div><div class="btnln"></div><div class="imgrow"><i></i><i></i><i></i></div><div class="ln" style="width:80%"></div></div>
+          <div class="mockcard new">
+            <div class="mtop"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div><span class="murl">yournewsite.com</span></div>
+            <img src="./oneapp-hero-new.png" alt="" />
           </div>
           <div class="badge-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Rebuilt with AI</div>
         </div>
@@ -429,7 +425,8 @@
 <section class="wrap w-md reveal" style="padding:0" id="offer">
   <div class="offerband">
     <span class="pin">Limited summer promotion</span>
-    <h2>A professional website: <s>$2,500</s> → <em>free to build.</em></h2>
+    <h2>A professional website: <s>$2,500</s> → <em>Free today!</em></h2>
+    <div class="limited">(Limited time only)</div>
     <p>New AI tools let us build a real, custom website at a fraction of the old cost — so this summer we're giving the <b>build away free</b> (a basic professional site normally runs about $2,500). You only cover simple monthly hosting &amp; care. See exactly what you'll get first — pay only if you love it.</p>
     <div class="mini">
       <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>See it in minutes</span>
@@ -527,7 +524,7 @@
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>Mobile app + full dashboard / CMS</div></li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>…and much more</b></div></li>
       </ul>
-      <div class="tcta"><a class="cta ghost" href="#" onclick="bookCall('pricing');return false;">Book a call →</a></div>
+      <div class="tcta"><a class="cta ghost" href="#" onclick="openCustomModal();return false;">Book a call →</a></div>
     </div>
   </div>
   <p class="valuenote">Your $97–$197/mo covers real work: fast managed hosting &amp; SSL, a free <b>yourbiz.oneapp.site</b> address (or connect a custom domain you own — we migrate &amp; manage it), a business email, security &amp; backups, our 48-hour fix promise, and free changes (text edits, photo swaps, contact-detail updates) — <b>30 days on Basic, 60 days on Standard</b>. Billed on a 3-month minimum; save 25% annually. Cancel anytime after the minimum term.</p>
@@ -592,7 +589,10 @@
         <div class="field"><label>Tell us what you do — in your own words</label><textarea id="in-desc" rows="2" oninput="autoGrow(this)" placeholder="e.g. We're a family plumbing company — emergency repairs, water heaters, remodels. Licensed &amp; insured, 20 years in business…"></textarea><div class="fieldtip">List your services and what makes you different — our AI sorts out the wording. Don't worry about covering everything now: your first 30–60 days of changes are free, so keep it simple and we'll refine it together.</div></div>
       </div>
       <div class="errmsg" id="b-err"></div>
-      <div class="center" id="b-gowrap" style="display:none"><button class="cta" id="b-go" onclick="build()">Build it free →</button></div>
+      <div class="center" id="b-gowrap" style="display:none">
+        <p style="font-size:15px;font-weight:800;margin-bottom:10px">Build your custom website for free right now.</p>
+        <button class="cta" id="b-go" onclick="build()">Build it free →</button>
+      </div>
       <p class="ttl" style="margin-top:14px">Free previews are saved for 48 hours. This is your one free design.</p>
     </div>
 
@@ -706,6 +706,21 @@
   </div>
 </div>
 
+<!-- ======================= CUSTOM-INTEREST MODAL (pricing table $499 CTA) ======================= -->
+<div class="mscrim" id="pcscrim" onclick="if(event.target===this)closeCustomModal()">
+  <div class="mcard">
+    <button class="mclose" onclick="closeCustomModal()" aria-label="Close">✕</button>
+    <h3>Let's build something custom</h3>
+    <div class="ms" style="margin-top:2px">Select what you're interested in, and we'll discuss it on our call — custom builds start at $499, quoted live.</div>
+    <div class="customfeat" id="pc-customfeat" style="margin-top:14px"></div>
+    <div class="field"><label>Your name</label><input id="pc-name" type="text" placeholder="Full name" /></div>
+    <div class="field"><label>Email</label><input id="pc-email" type="email" placeholder="you@email.com" /></div>
+    <div class="field"><label>Phone</label><input id="pc-phone" type="tel" placeholder="(555) 555-5555" /></div>
+    <div class="errmsg" id="pc-err"></div>
+    <div class="center"><button class="cta" id="pc-go" onclick="submitCustomInterest()">Continue — pick a time →</button></div>
+  </div>
+</div>
+
 <script>
 var API = 'https://onevoice-checkout.vercel.app';
 var BOOKING_URL = 'https://api.leadconnectorhq.com/widget/booking/rghlggjZP931B1mISGls';
@@ -770,6 +785,39 @@ function bookCall(src, prefill){
   $('mscrim').classList.add('open');
 }
 function closeBooking(){ $('mscrim').classList.remove('open'); }
+
+/* ---------- custom-interest modal (pricing table $499 CTA) ---------- */
+var pcSel = [];
+function openCustomModal(){
+  pcSel = [];
+  var box = $('pc-customfeat');
+  box.innerHTML = '';
+  ADDONS.forEach(function(a){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'aopt'; b.style.textAlign = 'left';
+    b.innerHTML = '<span class="abox"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>'+esc(a.t)+'</span>';
+    b.onclick = function(){
+      var i = pcSel.indexOf(a.k);
+      if (i >= 0) { pcSel.splice(i,1); } else { pcSel.push(a.k); }
+      b.classList.toggle('on', pcSel.indexOf(a.k) >= 0);
+    };
+    box.appendChild(b);
+  });
+  $('pc-err').style.display = 'none';
+  $('pcscrim').classList.add('open');
+}
+function closeCustomModal(){ $('pcscrim').classList.remove('open'); }
+function submitCustomInterest(){
+  var name = $('pc-name').value.trim(), email = $('pc-email').value.trim(), phone = $('pc-phone').value.trim();
+  if (!name || !validEmail(email) || !phone){ return err('pc-err','Please add your name, a valid email, and phone.'); }
+  $('pc-err').style.display = 'none';
+  fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ name:name, email:email, phone:phone, company:'', features:pcSel.length?pcSel:['Custom build'], notes:'From pricing table — custom $499+ interest.' }) })
+    .catch(function(){});
+  closeCustomModal();
+  var parts = name.split(' ');
+  bookCall('pricing-custom', { first_name:parts[0]||'', last_name:parts.slice(1).join(' ')||'', email:email, phone:phone });
+}
 function submitBooking(){
   $('bk-err').style.display='none';
   var c={ name:$('bk-name').value.trim(), email:$('bk-email').value.trim(), phone:$('bk-phone').value.trim() };
