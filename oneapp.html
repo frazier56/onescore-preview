@@ -42,15 +42,20 @@
   .reveal.in { opacity:1; transform:none; }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; transition:none; } html { scroll-behavior:auto; } }
 
-  /* ---------- top nav (hub-consistent) ---------- */
-  .nav { position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:11px 18px; background:rgba(11,15,26,.72); backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); border-bottom:1px solid rgba(250,250,248,.08); }
-  .nav .brand { display:flex; align-items:center; gap:9px; font-size:18px; font-weight:800; color:var(--cream); letter-spacing:-.01em; }
-  .nav .brand b { color:var(--teal); font-weight:700; }
+  /* ---------- top nav (frosted-glass, matches the GHL/Lovable reference build) ---------- */
+  .nav { position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:11px 18px; background:rgba(255,255,255,.78); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%); border-bottom:1px solid rgba(11,15,26,.06); box-shadow:0 2px 20px rgba(11,15,26,.06); }
+  html[data-theme="dark"] .nav { background:rgba(11,15,26,.72); border-bottom:1px solid rgba(250,250,248,.08); box-shadow:none; }
+  .nav .brand { display:flex; align-items:center; gap:9px; font-size:18px; font-weight:800; color:var(--ink); letter-spacing:-.01em; }
+  html[data-theme="dark"] .nav .brand { color:var(--cream); }
+  .nav .brand b { color:var(--teal-d); font-weight:700; }
+  html[data-theme="dark"] .nav .brand b { color:var(--teal); }
   .nav .brand .mk { width:26px; height:26px; border-radius:8px; background:linear-gradient(135deg,var(--teal),var(--teal-d)); display:flex; align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(13,148,136,.4); }
   .nav .brand .mk svg { color:#04302b; }
   .nav .ctrl { display:flex; align-items:center; gap:8px; }
-  .iconbtn { width:38px; height:38px; border-radius:10px; border:1px solid rgba(250,250,248,.12); background:rgba(26,33,46,.5); color:var(--cream); display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:inherit; transition:background .15s ease; }
-  .iconbtn:hover { background:rgba(26,33,46,.9); }
+  .iconbtn { width:38px; height:38px; border-radius:10px; border:1px solid rgba(11,15,26,.1); background:rgba(11,15,26,.04); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:inherit; transition:background .15s ease; }
+  html[data-theme="dark"] .iconbtn { border:1px solid rgba(250,250,248,.12); background:rgba(26,33,46,.5); color:var(--cream); }
+  .iconbtn:hover { background:rgba(11,15,26,.09); }
+  html[data-theme="dark"] .iconbtn:hover { background:rgba(26,33,46,.9); }
   .navcta { padding:9px 16px; border-radius:10px; background:var(--teal); color:#04302b; font-size:13px; font-weight:800; text-decoration:none; }
   @media (max-width:480px){ .navcta { display:none; } }
   /* drawer */
@@ -267,8 +272,9 @@
   .fb.on .fbr { border-color:var(--teal-d); background:var(--teal-d); }
   .fbr svg { color:#fff; opacity:0; }
   .fb.on .fbr svg { opacity:1; }
-  .customnote { display:none; margin-top:12px; font-size:13px; line-height:1.6; color:var(--muted); text-align:center; padding:12px; border:1px dashed var(--border); border-radius:12px; }
-  .customnote.show { display:block; }
+  .customnote { margin-top:0; font-size:13px; line-height:1.6; color:var(--muted); text-align:center; }
+  .customstep { margin-top:14px; padding:16px 16px 4px; border:1.5px solid var(--teal-d); border-radius:16px; background:rgba(20,184,166,.05); }
+  .cstep-h { font-size:11.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--teal-d); text-align:center; margin-bottom:8px; }
   .paidbox { display:none; margin-top:26px; border:1.5px solid rgba(20,184,166,.4); border-radius:20px; background:var(--card); box-shadow:var(--sh-lg); padding:30px 20px; text-align:center; }
   .paidbox h2 { font-size:21px; font-weight:800; }
   .paidbox p { margin-top:10px; font-size:14px; line-height:1.65; color:var(--muted); }
@@ -485,26 +491,6 @@
   <p class="valuenote">Your $97–$197/mo covers real work: fast managed hosting &amp; SSL, a free <b>yourbiz.oneapp.site</b> address (or connect a custom domain you own — we migrate &amp; manage it), a business email, security &amp; backups, our 48-hour fix promise, and free changes (text edits, photo swaps, contact-detail updates) — <b>30 days on Basic, 60 days on Standard</b>. Billed on a 3-month minimum; save 25% annually. Cancel anytime after the minimum term.</p>
 </section>
 
-<!-- ======================= ADD-ONS ======================= -->
-<section class="wrap reveal" id="addons">
-  <div class="seclabel">Grow when you're ready</div>
-  <div class="sechead">Add more, anytime</div>
-  <p class="secsub">Your site is the foundation. When you want more — SEO, Google presence, an AI receptionist, a full dashboard — pick what you're interested in and we'll build a plan with you on a quick call.</p>
-  <div class="addons">
-    <h3>What would you like to add?</h3>
-    <p class="as">Select anything you're curious about. Add-ons start at <b>$29/mo</b> — you put a card on file to book your call, and we quote the exact plan with you (no charge to talk beyond that).</p>
-    <div class="aopts" id="aopts"></div>
-    <div class="addform" id="addform">
-      <div class="field"><label>Your name</label><input id="ad-name" type="text" placeholder="Full name" /></div>
-      <div class="field"><label>Email</label><input id="ad-email" type="email" placeholder="you@email.com" /></div>
-      <div class="field"><label>Phone</label><input id="ad-phone" type="tel" placeholder="(555) 555-5555" /></div>
-      <div class="errmsg" id="ad-err"></div>
-      <div class="center"><button class="cta" id="ad-go" onclick="addonCheckout()">Continue — $29/mo &amp; book my call →</button></div>
-      <p class="ttl">You'll pick a time to talk (1–7pm Central). We only build what you approve on the call.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ======================= FAQ ======================= -->
 <section class="wrap reveal" id="faq">
   <div class="seclabel">Good questions</div>
@@ -630,12 +616,15 @@
           <div class="freeb" id="fb-list"></div>
         </div>
 
-        <div class="customnote" id="customnote">
-          We'll build something fully custom with you. Tell us what you're interested in, leave your details, then pick a time — custom builds start at <b>$499</b>, quoted on the call. Your name, email &amp; phone carry over to the calendar automatically.
+        <div class="customstep" id="customstep" style="display:none">
+          <div class="cstep-h">Step 1 — tell us what you want</div>
+          <div class="customnote" id="customnote">
+            We'll build something fully custom with you. Tell us what you're interested in below, leave your details, then continue to pick a time — custom builds start at <b>$499</b>, quoted on the call. Your name, email &amp; phone carry over to the calendar automatically.
+          </div>
+          <div class="customfeat" id="customfeat"></div>
         </div>
-        <div class="customfeat" id="customfeat" style="display:none"></div>
 
-        <div class="field"><label>Anything you'd like changed or added? (optional)</label><textarea id="in-notes" rows="2" oninput="autoGrow(this)" placeholder="Use our red logo colors, add our Google reviews, swap the photo on top…"></textarea></div>
+        <div class="field"><label id="notes-label">Anything you'd like changed or added? (optional)</label><textarea id="in-notes" rows="2" oninput="autoGrow(this)" placeholder="Use our red logo colors, add our Google reviews, swap the photo on top…"></textarea></div>
         <div class="field"><label>Your name</label><input id="in-cname" type="text" placeholder="Full name" /></div>
         <div class="field"><label>Business name</label><input id="in-ccompany" type="text" placeholder="Company" /></div>
         <div class="field"><label>Email</label><input id="in-cemail" type="email" placeholder="you@email.com" /></div>
@@ -696,7 +685,6 @@ var ADDONS = [
   { k:'dashboard',t:'Full CRM dashboard' },
   { k:'social',   t:'Social media content' }
 ];
-var addonSel = [];
 var LOADMSGS_URL = ['Reading your site…','Studying your business…','Rebuilding the hero section…','Adding a clear services section…','Building a "why choose us" section…','Adding a contact section…','Refreshing colors & typography…','Making it mobile-friendly…','Polishing the details…'];
 var LOADMSGS_NEW = ['Studying your business…','Designing your hero section…','Adding a clear services section…','Building a "why choose us" section…','Adding a contact section…','Choosing colors & typography…','Making it mobile-friendly…','Writing your content…','Polishing the details…'];
 var CHECK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
@@ -962,13 +950,13 @@ function pickPlan(p){
   state.plan = p;
   ['basic','standard','custom'].forEach(function(k){ $('pp-'+k).classList.toggle('on', k===p); });
   $('picktwo').classList.remove('show'); /* Standard now includes contact form — no pick step */
-  $('customnote').classList.toggle('show', p==='custom');
-  $('customfeat').style.display = (p==='custom') ? 'grid' : 'none';
+  $('customstep').style.display = (p==='custom') ? 'block' : 'none';
   $('termtoggle').style.display = (p==='custom') ? 'none' : 'flex';
+  $('notes-label').textContent = (p==='custom') ? 'Anything else? (optional — you already told us what you want above)' : 'Anything you\'d like changed or added? (optional)';
   var btn=$('o-go');
   if (p==='basic')    btn.textContent='Claim my site — $97/mo →';
   if (p==='standard') btn.textContent='Claim my site — $197/mo →';
-  if (p==='custom')   btn.textContent='Book my call →';
+  if (p==='custom')   btn.textContent='Continue — pick a time →';
   if ($('edit-window-days')) $('edit-window-days').textContent = (p==='standard') ? '60' : '30';
 }
 function setTerm(t){ state.term=t; $('tt-quarterly').classList.toggle('on', t==='quarterly'); $('tt-annual').classList.toggle('on', t==='annual'); }
@@ -1067,39 +1055,6 @@ function toggleCustomFeat(k){
   var i = state.customFeatures.indexOf(k);
   if (i>=0) state.customFeatures.splice(i,1); else state.customFeatures.push(k);
   $('cf-'+k).classList.toggle('on', state.customFeatures.indexOf(k)>=0);
-}
-
-/* ---------- add-on menu ---------- */
-(function(){
-  var box=$('aopts');
-  ADDONS.forEach(function(a){
-    var b=document.createElement('button');
-    b.className='aopt'; b.id='ao-'+a.k;
-    b.innerHTML='<div class="abox">'+CHECK+'</div><div>'+esc(a.t)+'</div>';
-    b.onclick=function(){
-      var i=addonSel.indexOf(a.k);
-      if(i>=0) addonSel.splice(i,1); else addonSel.push(a.k);
-      b.classList.toggle('on', addonSel.indexOf(a.k)>=0);
-      $('addform').classList.toggle('show', addonSel.length>0);
-    };
-    box.appendChild(b);
-  });
-})();
-
-function addonCheckout(){
-  $('ad-err').style.display='none';
-  if (addonSel.length===0) return err('ad-err','Pick at least one thing you\'d like to add.');
-  var c = { name:$('ad-name').value.trim(), email:$('ad-email').value.trim(), phone:$('ad-phone').value.trim(), company:'' };
-  if (!c.name || !validEmail(c.email)) return err('ad-err','Add your name and a valid email.');
-  var btn=$('ad-go'); btn.disabled=true; btn.textContent='One moment…';
-  fetch(API+'/api/oneapp-checkout', { method:'POST', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ tier:'addon', options:addonSel, contact:c }) })
-    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
-    .then(function(x){
-      if (!x.ok || !x.j.url) throw new Error(x.j && x.j.error || 'Please try again.');
-      window.location.href = x.j.url;
-    })
-    .catch(function(e){ btn.disabled=false; btn.textContent='Continue — $29/mo & book my call →'; err('ad-err', e.message); });
 }
 
 /* ---------- preview-first: move the builder up right after the Summer-of-AI offer band ---------- */
