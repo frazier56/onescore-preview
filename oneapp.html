@@ -35,8 +35,9 @@
   .wrap.w-xl { max-width:1180px; }
   .seclabel { font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-d); text-align:center; }
   .sechead { margin-top:10px; font-size:26px; line-height:1.15; font-weight:800; letter-spacing:-.02em; text-align:center; }
-  .secsub { margin-top:10px; font-size:14.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:32rem; margin-left:auto; margin-right:auto; }
-  section { padding:80px 0; }
+  .secsub { margin-top:10px; font-size:14.5px; line-height:1.65; color:var(--muted); text-align:center; max-width:42rem; margin-left:auto; margin-right:auto; }
+  .secsub.wide { max-width:56rem; }
+  section { padding:64px 0; }
   .cta { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:16px 32px; border-radius:var(--r-btn); background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:15.5px; font-weight:800; text-decoration:none; border:0; cursor:pointer; font-family:inherit; box-shadow:0 8px 26px rgba(13,148,136,.32), inset 0 1px 0 rgba(255,255,255,.22); transition:transform .15s ease, box-shadow .15s ease; }
   .cta:hover { transform:translateY(-1px); box-shadow:0 12px 32px rgba(13,148,136,.4), inset 0 1px 0 rgba(255,255,255,.22); }
   .cta:disabled { opacity:.55; cursor:default; transform:none; }
@@ -99,10 +100,10 @@
   .trust span { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; background:rgba(26,33,46,.55); border:1px solid rgba(250,250,248,.08); font-size:12px; font-weight:600; color:var(--muted-dark); }
   .trust svg { color:var(--teal); flex-shrink:0; }
   /* before/after mockup */
-  .mock { position:relative; margin:0 auto; width:100%; max-width:480px; height:300px; flex-shrink:0; }
+  .mock { position:relative; margin:0 auto; width:100%; max-width:600px; height:380px; flex-shrink:0; }
   .mockcard { position:absolute; border-radius:14px; overflow:hidden; box-shadow:0 22px 60px rgba(0,0,0,.5); }
-  .mock .old { top:0; left:0; width:62%; transform:rotate(-3.5deg); opacity:.55; filter:grayscale(1); }
-  .mock .new { top:24px; right:0; width:76%; animation:float 6s ease-in-out infinite; }
+  .mock .old { top:0; left:0; width:60%; transform:rotate(-3.5deg); opacity:.55; filter:grayscale(1); }
+  .mock .new { top:24px; right:0; width:82%; animation:float 6s ease-in-out infinite; }
   @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @media (prefers-reduced-motion: reduce){ .mock .new { animation:none; } }
   .mtop { display:flex; align-items:center; gap:5px; padding:8px 10px; background:#1A212E; }
@@ -118,7 +119,7 @@
   /* ---------- Summer-of-AI offer band ---------- */
   .offer-sec { background:var(--bg); transition:background .3s ease; }
   .offerband { text-align:center; }
-  .offerband .pin { display:inline-block; padding:5px 13px; border-radius:999px; background:var(--teal-d); color:#fff; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+  .offerband .pin { display:inline-block; padding:5px 13px; border-radius:999px; background:linear-gradient(90deg,rgba(20,184,166,.14),rgba(45,212,191,.22)); border:1px solid rgba(20,184,166,.3); color:var(--teal-d); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
   .offerband h2 { margin-top:14px; font-size:23px; line-height:1.2; font-weight:900; letter-spacing:-.02em; }
   .offerband h2 s { color:var(--faint); text-decoration-color:#dc2626; text-decoration-thickness:2.5px; font-weight:700; }
   .offerband h2 em { color:var(--teal-d); font-style:normal; }
@@ -163,22 +164,22 @@
   .pricing-dark .sechead { color:var(--cream); }
   .pricing-dark .secsub { color:var(--muted-dark); }
   .tiers { margin-top:26px; display:grid; grid-template-columns:1fr; gap:14px; text-align:left; }
-  .tier { border:1px solid rgba(250,250,248,.1); border-radius:24px; background:rgba(0,0,0,.4); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); box-shadow:none; padding:28px 24px; position:relative; color:var(--cream); }
-  .tier.feat { border:2px solid var(--teal); background:rgba(0,0,0,.6); }
+  .tier { display:flex; flex-direction:column; border:1px solid rgba(255,255,255,.14); border-radius:24px; background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02) 40%,rgba(0,0,0,.35)); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); box-shadow:0 8px 32px rgba(0,0,0,.25); padding:36px 26px 30px; position:relative; color:var(--cream); }
+  .tier.feat { border:2px solid var(--teal); background:linear-gradient(160deg,rgba(20,184,166,.14),rgba(255,255,255,.02) 40%,rgba(0,0,0,.55)); }
   .tier .flag { position:absolute; top:0; left:50%; transform:translate(-50%,-50%); padding:5px 14px; border-radius:999px; background:linear-gradient(90deg,var(--teal-d),var(--teal)); color:#04302b; font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; box-shadow:0 4px 12px rgba(13,148,136,.35); }
   .tier .tname { font-size:13px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--teal-l); }
   .tier .tp { margin-top:8px; display:flex; align-items:baseline; gap:4px; }
-  .tier .tp b { font-size:38px; font-weight:900; letter-spacing:-.03em; color:var(--cream); }
+  .tier .tp b { font-size:32px; font-weight:750; letter-spacing:-.02em; color:var(--cream); }
   .tier .tp span { font-size:14px; color:var(--muted-dark); font-weight:600; }
   .tier .tdesc { margin-top:6px; font-size:13px; line-height:1.55; color:var(--muted-dark); }
   .tier ul { list-style:none; margin-top:14px; display:flex; flex-direction:column; gap:9px; }
   .tier li { display:flex; gap:9px; align-items:flex-start; font-size:13.5px; line-height:1.5; color:var(--cream); }
   .tier li svg { flex-shrink:0; margin-top:2px; color:var(--teal); }
   .tier li > div { flex:1 1 auto; min-width:0; }
-  .tier .tcta { margin-top:18px; }
+  .tier .tcta { margin-top:auto; padding-top:22px; }
   .tier .tcta a { display:block; text-align:center; }
   .tier .tcta a.ghost { color:var(--teal-l); border-color:var(--teal-l); }
-  .valuenote { margin-top:16px; font-size:12.5px; line-height:1.65; color:var(--muted-dark); text-align:center; max-width:32rem; margin-left:auto; margin-right:auto; }
+  .valuenote { margin-top:16px; font-size:12.5px; line-height:1.65; color:var(--muted-dark); text-align:center; max-width:52rem; margin-left:auto; margin-right:auto; }
   @media (min-width:640px){ .tiers { grid-template-columns:1fr 1fr 1fr; } .tier.feat { transform:translateY(-14px); } }
 
   /* ---------- add-ons / grow ---------- */
@@ -305,8 +306,13 @@
   .paidbox { display:none; margin-top:26px; border:1.5px solid rgba(20,184,166,.4); border-radius:20px; background:var(--card); box-shadow:var(--sh-lg); padding:30px 20px; text-align:center; }
   .paidbox h2 { font-size:21px; font-weight:800; }
   .paidbox p { margin-top:10px; font-size:14px; line-height:1.65; color:var(--muted); }
-  .foot { padding:52px 0 64px; font-size:12px; color:var(--faint); text-align:center; }
+  .foot { padding:52px 0 64px; font-size:12.5px; color:var(--faint); text-align:center; }
   .foot a { color:var(--teal-d); font-weight:700; text-decoration:none; }
+  .foot .footbrand { font-weight:800; color:var(--muted); font-size:13.5px; }
+  .foot .footaddr { margin-top:8px; }
+  .foot .footlinks { margin-top:14px; font-weight:700; }
+  .foot .footlinks a { margin:0 3px; }
+  .foot .footcopy { margin-top:14px; opacity:.7; }
 
   /* booking modal */
   .mscrim { position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; padding:18px; }
@@ -423,7 +429,7 @@
 <div class="offer-sec">
 <section class="wrap w-md reveal" id="offer">
   <div class="offerband">
-    <span class="pin">Limited summer promotion</span>
+    <span class="pin">Summer promotion</span>
     <h2>A professional website: <s>$2,500</s> → <em>Free today!</em></h2>
     <div class="limited">(Limited time only)</div>
     <p>New AI tools let us build a real, custom website at a fraction of the old cost — so this summer we're giving the <b>build away free</b> (a basic professional site normally runs about $2,500). You only cover simple monthly hosting &amp; care. See exactly what you'll get first — pay only if you love it.</p>
@@ -480,7 +486,7 @@
 <section class="wrap w-xl reveal" id="pricing">
   <div class="seclabel">Simple, honest pricing</div>
   <div class="sechead">The website is free.<br>Pick how much you want it to do.</div>
-  <p class="secsub">Every plan starts with a <b>free website design</b> — no charge to build it and see it. What you actually pay for is what keeps it running: managed hosting, a free <b>yourbiz.oneapp.site</b> address (bring your own domain anytime), a business email, security &amp; backups, free changes, and our 48-hour support promise. 3-month minimum · save 25% annually · cancel anytime.</p>
+  <p class="secsub wide">Every plan starts with a <b>free website design</b> — no charge to build it and see it. What you actually pay for is what keeps it running: managed hosting, a free <b>yourbiz.oneapp.site</b> address (bring your own domain anytime), a business email, security &amp; backups, free changes, and our 48-hour support promise. 3-month minimum · save 25% annually · cancel anytime.</p>
   <div class="tiers">
     <!-- Basic -->
     <div class="tier">
@@ -679,7 +685,12 @@
   </div>
 </section>
 
-<div class="foot wrap">A <a href="https://www.oneworldlabs.ai/">One World Labs</a> company · OneVoice · OneApp · OneScore · OneSocial</div>
+<div class="foot wrap">
+  <div class="footbrand">OneApp, a <a href="https://www.oneworldlabs.ai/">One World Labs</a> company</div>
+  <div class="footaddr">1111b S Governors Ave, Dover, DE 19904 &middot; <a href="tel:+18557700200">Questions? Call (855) 770-0200</a></div>
+  <div class="footlinks"><a href="https://onevoice.onesocial.ai">OneVoice</a> &middot; <a href="https://www.oneworldlabs.ai/oneapp/">OneApp</a> &middot; <a href="https://www.oneworldlabs.ai/">OneScore</a> &middot; <a href="https://frazier56.github.io/onesocial-v2-preview/">OneSocial</a></div>
+  <div class="footcopy">&copy; 2026 One World Labs, Inc.</div>
+</div>
 
 <!-- ======================= BOOKING MODAL ======================= -->
 <div class="mscrim" id="mscrim" onclick="if(event.target===this)closeBooking()">
