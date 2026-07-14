@@ -154,7 +154,8 @@
   .addons h3 { font-size:16px; font-weight:800; text-align:center; }
   .addons .as { margin-top:8px; font-size:13px; line-height:1.6; color:var(--muted); text-align:center; }
   .aopts { margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:9px; }
-  @media (max-width:430px){ .aopts { grid-template-columns:1fr; } }
+  .customfeat { margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+  @media (max-width:430px){ .aopts, .customfeat { grid-template-columns:1fr; } }
   .aopt { display:flex; gap:10px; align-items:center; border:1.5px solid var(--border); border-radius:12px; background:var(--bg); padding:12px 13px; cursor:pointer; font-family:inherit; text-align:left; color:var(--ink); font-size:13px; font-weight:600; transition:border-color .15s ease, background .15s ease; }
   .aopt.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); }
   .aopt .abox { flex-shrink:0; width:18px; height:18px; border-radius:5px; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; }
@@ -189,6 +190,17 @@
   .field .fieldtip { margin-top:6px; font-size:11.5px; line-height:1.5; color:var(--faint); }
   .errmsg { margin-top:12px; font-size:13px; font-weight:600; color:#dc2626; display:none; line-height:1.5; }
   .retrylink { margin-left:2px; background:none; border:0; color:var(--teal-d); font-weight:800; font-size:13px; cursor:pointer; font-family:inherit; text-decoration:underline; padding:0; }
+  .tglrow { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; padding:12px 14px; border:1.5px solid var(--border); border-radius:12px; background:var(--card); }
+  .tglrow .tglabel { font-size:13.5px; font-weight:700; color:var(--ink); }
+  .tglrow .tglsub { display:block; margin-top:2px; font-size:11.5px; font-weight:500; color:var(--faint); }
+  .tgl { position:relative; display:inline-block; width:44px; height:26px; flex-shrink:0; }
+  .tgl input { opacity:0; width:0; height:0; position:absolute; }
+  .tgl .tslider { position:absolute; inset:0; background:var(--border); border-radius:999px; cursor:pointer; transition:background .18s ease; }
+  .tgl .tslider:before { content:""; position:absolute; height:20px; width:20px; left:3px; top:3px; background:#fff; border-radius:50%; transition:transform .18s ease; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+  .tgl input:checked + .tslider { background:var(--teal); }
+  .tgl input:checked + .tslider:before { transform:translateX(18px); }
+  .tglreveal { display:none; }
+  .tglreveal.show { display:block; }
   .center { text-align:center; margin-top:18px; }
   #b-loading { display:none; text-align:center; padding:22px 0 12px; }
   .bprog { width:100%; max-width:320px; margin:0 auto; height:8px; border-radius:999px; background:var(--border); overflow:hidden; }
@@ -537,9 +549,18 @@
       </div>
       <div id="f-brief" style="display:none">
         <div class="field"><label>Business name</label><input id="in-name" type="text" placeholder="Smith &amp; Sons Plumbing" /></div>
-        <div class="field"><label>What kind of business?</label><input id="in-ind" type="text" placeholder="Plumbing / restaurant / realtor / salon…" /></div>
-        <div class="field"><label>City or area you serve</label><input id="in-city" type="text" placeholder="Dover, DE" /></div>
-        <div class="field"><label>Tell us what you do — in your own words</label><textarea id="in-desc" rows="2" oninput="autoGrow(this)" placeholder="e.g. We're a family plumbing company — emergency repairs, water heaters, remodels. Licensed &amp; insured, 20 years in business…"></textarea><div class="fieldtip">List your services, your service area, and what makes you different. Don't overthink the wording — our AI sorts it out, and you can always change it later.</div></div>
+        <div class="field"><label>Phone number(s)</label><input id="in-phone" type="tel" placeholder="(555) 555-5555" /><div class="fieldtip">Separate multiple numbers with a comma.</div></div>
+        <div class="tglrow">
+          <div><span class="tglabel">Include your name(s) on the site</span><span class="tglsub">Owner or team names customers will see</span></div>
+          <label class="tgl"><input type="checkbox" id="tg-names" onchange="toggleReveal('names')" /><span class="tslider"></span></label>
+        </div>
+        <div class="field tglreveal" id="rv-names"><label>Name(s) — comma separated</label><input id="in-names" type="text" placeholder="Jane Smith, John Smith" /></div>
+        <div class="tglrow">
+          <div><span class="tglabel">Include a location or address</span><span class="tglsub">City, service area, or full street address</span></div>
+          <label class="tgl"><input type="checkbox" id="tg-loc" onchange="toggleReveal('loc')" /><span class="tslider"></span></label>
+        </div>
+        <div class="field tglreveal" id="rv-loc"><label>Location / address</label><input id="in-loc" type="text" placeholder="Dover, DE or 123 Main St" /></div>
+        <div class="field"><label>Tell us what you do — in your own words</label><textarea id="in-desc" rows="2" oninput="autoGrow(this)" placeholder="e.g. We're a family plumbing company — emergency repairs, water heaters, remodels. Licensed &amp; insured, 20 years in business…"></textarea><div class="fieldtip">List your services and what makes you different — our AI sorts out the wording. Don't worry about covering everything now: your first 30–60 days of changes are free, so keep it simple and we'll refine it together.</div></div>
       </div>
       <div class="errmsg" id="b-err"></div>
       <div class="center" id="b-gowrap" style="display:none"><button class="cta" id="b-go" onclick="build()">Build it free →</button></div>
@@ -552,6 +573,8 @@
       <div id="b-progpct">Building your site — 0%</div>
       <div class="bsteps" id="b-steps"></div>
       <div id="b-loadsub">Usually 30 seconds to 2 minutes, and can take up to 3 minutes. Keep this tab open and your phone unlocked.</div>
+      <p class="ttl" style="margin-top:10px">Don't worry about getting everything perfect — you get free changes for 30–60 days after we're done.</p>
+      <div class="center" style="margin-top:14px"><button type="button" class="retrylink" onclick="cancelBuild()">Cancel — let me change something first</button></div>
     </div>
 
     <!-- step 3: result + plan chooser -->
@@ -608,8 +631,9 @@
         </div>
 
         <div class="customnote" id="customnote">
-          We'll build something fully custom with you. Leave your details below and pick a time — custom builds start at <b>$499</b>, quoted on the call.
+          We'll build something fully custom with you. Tell us what you're interested in, leave your details, then pick a time — custom builds start at <b>$499</b>, quoted on the call. Your name, email &amp; phone carry over to the calendar automatically.
         </div>
+        <div class="customfeat" id="customfeat" style="display:none"></div>
 
         <div class="field"><label>Anything you'd like changed or added? (optional)</label><textarea id="in-notes" rows="2" oninput="autoGrow(this)" placeholder="Use our red logo colors, add our Google reviews, swap the photo on top…"></textarea></div>
         <div class="field"><label>Your name</label><input id="in-cname" type="text" placeholder="Full name" /></div>
@@ -654,7 +678,7 @@
 var API = 'https://onevoice-checkout.vercel.app';
 var BOOKING_URL = 'https://api.leadconnectorhq.com/widget/booking/rghlggjZP931B1mISGls';
 
-var state = { mode:'', id:'', sourceUrl:'', email:'', plan:'basic', opts:[], term:'quarterly', device:'desktop' };
+var state = { mode:'', id:'', sourceUrl:'', email:'', plan:'basic', opts:[], term:'quarterly', device:'desktop', customFeatures:[] };
 
 var OPTS = [
   { k:'form',    t:'Smart contact form',  d:'Customers send you quote requests and messages right from your site.' },
@@ -699,7 +723,21 @@ function openDrawer(on){
   $('scrim').classList.toggle('open', on);
   $('drawer').setAttribute('aria-hidden', on?'false':'true');
 }
-function bookCall(src){ var f=$('cal-frame'); if(!/leadconnector/.test(f.src||'')) f.src=BOOKING_URL; $('cal-open').href=BOOKING_URL; $('mscrim').classList.add('open'); }
+function bookCall(src, prefill){
+  var f=$('cal-frame');
+  var url = BOOKING_URL;
+  if (prefill){
+    var qs=[];
+    if (prefill.first_name) qs.push('first_name='+encodeURIComponent(prefill.first_name));
+    if (prefill.last_name)  qs.push('last_name='+encodeURIComponent(prefill.last_name));
+    if (prefill.email)      qs.push('email='+encodeURIComponent(prefill.email));
+    if (prefill.phone)      qs.push('phone='+encodeURIComponent(prefill.phone));
+    if (qs.length) url += '?' + qs.join('&');
+  }
+  if (prefill || !/leadconnector/.test(f.src||'')) f.src = url;
+  $('cal-open').href = url;
+  $('mscrim').classList.add('open');
+}
 function closeBooking(){ $('mscrim').classList.remove('open'); }
 function submitBooking(){
   $('bk-err').style.display='none';
@@ -723,6 +761,10 @@ function pick(m){
   $('b-gowrap').style.display='block';
   $('b-err').style.display='none';
 }
+function toggleReveal(key){
+  var on = $('tg-'+key).checked;
+  $('rv-'+key).classList.toggle('show', on);
+}
 
 var buildTimer=null, buildIdx=0, buildMsgs=[];
 function renderSteps(){
@@ -733,13 +775,18 @@ function renderSteps(){
     box.innerHTML += '<div class="'+cls+'"><div class="bdot">'+icon+'</div><div>'+esc(m)+'</div></div>';
   });
 }
-var reassureTick=0, buildStartTime=0;
-var BUILD_TARGET_MS = 100000; /* pace the step list against ~100s — real builds range ~30-180s, this just sets the visual pace so bullets don't race ahead of the real work */
-var REASSURE_DEFAULT = "Usually 30 seconds to 2 minutes, and can take up to 3 minutes. Keep this tab open and your phone unlocked.";
-var REASSURE_LONG = "Still working — some builds take up to 3 minutes. Please keep this tab open and your phone unlocked; it'll be ready shortly.";
+var buildStartTime=0, lastReassureBucket=-1;
+var BUILD_TARGET_MS = 100000; /* pace the step list against ~100s — real builds range ~30s to several minutes, this just sets the visual pace so bullets don't race ahead of the real work */
+var REASSURE_STAGE0 = "Usually 30 seconds to 2 minutes, and can take up to 3 minutes. Keep this tab open and your phone unlocked.";
+function reassureCopy(elapsed){
+  if (elapsed < 120000) return REASSURE_STAGE0;
+  var mins = Math.max(1, Math.floor(elapsed/60000));
+  if (elapsed < 600000) return "Taking longer than usual — still working (about "+mins+" minute"+(mins===1?'':'s')+" so far). Some builds just need extra time; keep waiting, or cancel below and try again in a moment.";
+  return "Still going after "+mins+" minutes. Feel free to keep waiting, or cancel below and book a call instead — we'll build it with you by hand.";
+}
 function buildStepsStart(msgs){
-  buildMsgs = msgs; buildIdx = -1; reassureTick = 0; buildStartTime = Date.now();
-  if ($('b-loadsub')) $('b-loadsub').textContent = REASSURE_DEFAULT;
+  buildMsgs = msgs; buildIdx = -1; lastReassureBucket = -1; buildStartTime = Date.now();
+  if ($('b-loadsub')) $('b-loadsub').textContent = REASSURE_STAGE0;
   if (buildTimer) clearInterval(buildTimer);
   tickBuild();
   buildTimer = setInterval(tickBuild, 900);
@@ -752,9 +799,42 @@ function tickBuild(){
   var pct = Math.min(92, Math.round(frac*92));
   $('b-progfill').style.width = pct+'%';
   $('b-progpct').textContent = 'Building your site — '+pct+'%';
-  if (frac>=1){ reassureTick++; if (reassureTick % 10 === 0 && $('b-loadsub')) $('b-loadsub').textContent = REASSURE_LONG; }
+  var bucket = elapsed<120000 ? 0 : Math.floor(elapsed/60000);
+  if (bucket !== lastReassureBucket){ lastReassureBucket = bucket; if ($('b-loadsub')) $('b-loadsub').textContent = reassureCopy(elapsed); }
 }
 function buildStepsStop(){ if (buildTimer){ clearInterval(buildTimer); buildTimer=null; } }
+
+/* ---------- async job polling (replaces holding one long fetch open) ---------- */
+var pollTimer=null, pollJobId=null;
+function startPoll(jobId){
+  pollJobId = jobId;
+  if (pollTimer) clearInterval(pollTimer);
+  checkJob();
+  pollTimer = setInterval(checkJob, 3500);
+}
+function stopPoll(){ if (pollTimer){ clearInterval(pollTimer); pollTimer=null; } pollJobId=null; }
+function checkJob(){
+  if (!pollJobId) return;
+  var jobId = pollJobId;
+  fetch(API+'/api/oneapp-job-status?job='+encodeURIComponent(jobId))
+    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+    .then(function(x){
+      if (jobId !== pollJobId) return; // superseded (cancelled) while this poll was in flight
+      var st = x.j && x.j.status;
+      if (st==='done'){ stopPoll(); showResult(x.j.previewId, x.j.changes||[]); }
+      else if (st==='error'){ stopPoll(); showBuildError({ message: x.j.error }); }
+      else if (st==='not_found'){ stopPoll(); showBuildError({ message: 'We lost track of that build — please try again.' }); }
+      /* else still 'building' — keep polling, tickBuild() handles the visible UI */
+    })
+    .catch(function(){ /* one flaky poll shouldn't kill the flow — try again next tick */ });
+}
+function cancelBuild(){
+  stopPoll();
+  showLoading(false);
+  var box=$('b-err');
+  box.innerHTML = "Build cancelled — your info below is untouched. Change anything you'd like, then tap Build again whenever you're ready.";
+  box.style.display='block';
+}
 function buildStepsFinish(){
   buildStepsStop();
   var box=$('b-steps'); if(box){ box.innerHTML=''; buildMsgs.forEach(function(m){ box.innerHTML += '<div class="bstep show done"><div class="bdot">'+CHECK+'</div><div>'+esc(m)+'</div></div>'; }); }
@@ -766,7 +846,7 @@ function showLoading(on){
   $('b-ask').style.display = on?'none':'block';
   $('b-loading').style.display = on?'block':'none';
   if (on){ buildStepsStart((state.mode==='no') ? LOADMSGS_NEW : LOADMSGS_URL); }
-  else { buildStepsStop(); }
+  else { buildStepsStop(); stopPoll(); }
 }
 
 function build(){
@@ -781,28 +861,30 @@ function build(){
     state.sourceUrl = /^https?:\/\//i.test(u) ? u : 'https://'+u;
     body = { mode:'url', url:u, email:email };
   } else if (state.mode==='no'){
-    var nm=$('in-name').value.trim(), ds=$('in-desc').value.trim();
+    var nm=$('in-name').value.trim(), ph=$('in-phone').value.trim(), ds=$('in-desc').value.trim();
     if (!nm || !ds) return err('b-err','Add your business name and a few words about what you do.');
-    body = { mode:'new', email:email, brief:{ name:nm, industry:$('in-ind').value.trim(), city:$('in-city').value.trim(), description:ds } };
+    if (!ph) return err('b-err','Add a phone number so customers can reach you.');
+    var wantNames = $('tg-names').checked, wantLoc = $('tg-loc').checked;
+    var pn = wantNames ? $('in-names').value.trim() : '';
+    var lc = wantLoc ? $('in-loc').value.trim() : '';
+    if (wantNames && !pn) return err('b-err','Add the name(s) you want on the site, or turn that toggle off.');
+    if (wantLoc && !lc) return err('b-err','Add a location/address, or turn that toggle off.');
+    body = { mode:'new', email:email, brief:{ name:nm, phone:ph, personalNames:pn, location:lc, description:ds } };
     if (nm) state._company = nm;
   } else return err('b-err','Choose an option above.');
 
   showLoading(true);
-  var ctrl = new AbortController();
-  var toId = setTimeout(function(){ ctrl.abort(); }, 220000);
-  fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body), signal: ctrl.signal })
-    .then(function(r){ clearTimeout(toId); return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+  fetch(API+'/api/oneapp-redesign', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) })
+    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
-      if (!x.ok || !x.j.id) throw new Error(x.j && x.j.error || 'Build failed — please try again.');
-      showResult(x.j.id, x.j.changes||[]);
+      if (!x.ok || !x.j.jobId) throw new Error(x.j && x.j.error || 'Could not start your build — please try again.');
+      startPoll(x.j.jobId);
     })
-    .catch(function(e){ clearTimeout(toId); showBuildError(e); });
+    .catch(function(e){ showBuildError(e); });
 }
 
 function buildErrorMessage(e){
-  if (e && e.name==='AbortError') return "That build is taking longer than usual and timed out. Your info is still filled in below —";
   var m = (e && e.message) || '';
-  if (e && e.name==='TypeError' && /fetch/i.test(m)) return "Lost connection while building your site — this usually happens if your phone locked or you switched apps during the build. Your info is still filled in below —";
   return (m || 'Something went wrong.') + ' —';
 }
 function showBuildError(e){
@@ -822,8 +904,9 @@ function requestManualBuild(){
   var notesParts = [];
   if (state.mode==='yes') notesParts.push('Current site: ' + ($('in-url').value.trim() || '—'));
   if (state.mode==='no') {
-    notesParts.push('Industry: ' + ($('in-ind').value.trim() || '—'));
-    notesParts.push('City/area: ' + ($('in-city').value.trim() || '—'));
+    notesParts.push('Phone: ' + ($('in-phone').value.trim() || '—'));
+    if ($('tg-names').checked) notesParts.push('Names: ' + ($('in-names').value.trim() || '—'));
+    if ($('tg-loc').checked) notesParts.push('Location: ' + ($('in-loc').value.trim() || '—'));
     notesParts.push('Description: ' + ($('in-desc').value.trim() || '—'));
   }
   notesParts.push('(Submitted after the free AI build did not complete — customer opted for a manual build.)');
@@ -880,6 +963,7 @@ function pickPlan(p){
   ['basic','standard','custom'].forEach(function(k){ $('pp-'+k).classList.toggle('on', k===p); });
   $('picktwo').classList.remove('show'); /* Standard now includes contact form — no pick step */
   $('customnote').classList.toggle('show', p==='custom');
+  $('customfeat').style.display = (p==='custom') ? 'grid' : 'none';
   $('termtoggle').style.display = (p==='custom') ? 'none' : 'flex';
   var btn=$('o-go');
   if (p==='basic')    btn.textContent='Claim my site — $97/mo →';
@@ -944,12 +1028,16 @@ function claim(){
   if (!c.name || !c.email) return err('o-err','Add your name and email so we can deliver your site.');
   if (!validEmail(c.email)) return err('o-err','That email doesn\'t look right — double-check it.');
 
-  // Custom → request a callback (no card), then send to booking.
+  // Custom → request a callback (no card), then send to booking with details prefilled.
   if (state.plan==='custom'){
+    var featLabels = state.customFeatures.length
+      ? state.customFeatures.map(function(k){ var f=ADDONS.filter(function(a){ return a.k===k; })[0]; return f?f.t:k; })
+      : ['Custom multi-page build (from $499)'];
     // capture the lead for Lee (best-effort), then open the calendar to pick a time
     try { fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:['Custom multi-page build (from $499)'], notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) }); } catch(e){}
-    bookCall('custom');
+      body:JSON.stringify({ name:c.name, email:c.email, phone:c.phone, company:c.company, features:featLabels, notes:($('in-notes').value.trim()+(state.sourceUrl?(' | current site: '+state.sourceUrl):'')) }) }); } catch(e){}
+    var nameParts = c.name.split(' ');
+    bookCall('custom', { first_name: nameParts[0], last_name: nameParts.slice(1).join(' '), email: c.email, phone: c.phone });
     return;
   }
 
@@ -962,6 +1050,23 @@ function claim(){
       window.location.href = x.j.url;
     })
     .catch(function(e){ btn.disabled=false; pickPlan(state.plan); err('o-err', e.message); });
+}
+
+/* ---------- custom-tier feature checklist (shown before "Book my call") ---------- */
+(function(){
+  var box=$('customfeat');
+  ADDONS.forEach(function(a){
+    var b=document.createElement('button');
+    b.type='button'; b.className='aopt'; b.id='cf-'+a.k;
+    b.innerHTML='<div class="abox">'+CHECK+'</div><div>'+esc(a.t)+'</div>';
+    b.onclick=function(){ toggleCustomFeat(a.k); };
+    box.appendChild(b);
+  });
+})();
+function toggleCustomFeat(k){
+  var i = state.customFeatures.indexOf(k);
+  if (i>=0) state.customFeatures.splice(i,1); else state.customFeatures.push(k);
+  $('cf-'+k).classList.toggle('on', state.customFeatures.indexOf(k)>=0);
 }
 
 /* ---------- add-on menu ---------- */
@@ -1062,5 +1167,9 @@ function resumePreview(id){
     .catch(function(){ state.id = id; showResult(id, []); });
 }
 </script>
+
+<!-- ======================= PRE-SALE CHAT WIDGET (GHL LeadConnector) ======================= -->
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a55ac3cc40835bdcdee59d9"></script>
+<div data-chat-widget data-widget-id="6a55ac3cc40835bdcdee59d9" data-location-id="9AHrSPtp1aptBzN06ZdE"></div>
 </body>
 </html>
