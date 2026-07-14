@@ -617,7 +617,7 @@
         <div class="field"><label>Email</label><input id="in-cemail" type="email" placeholder="you@email.com" /></div>
         <div class="field"><label>Phone</label><input id="in-cphone" type="tel" placeholder="(555) 555-5555" /></div>
         <div class="errmsg" id="o-err"></div>
-        <div class="center"><button class="cta" id="o-go" onclick="claim()">Claim my site — $97/mo →</button></div>
+        <div class="center"><button class="cta" id="o-go" onclick="openConfirm()">Claim my site — $97/mo →</button></div>
         <p class="ttl" style="text-align:center">Site design is free — the plan covers hosting &amp; maintenance. No setup fee. Delivered within 24 hours. <b>Your first <span id="edit-window-days">30</span> days of changes are free.</b> 3-month minimum, then cancel anytime (non-refundable once a term starts). You go live free on a yourbiz.oneapp.site address; connect a custom domain you own anytime.</p>
       </div>
     </div>
@@ -635,6 +635,18 @@
     </div>
     <iframe id="cal-frame" title="Book your OneApp strategy call" src="about:blank"></iframe>
     <div style="text-align:center;padding:10px 0 12px"><a class="openlink" id="cal-open" href="#" target="_blank" rel="noopener">Trouble loading? Open the calendar in a new tab ↗</a></div>
+  </div>
+</div>
+
+<!-- ======================= ORDER CONFIRM MODAL ======================= -->
+<div class="mscrim" id="confirmscrim" onclick="if(event.target===this)closeConfirm()">
+  <div class="mcard">
+    <button class="mclose" onclick="closeConfirm()" aria-label="Close">✕</button>
+    <h3>Confirm your order</h3>
+    <div class="ms" style="margin-top:2px">Review before you pay — nothing charges until you continue.</div>
+    <div id="confirm-body" style="margin-top:16px;font-size:13.5px;"></div>
+    <div class="center" style="margin-top:18px"><button class="cta" id="confirm-go" onclick="proceedToPayment()">Proceed to secure payment →</button></div>
+    <p class="ttl" style="margin-top:10px">We'll also email your free preview link so you never lose it — it's yours for 48 hours either way.</p>
   </div>
 </div>
 
@@ -897,6 +909,35 @@ function toggleOpt(k){
   $('pt-count').textContent = state.opts.length + ' of 2 chosen';
 }
 
+function openConfirm(){
+  $('o-err').style.display='none';
+  var c = { name:$('in-cname').value.trim(), email:$('in-cemail').value.trim() };
+  if (!c.name || !c.email) return err('o-err','Add your name and email so we can deliver your site.');
+  if (!validEmail(c.email)) return err('o-err','That email doesn\'t look right — double-check it.');
+  if (state.plan==='custom'){ claim(); return; }
+  var monthly = state.plan==='standard' ? 197 : 97;
+  var planName = state.plan==='standard' ? 'Standard' : 'Basic';
+  var feat = state.plan==='standard'
+    ? 'Everything in Basic, plus a contact form and 60 days of free changes'
+    : 'One-page site, hosting, business email, security, 30 days of free changes';
+  var termLabel, dueToday;
+  if (state.term==='annual'){
+    var yearly = Math.round(monthly*12*0.75);
+    termLabel = 'Billed annually — 25% off'; dueToday = '$'+yearly+' today';
+  } else {
+    var quarterly = monthly*3;
+    termLabel = 'Billed every 3 months'; dueToday = '$'+quarterly+' today';
+  }
+  $('confirm-body').innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:16px;"><span>'+planName+' plan</span><span>$'+monthly+'<span style="font-weight:600;font-size:12px;color:var(--muted)">/mo</span></span></div>'+
+    '<div style="margin-top:5px;color:var(--muted);line-height:1.5;">'+esc(feat)+'</div>'+
+    '<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-weight:800;"><span>'+esc(termLabel)+'</span><span>'+dueToday+'</span></div>'+
+    '<div style="margin-top:6px;font-size:12px;color:var(--muted)">No setup fee. Cancel anytime after the minimum term (non-refundable once a term starts).</div>';
+  $('confirmscrim').classList.add('open');
+}
+function closeConfirm(){ $('confirmscrim').classList.remove('open'); }
+function proceedToPayment(){ closeConfirm(); claim(); }
+
 function claim(){
   $('o-err').style.display='none';
   var c = { name:$('in-cname').value.trim(), email:$('in-cemail').value.trim(), phone:$('in-cphone').value.trim(), company:$('in-ccompany').value.trim() };
@@ -983,7 +1024,7 @@ function addonCheckout(){
     setTimeout(function(){ document.getElementById('builder').scrollIntoView(); }, 2300);
   } else if (q.get('resume')){
     var id = q.get('resume').replace(/[^a-z0-9]/gi,'');
-    if (id){ state.id=id; showResult(id, []); }
+    if (id) resumePreview(id);
   } else {
     try {
       var saved = JSON.parse(localStorage.getItem('oa_last_preview')||'null');
@@ -993,12 +1034,33 @@ function addonCheckout(){
         banner.style.cssText='margin-bottom:14px;padding:12px 14px;border:1.5px solid var(--teal-d);border-radius:12px;background:rgba(20,184,166,.08);font-size:13.5px;font-weight:600;text-align:center;';
         var savedId = saved.id;
         banner.innerHTML = 'Continue your free preview from earlier? <button type="button" class="retrylink">Resume →</button>';
-        banner.querySelector('button').onclick = function(){ state.id=savedId; showResult(savedId, []); banner.remove(); };
+        banner.querySelector('button').onclick = function(){ banner.remove(); resumePreview(savedId); };
         ask.insertBefore(banner, ask.firstChild);
       }
     } catch(e){}
   }
 })();
+
+/* Resume links / the local-return banner both go through this — checks the preview
+   still exists (48h TTL) before showing the full pricing UI, instead of silently
+   revealing an expired iframe under a page that otherwise looks normal. */
+function resumePreview(id){
+  var pv = API + '/api/oneapp-preview?id=' + encodeURIComponent(id);
+  fetch(pv).then(function(r){ return r.text().then(function(t){ return { ok:r.ok, t:t }; }); })
+    .then(function(x){
+      if (!x.ok || /preview expired/i.test(x.t)) {
+        try { localStorage.removeItem('oa_last_preview'); } catch(e){}
+        var ask=$('b-ask');
+        var note=document.createElement('div');
+        note.style.cssText='margin-bottom:14px;padding:12px 14px;border:1.5px solid #dc2626;border-radius:12px;background:rgba(220,38,38,.06);font-size:13.5px;font-weight:600;text-align:center;color:#dc2626;';
+        note.textContent = 'That free preview has expired — free previews last 48 hours. Build a new one below, it only takes about a minute.';
+        ask.insertBefore(note, ask.firstChild);
+      } else {
+        state.id = id; showResult(id, []);
+      }
+    })
+    .catch(function(){ state.id = id; showResult(id, []); });
+}
 </script>
 </body>
 </html>
