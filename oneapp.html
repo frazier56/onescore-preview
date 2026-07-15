@@ -309,6 +309,11 @@
   .paidbox { display:none; margin-top:26px; border:1.5px solid rgba(20,184,166,.4); border-radius:20px; background:var(--card); box-shadow:var(--sh-lg); padding:30px 20px; text-align:center; }
   .paidbox h2 { font-size:21px; font-weight:800; }
   .paidbox p { margin-top:10px; font-size:14px; line-height:1.65; color:var(--muted); }
+  .paidbox p.reassure { background:rgba(20,184,166,.08); border:1px solid rgba(20,184,166,.25); border-radius:12px; padding:10px 14px; color:var(--ink); }
+  .paidactions { margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 8px; align-items:center; justify-content:center; }
+  .paidactions .paidor { font-size:12.5px; color:var(--muted); }
+  .domainpreview { margin-top:12px; padding:10px 14px; border:1.5px dashed rgba(20,184,166,.4); border-radius:12px; font-size:13px; font-weight:600; text-align:center; color:var(--ink); background:rgba(20,184,166,.06); }
+  .domainpreview b { color:var(--teal-d); }
   .foot { padding:52px 0 64px; font-size:12.5px; color:var(--faint); text-align:center; }
   .foot a { color:var(--teal-d); font-weight:700; text-decoration:none; }
   .foot .footphone a { font-size:16px; font-weight:800; color:var(--ink); }
@@ -573,8 +578,16 @@
   <div class="sechead">See your new website<br>before you pay a dime.</div>
 
   <div class="paidbox" id="b-paid">
-    <h2>🎉 You're in!</h2>
-    <p>Your payment went through and our team is on it. <b>Your finished website lands in your inbox within 24 hours</b> — live on your free yourname.oneworldlabs.site address, with your features ready to go (custom domain available on Standard — ask and we'll set it up). Check your email for confirmation.</p>
+    <h2>🎉 Payment successful!</h2>
+    <p>You're all set. <b>Check your email for your receipt and your new website's address</b> — your site is already live there, and your team is finishing any changes you asked for (usually much sooner than 24 hours).</p>
+    <p class="reassure">Don't worry if it's not perfect yet — you've got <b>30 days of free changes</b> (60 on the Standard plan) to get it just right.</p>
+    <div class="paidactions">
+      <button type="button" class="cta" onclick="dismissPaid()">OK, got it</button>
+      <span class="paidor">Need something changed now?</span>
+      <button type="button" class="retrylink" onclick="bookCall('post-payment')">Book a call →</button>
+      <span class="paidor">or</span>
+      <a class="retrylink" href="tel:+18557700200">Call (855) 770-0200 →</a>
+    </div>
   </div>
 
   <div class="paidbox" id="b-addon">
@@ -656,6 +669,7 @@
       <div class="offer">
         <h3>Love it? Pick your plan.</h3>
         <div class="osub">The website is free — this covers hosting &amp; care. Cancel anytime.</div>
+        <div class="domainpreview" id="domainpreview">Your site will be live at: <b id="domainpreview-url">yoursite.oneworldlabs.site</b></div>
 
         <div class="termtoggle" id="termtoggle">
           <button class="tt on" id="tt-quarterly" onclick="setTerm('quarterly')">Quarterly<br><span style="font-weight:500;font-size:11px;color:var(--muted)">billed every 3 months</span></button>
@@ -692,7 +706,7 @@
 
         <div class="field"><label id="notes-label">Anything you'd like changed or added? (optional)</label><textarea id="in-notes" rows="2" oninput="autoGrow(this)" placeholder="Use our red logo colors, add our Google reviews, swap the photo on top…"></textarea></div>
         <div class="field"><label>Your name</label><input id="in-cname" type="text" placeholder="Full name" /></div>
-        <div class="field"><label>Business name</label><input id="in-ccompany" type="text" placeholder="Company" /></div>
+        <div class="field"><label>Business name</label><input id="in-ccompany" type="text" placeholder="Company" oninput="updateDomainPreview()" /></div>
         <div class="field"><label>Email</label><input id="in-cemail" type="email" placeholder="you@email.com" /></div>
         <div class="field"><label>Phone</label><input id="in-cphone" type="tel" inputmode="tel" placeholder="(555) 555-5555" oninput="formatPhone(this)" /></div>
         <div class="errmsg" id="o-err"></div>
@@ -1121,8 +1135,23 @@ function finishShowResult(id, changes){
   // prefill email captured at step 1
   if (state.email) $('in-cemail').value = state.email;
   if (state._company) $('in-ccompany').value = state._company;
+  updateDomainPreview();
   pickPlan('basic');
   document.getElementById('builder').scrollIntoView({behavior:'smooth'});
+}
+
+/* Live-computed domain preview shown on the claim/payment step — mirrors the
+   backend slugify() in oneapp-webhook.js so what the customer sees here matches
+   what actually gets reserved at payment time (Lee's ask: show the real
+   resulting URL on the actual payment form, not just leave it implicit). */
+function slugifyPreview(s){
+  return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,24) || 'yoursite';
+}
+function updateDomainPreview(){
+  var el = $('domainpreview-url');
+  if (!el) return;
+  var raw = ($('in-ccompany') && $('in-ccompany').value.trim()) || state._siteName || state._company || '';
+  el.textContent = slugifyPreview(raw) + '.oneworldlabs.site';
 }
 
 function pickPlan(p){
@@ -1251,6 +1280,18 @@ function toggleCustomFeat(k){
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
   }
 })();
+
+/* Dismisses the post-payment confirmation box (Lee's "click OK" ask) and cleans
+   the ?paid=1/&session_id= params off the URL so a refresh doesn't re-show it. */
+function dismissPaid(){
+  var box = $('b-paid');
+  if (box) box.style.display = 'none';
+  try {
+    var u = new URL(window.location.href);
+    u.searchParams.delete('paid'); u.searchParams.delete('addon'); u.searchParams.delete('session_id');
+    window.history.replaceState({}, '', u.toString());
+  } catch(e){}
+}
 
 /* ---------- post-checkout + resume ---------- */
 (function(){
