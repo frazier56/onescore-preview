@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>OneApp — Your Business. One App. | One World Labs</title>
+<title>OnePage — Your Business. One Page. | One World Labs</title>
 <meta name="description" content="Our AI builds you a modern website — free. See it before you pay. Then keep it from $97/mo: hosting, a free web address, security included. By One World Labs." />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="theme-color" content="#0B0F1A" />
@@ -251,19 +251,11 @@
   .bstep.done .bdot { border-color:var(--teal-d); background:var(--teal-d); color:#fff; }
   #b-loadsub { margin-top:18px; font-size:12px; color:var(--muted); }
   #b-result { display:none; }
-  .prevbox { margin-top:16px; border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; background:#fff; box-shadow:var(--sh-lg); }
-  .prevbar { display:flex; align-items:center; gap:6px; padding:9px 12px; background:#f2f1ec; border-bottom:1px solid var(--border); }
-  .dot { width:9px; height:9px; border-radius:999px; background:#d3d2cc; }
-  .prevbar span { margin-left:6px; font-size:11px; color:var(--faint); font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .prevbox iframe { width:100%; height:460px; border:0; display:block; background:#fff; transition:width .2s ease; }
-  .prevbox.mobile { background:#0b0f1a; padding:12px 0; }
-  .prevbox.mobile iframe { width:380px; max-width:92%; margin:0 auto; border-radius:10px; height:520px; }
-  .devtoggle { display:flex; gap:6px; justify-content:center; margin-top:14px; }
-  .dv { border:1.5px solid var(--border); border-radius:999px; background:var(--card); padding:7px 16px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink); }
-  .dv.on { border-color:var(--teal-d); background:rgba(20,184,166,.08); color:var(--teal-d); }
   .fsbtn { display:flex; align-items:center; justify-content:center; gap:9px; width:100%; margin-top:14px; padding:16px; border-radius:12px; background:linear-gradient(180deg,var(--teal),var(--teal-d)); color:#fff; font-size:15.5px; font-weight:800; text-decoration:none; border:0; cursor:pointer; font-family:inherit; box-shadow:0 8px 26px rgba(13,148,136,.32); animation:fspulse 1.8s ease-in-out infinite; }
   @keyframes fspulse { 0%,100%{ box-shadow:0 8px 26px rgba(13,148,136,.30); transform:scale(1); } 50%{ box-shadow:0 12px 36px rgba(13,148,136,.58); transform:scale(1.015); } }
   @media (prefers-reduced-motion: reduce){ .fsbtn { animation:none; } }
+  .reassure-big { margin-top:16px; padding:14px 16px; border-radius:14px; background:rgba(20,184,166,.1); border:1.5px solid rgba(20,184,166,.3); font-size:15.5px; font-weight:700; line-height:1.5; text-align:center; color:var(--ink); }
+  .reassure-big b { color:var(--teal-d); }
   .openlink { display:block; margin-top:10px; text-align:center; font-size:13px; font-weight:700; color:var(--teal-d); text-decoration:none; }
   .ttl { margin-top:6px; text-align:center; font-size:11.5px; color:var(--faint); }
   .changes { margin-top:22px; }
@@ -369,8 +361,8 @@
 <body>
 <div id="oa-splash">
   <img src="./logo-mark.png" alt="" />
-  <div class="st"><b>One</b>App</div>
-  <div class="ss">Your Business. One App.</div>
+  <div class="st"><b>One</b>Page</div>
+  <div class="ss">Your Business. One Page.</div>
   <div class="bar2"><i></i></div>
 </div>
 <script>
@@ -382,7 +374,7 @@
 <nav class="nav">
   <div class="brand">
     <span class="mk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span>
-    <span><b>One</b>App</span>
+    <span><b>One</b>Page</span>
   </div>
   <div class="ctrl">
     <button class="iconbtn" id="themebtn" aria-label="Toggle light/dark" onclick="toggleTheme()">
@@ -399,7 +391,7 @@
 <div class="scrim" id="scrim" onclick="openDrawer(false)"></div>
 <aside class="drawer" id="drawer" aria-hidden="true">
   <div class="dhead">
-    <div class="brand"><b>One</b>App</div>
+    <div class="brand"><b>One</b>Page</div>
     <button class="iconbtn" aria-label="Close" onclick="openDrawer(false)">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -628,6 +620,7 @@
       <div class="center" id="b-gowrap" style="display:none">
         <p style="font-size:15px;font-weight:800;margin-bottom:10px">Build your custom website for free right now.</p>
         <button class="cta" id="b-go" onclick="build()">Build it free <svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="reassure-big">Don't worry if it's not perfect — you'll have up to <b>60 days</b> to make changes for free.</p>
       </div>
       <p class="ttl" style="margin-top:14px">Free previews are saved for 48 hours. This is your one free design.</p>
     </div>
@@ -652,19 +645,11 @@
       </div>
       <p class="ttl" style="margin-top:8px">Note: your preview includes a contact form so you can see the full design — the contact form itself is a Standard-plan feature. Basic sites are delivered without it.</p>
 
-      <p class="ps" style="margin-top:18px">This is a live preview of your rebuilt website — scroll around inside it.</p>
-      <div class="devtoggle">
-        <button class="dv on" id="dv-desktop" onclick="setDevice('desktop')">🖥 Desktop</button>
-        <button class="dv" id="dv-mobile" onclick="setDevice('mobile')">📱 Mobile</button>
-      </div>
-      <button class="fsbtn" onclick="openFull()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Open full-screen preview</button>
-      <div class="prevbox" id="prevbox">
-        <div class="prevbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span id="prev-url">yournewsite.com</span></div>
-        <iframe id="prev-frame" title="Your rebuilt website preview"></iframe>
-      </div>
-      <button class="fsbtn" onclick="openFull()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>See it full-screen</button>
-      <a class="openlink" id="prev-open" href="#" target="_blank" rel="noopener" style="display:none">Open full-screen preview ↗</a>
-      <p class="ttl">Tip: tap <b>Mobile</b> to see how it looks on a phone. Free previews expire in <b>48 hours</b> — claim yours to keep it.</p>
+      <p class="ps" style="margin-top:18px">Your new website is ready to view.</p>
+      <button class="fsbtn" onclick="openFull()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Preview your website ↗</button>
+      <a class="openlink" id="prev-open" href="#" target="_blank" rel="noopener" style="display:none">Open your website preview ↗</a>
+      <p class="reassure-big">Don't worry if it's not perfect — you can always make changes for free, up to <b>60 days</b> after you start your plan.</p>
+      <p class="ttl">Free previews expire in <b>48 hours</b> — claim yours to keep it.</p>
 
       <div class="offer">
         <h3>Love it? Pick your plan.</h3>
@@ -719,7 +704,7 @@
 
 <div class="foot wrap">
   <div class="footphone"><a href="tel:+18557700200">Call us: (855) 770-0200</a></div>
-  <div class="footbrand">OneApp, a <a href="https://www.oneworldlabs.ai/">One World Labs</a> company &middot; <a href="https://onevoice.onesocial.ai">OneVoice</a> &middot; <a href="https://www.oneworldlabs.ai/oneapp/">OneApp</a> &middot; <a href="https://www.oneworldlabs.ai/">OneScore</a> &middot; <a href="https://frazier56.github.io/onesocial-v2-preview/">OneSocial</a></div>
+  <div class="footbrand">OnePage, a <a href="https://www.oneworldlabs.ai/">One World Labs</a> company &middot; <a href="https://onevoice.onesocial.ai">OneVoice</a> &middot; <a href="https://www.oneworldlabs.ai/oneapp/">OnePage</a> &middot; <a href="https://www.oneworldlabs.ai/">OneScore</a> &middot; <a href="https://frazier56.github.io/onesocial-v2-preview/">OneSocial</a></div>
   <div class="footaddr">1111b S Governors Ave, Dover, DE 19904</div>
   <div class="footcopy">&copy; 2026 One World Labs, Inc.</div>
 </div>
@@ -731,7 +716,7 @@
       <b>Book your call</b>
       <button class="mclose" onclick="closeBooking()" aria-label="Close">✕</button>
     </div>
-    <iframe id="cal-frame" title="Book your OneApp strategy call" src="about:blank"></iframe>
+    <iframe id="cal-frame" title="Book your OnePage strategy call" src="about:blank"></iframe>
     <div style="text-align:center;padding:10px 0 12px"><a class="openlink" id="cal-open" href="#" target="_blank" rel="noopener">Trouble loading? Open the calendar in a new tab ↗</a></div>
   </div>
 </div>
@@ -1094,7 +1079,7 @@ function requestManualBuild(){
   var box=$('b-err');
   box.innerHTML = 'Sending your info…';
   fetch(API+'/api/oneapp-request', { method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ name:name, email:email, phone:'', company:name, features:['Manual OneApp build'], notes:notesParts.join(' · ') }) })
+    body: JSON.stringify({ name:name, email:email, phone:'', company:name, features:['Manual OnePage build'], notes:notesParts.join(' · ') }) })
     .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
     .then(function(x){
       if (!x.ok) throw new Error(x.j && x.j.error || 'Please try again.');
@@ -1116,9 +1101,7 @@ function finishShowResult(id, changes){
   $('b-result').style.display='block';
   var pv = API + '/api/oneapp-preview?id=' + encodeURIComponent(id);
   state.pv = pv;
-  $('prev-frame').src = pv;
   $('prev-open').href = pv;
-  $('prev-url').textContent = state.sourceUrl ? state.sourceUrl.replace(/^https?:\/\//,'') + ' — rebuilt' : 'your-new-site.com — preview';
   var cl=$('chg-list'); cl.innerHTML='';
   (changes.length?changes:['A complete modern redesign of your site']).forEach(function(c){
     cl.innerHTML += '<div class="chg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div>'+esc(c)+'</div></div>';
@@ -1170,10 +1153,8 @@ function pickPlan(p){
 function setTerm(t){ state.term=t; $('tt-quarterly').classList.toggle('on', t==='quarterly'); $('tt-annual').classList.toggle('on', t==='annual'); }
 function openFull(){
   if(!state.pv) return;
-  if (state.device==='mobile'){ window.open(state.pv, '_blank', 'noopener,width=390,height=844'); }
-  else { window.open(state.pv, '_blank', 'noopener'); }
+  window.open(state.pv, '_blank', 'noopener');
 }
-function setDevice(d){ state.device=d; $('prevbox').classList.toggle('mobile', d==='mobile'); $('dv-mobile').classList.toggle('on', d==='mobile'); $('dv-desktop').classList.toggle('on', d==='desktop'); }
 
 function toggleOpt(k){
   var i = state.opts.indexOf(k);
