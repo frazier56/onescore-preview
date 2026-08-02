@@ -13,7 +13,252 @@
     <meta name="apple-mobile-web-app-title" content="OneScore" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin>function Jf(e,t){for(var n=0;n<t.length;n++){const r=t[n];if(typeof r!="string"&&!Array.isArray(r)){for(const i in r)if(i!=="default"&&!(i in e)){const a=Object.getOwnPropertyDescriptor(r,i);a&&Object.defineProperty(e,i,a.get?a:{enumerable:!0,get:()=>r[i]})}}}return Object.freeze(Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}))}(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&r(o)}).observe(document,{childList:!0,subtree:!0});function n(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function r(i){if(i.ep)return;i.ep=!0;const a=n(i);fetch(i.href,a)}})();function qf(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var ec={exports:{}},Sa={},tc={exports:{}},R={};/**
+    <!-- One World profile hydration shim — see the comment block inside. Additive;
+     delete once OneScore reads `profiles` in its own source. -->
+<script>
+/* ============================================================================
+   ONE WORLD — profile hydration shim for OneScore
+   ----------------------------------------------------------------------------
+   Lee, 2 Aug 2026: "I'm getting signed in as a guest, but it should be me. My
+   profile should carry with me — should travel with me as I go across these
+   various apps."
+
+   WHAT WAS ACTUALLY WRONG
+   OneScore was never signed out. Its drawer renders a "Sign out" button, which
+   is gated on the signed-in flag, at the same time as it renders "Guest". The
+   name comes from a different place entirely:
+
+       children: i && o.name ? o.name : t("guest")
+
+   `i` is the session (correct, shared, fine). `o` is OneScore's OWN profile
+   object, kept in this device's localStorage under "onescore-state-v2" and
+   seeded from a default of { name: "", ... }. OneScore has never read the
+   shared `profiles` table. So it knew Lee was signed in and had no idea who he
+   was — on that device, until he filled in OneScore's own form.
+
+   Two separate faults, both fixed here:
+     1. NO NAME  — nothing ever copied `profiles` into OneScore's local state.
+     2. NO SESSION OFF www — OneScore reads the session from localStorage, which
+        is per-ORIGIN. On onescore.oneworldlabs.ai that origin is empty, so it
+        would ask for a fresh sign-in. OneJob now writes the session to a cookie
+        on the parent domain `.oneworldlabs.ai`, which every subdomain can read.
+        This shim adopts that cookie into OneScore's localStorage, which is the
+        one thing OneScore needs to be signed in everywhere.
+
+   WHY A SHIM AND NOT A REAL FIX
+   This is deliberately additive: it does not touch OneScore's bundle. The real
+   fix is OneScore hydrating its profile from `profiles` inside its own source,
+   and it belongs in OneScore's own thread. Delete this file the day that ships.
+   Until then this is what makes Lee's name travel.
+
+   RULES IT OBEYS
+   · It only ever FILLS BLANKS. Anything already set locally wins, always — a
+     sync that overwrites what someone typed is worse than no sync.
+   · It never throws. Every branch is wrapped; the worst case is that OneScore
+     behaves exactly as it did before this file existed.
+   · The blocking request happens at most once per device. Once the name is in
+     local state the shim short-circuits and refreshes in the background.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var SUPA = "https://wseblryyqxawvbjmylbo.supabase.co";
+  var ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzZWJscnl5cXhhd3Ziam15bGJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NDU4NjksImV4cCI6MjA5MzUyMTg2OX0.y2yfMwSC_eh_jzI5eXsp6qD5zkl0OICtESV070EhRQM";
+  var AUTH_KEY = "sb-wseblryyqxawvbjmylbo-auth-token";
+  var STATE_KEY = "onescore-state-v2";
+  var SHARED_DOMAIN = "oneworldlabs.ai";
+
+  function log(m, e) { try { console.warn("[oneworld-hydrate] " + m, e || ""); } catch (_) {} }
+
+  /* ── the shared cookie ─────────────────────────────────────────────────────
+     Written by any app running the One World session adapter. Chunked when the
+     session exceeds a cookie's ~4KB ceiling, so read chunks too and stop at the
+     first gap — a truncated session parses as garbage and reads to a user as
+     "it logged me out at random". */
+  function readCookieRaw(name) {
+    var target = encodeURIComponent(name) + "=";
+    var parts = document.cookie.split("; ");
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i].indexOf(target) === 0) {
+        return decodeURIComponent(parts[i].slice(target.length));
+      }
+    }
+    return null;
+  }
+
+  function readSharedCookie(name) {
+    var single = readCookieRaw(name);
+    if (single !== null) return single;
+    var out = "";
+    for (var i = 0; ; i++) {
+      var part = readCookieRaw(name + "." + i);
+      if (part === null) break;
+      out += part;
+    }
+    return out || null;
+  }
+
+  function onSharedDomain() {
+    var h = location.hostname;
+    return h === SHARED_DOMAIN || h.indexOf("." + SHARED_DOMAIN) === h.length - SHARED_DOMAIN.length - 1;
+  }
+
+  /* Returns the session OneScore will use, adopting the shared cookie into
+     localStorage when this origin has nothing. That adoption IS the cross-app
+     sign-in for OneScore — its own session reader only ever looks at
+     localStorage, and this puts the session where it looks. */
+  function getSession() {
+    var raw = null;
+    try { raw = localStorage.getItem(AUTH_KEY); } catch (_) {}
+
+    if (!raw && onSharedDomain()) {
+      raw = readSharedCookie(AUTH_KEY);
+      if (raw) {
+        try { localStorage.setItem(AUTH_KEY, raw); } catch (_) {}
+      }
+    }
+    if (!raw) return null;
+
+    try {
+      var s = JSON.parse(raw);
+      if (s && s.access_token && s.user && s.user.id) return s;
+    } catch (e) { log("session did not parse", e); }
+    return null;
+  }
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STATE_KEY) || "null") || {}; }
+    catch (e) { log("state did not parse", e); return {}; }
+  }
+
+  function blank(v) { return v === undefined || v === null || v === ""; }
+
+  /* Fill blanks only. `profiles` is the shared truth for who someone is, but
+     what they typed into OneScore on this device is the truth about what they
+     wanted OneScore to say. Local wins. */
+  function merge(state, row) {
+    var p = state.profile || {};
+    var before = JSON.stringify(p);
+
+    if (blank(p.name)       && row.full_name)  p.name = row.full_name;
+    if (blank(p.profession) && row.job_title)  p.profession = row.job_title;
+    if (blank(p.location)   && row.location)   p.location = row.location;
+    if (blank(p.email)      && row.email)      p.email = row.email;
+    if (blank(p.phone)      && row.phone)      p.phone = row.phone;
+    if (blank(p.bio)        && row.bio)        p.bio = row.bio;
+    /* OneScore renders this straight into an <img src>, so an ordinary https
+       URL from the profiles table works — it does not have to be a data URL,
+       despite the field name. */
+    if (blank(p.photoDataUrl) && row.photo_url) p.photoDataUrl = row.photo_url;
+
+    state.profile = p;
+    /* The session is real, so OneScore should treat the account as real. Without
+       this, arriving on a fresh origin with only the shared cookie would render
+       the signed-out shell even though the session is valid. */
+    state.hasAccount = true;
+
+    var changed = JSON.stringify(p) !== before;
+    try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch (e) { log("state write failed", e); }
+    return changed;
+  }
+
+  function profileUrl(uid) {
+    return SUPA + "/rest/v1/profiles?id=eq." + encodeURIComponent(uid) +
+           "&select=full_name,job_title,location,email,phone,photo_url,bio&limit=1";
+  }
+
+  try {
+    var session = getSession();
+    if (!session) return;                 /* genuinely a guest — leave it alone */
+
+    var state = loadState();
+    var haveName = state.profile && !blank(state.profile.name);
+    var fresh = (session.expires_at || 0) - 60 > Date.now() / 1000;
+
+    /* ── FAST PATH ──────────────────────────────────────────────────────────
+       First load on this device with a valid token and no cached name. A
+       synchronous request is the only way to have the name in place before the
+       app's deferred module script mounts React, and mounting with the name
+       already there is what avoids a visible "Guest" flash. It costs one
+       blocking round trip, once per device, and never runs again after it
+       succeeds. */
+    if (!haveName && fresh) {
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", profileUrl(session.user.id), false);
+        xhr.setRequestHeader("apikey", ANON);
+        xhr.setRequestHeader("authorization", "Bearer " + session.access_token);
+        xhr.send(null);
+        if (xhr.status >= 200 && xhr.status < 300) {
+          var rows = JSON.parse(xhr.responseText || "[]");
+          if (rows && rows.length) { merge(state, rows[0]); return; }
+        } else {
+          log("profile fetch " + xhr.status);
+        }
+      } catch (e) { log("blocking hydrate failed, falling back to async", e); }
+    }
+
+    /* ── SLOW PATH ──────────────────────────────────────────────────────────
+       Either the name is already cached (so refresh quietly in the background
+       for next load, and never block), or the token had expired / the fast path
+       failed (so refresh the token first). A reload only happens in the second
+       case and only once, guarded, so this can never loop. */
+    (function () {
+      function fetchProfile(token) {
+        return fetch(profileUrl(session.user.id), {
+          headers: { apikey: ANON, authorization: "Bearer " + token }
+        }).then(function (r) { return r.ok ? r.json() : []; });
+      }
+
+      var tokenReady = fresh
+        ? Promise.resolve(session.access_token)
+        : fetch(SUPA + "/auth/v1/token?grant_type=refresh_token", {
+            method: "POST",
+            headers: { apikey: ANON, "content-type": "application/json" },
+            body: JSON.stringify({ refresh_token: session.refresh_token })
+          })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) {
+            if (!j || !j.access_token) return null;
+            /* Persist the refreshed session so OneScore's own reader sees a live
+               token rather than re-refreshing on every load. */
+            var next = {
+              access_token: j.access_token,
+              token_type: j.token_type || "bearer",
+              expires_in: j.expires_in || 3600,
+              expires_at: j.expires_at || Math.floor(Date.now() / 1000) + (j.expires_in || 3600),
+              refresh_token: j.refresh_token || session.refresh_token,
+              user: j.user || session.user
+            };
+            try { localStorage.setItem(AUTH_KEY, JSON.stringify(next)); } catch (_) {}
+            return j.access_token;
+          });
+
+      tokenReady
+        .then(function (token) { return token ? fetchProfile(token) : []; })
+        .then(function (rows) {
+          if (!rows || !rows.length) return;
+          var changed = merge(loadState(), rows[0]);
+          /* Only reload when the app is on screen showing nothing useful and we
+             have just learned something. Guarded per tab session — it cannot
+             loop even if the profile row is empty or the write fails. */
+          if (changed && !haveName) {
+            try {
+              if (!sessionStorage.getItem("os-hydrate-reloaded")) {
+                sessionStorage.setItem("os-hydrate-reloaded", "1");
+                location.reload();
+              }
+            } catch (_) {}
+          }
+        })
+        .catch(function (e) { log("async hydrate failed", e); });
+    })();
+  } catch (e) {
+    log("shim aborted", e);
+  }
+})();
+</script>
+<script type="module" crossorigin>function Jf(e,t){for(var n=0;n<t.length;n++){const r=t[n];if(typeof r!="string"&&!Array.isArray(r)){for(const i in r)if(i!=="default"&&!(i in e)){const a=Object.getOwnPropertyDescriptor(r,i);a&&Object.defineProperty(e,i,a.get?a:{enumerable:!0,get:()=>r[i]})}}}return Object.freeze(Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}))}(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&r(o)}).observe(document,{childList:!0,subtree:!0});function n(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function r(i){if(i.ep)return;i.ep=!0;const a=n(i);fetch(i.href,a)}})();function qf(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var ec={exports:{}},Sa={},tc={exports:{}},R={};/**
  * @license React
  * react.production.min.js
  *
